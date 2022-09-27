@@ -1,22 +1,18 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { CharacterRow } from "./CharacterRow";
 
 export const TrackerTable = ({ chars, numRounds }) => {
-  const [tableRows, setTableRows] = useState([]);
-
+  console.log(
+    "activeChars: ",
+    chars.reduce((val, char) => char.inEncounter && val++)
+  );
   const charRows = [];
   for (let i = 0; i <= numRounds; i++) {
     chars.forEach((c) => {
       if (c.inEncounter) {
         charRows.push(
-          <tr>
-            <td>&gt;</td>
-            <td>{i}</td>
-            <td>{c.name}</td>
-            <td>{c.hp}</td>
-            <td>{c.ac}</td>
-            <td>{c.init}</td>
-          </tr>
+          <CharacterRow key={c.name + i} character={c} index={i} numChars={2} />
         );
       }
     });
@@ -36,8 +32,8 @@ export const TrackerTable = ({ chars, numRounds }) => {
             <th rowSpan="2">Init</th>
             <th
               colSpan={
-                chars.map((c) => {
-                  return c.inEncounter && <th>{c.name}</th>;
+                chars.map((c, i) => {
+                  return c.inEncounter && <th key={i}>{c.name}</th>;
                 }).length
               }
               id="status-header"
@@ -46,13 +42,12 @@ export const TrackerTable = ({ chars, numRounds }) => {
             </th>
           </tr>
           <tr>
-            {chars.map((c) => {
-              return c.inEncounter && <th>{c.name}</th>;
+            {chars.map((c, i) => {
+              return c.inEncounter && <th key={i}>{c.name}</th>;
             })}
           </tr>
         </thead>
-        <tbody id="tracker-body"></tbody>
-        {charRows}
+        <tbody id="tracker-body">{charRows}</tbody>
       </table>
     </>
   );

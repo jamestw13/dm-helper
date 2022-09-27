@@ -17,6 +17,7 @@ function App() {
       init: 4,
       dex: 1,
       inEncounter: true,
+      statuses: [{ name: "stunned", startRound: 1, duration: 3 }],
     },
     {
       id: 13,
@@ -29,6 +30,7 @@ function App() {
       hp: 23,
       ac: 4,
       inEncounter: false,
+      statuses: [{ name: "Stone Skin", startRound: 2, duration: 4 }],
     },
     {
       id: 14,
