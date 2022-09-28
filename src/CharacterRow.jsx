@@ -1,4 +1,9 @@
-export const CharacterRow = ({ character: c, index: round, numChars }) => {
+export const CharacterRow = ({
+  character: c,
+  index: round,
+  numChars,
+  statuses,
+}) => {
   return (
     <tr>
       <td>&gt;</td>
@@ -7,14 +12,14 @@ export const CharacterRow = ({ character: c, index: round, numChars }) => {
       <td>{c.hp}</td>
       <td>{c.ac}</td>
       <td>{c.init}</td>
-      {c.statuses?.map(
-        (status, i) =>
-          status.startRound === round && (
-            <td key={i} rowSpan={status.duration * numChars}>
-              {status.name}
-            </td>
-          )
-      )}
+      {statuses?.map((status, i) => {
+        return status.charAffected === c.name && status.startRound === round ? (
+          <td>{status.name}</td>
+        ) : (
+          <td></td>
+        );
+      })}
+      <td></td>
     </tr>
   );
 };
