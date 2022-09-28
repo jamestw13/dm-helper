@@ -3,10 +3,12 @@ import { useState } from "react";
 import { CharacterRow } from "./CharacterRow";
 
 export const TrackerTable = ({ chars, numRounds }) => {
-  console.log(
-    "activeChars: ",
-    chars.reduce((val, char) => char.inEncounter && val++)
-  );
+  const [activeChars, setActiveChars] = useState();
+
+  useEffect(() => {
+    setActiveChars(chars.filter((char) => !!char.inEncounter));
+    console.log("activeChars: ", activeChars);
+  }, [chars]);
   const charRows = [];
   for (let i = 0; i <= numRounds; i++) {
     chars.forEach((c) => {
