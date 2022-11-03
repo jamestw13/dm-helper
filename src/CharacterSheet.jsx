@@ -9,6 +9,7 @@ export const CharacterSheet = ({ chars }) => {
             <li>Race: {char.race}</li>
             <li>Class: {char.class}</li>
             <li>Level: {char.level}</li>
+            <li>Player: {char.player}</li>
           </ul>
         </div>
       ))}

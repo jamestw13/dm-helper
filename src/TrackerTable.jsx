@@ -21,10 +21,10 @@ export const TrackerTable = ({
             <th>HP</th>
             <th>AC</th>
             <th>Init</th>
-            <th colSpan="100%">Statuses</th>
+            <th colSpan="100%">Notes</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="tracker-table-body">
           {encounterLog?.map((e, i) =>
             e.turns.map((turn, j) => (
               <tr key={j}>
@@ -51,6 +51,11 @@ export const TrackerTable = ({
               </tr>
             ))
           )}
+          <tr>
+            <td colSpan="100%" onClick={() => console.log("pressed")}>
+              Add Round
+            </td>
+          </tr>
         </tbody>
       </table>
     </>

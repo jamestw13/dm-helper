@@ -38,14 +38,18 @@ body {
 
 #tracker-table,
 #tracker-table > * > * > * {
-  /* height: 70vh; */
   border: 2px solid black;
   border-collapse: collapse;
   padding: 0.25em;
 }
-table,
-th,
-td {
+
+#tracker-table {
+  display: block;
+}
+#tracker-table {
+  height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #char-list {
