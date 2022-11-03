@@ -33,7 +33,7 @@ export const EncounterTracker = ({ chars }) => {
   }, [chars, numRounds]);
 
   return (
-    <div id="tracker">
+    <div id="tracker" className="card">
       <h2>Encounter</h2>
       <TrackerNavigator
         numRounds={numRounds}

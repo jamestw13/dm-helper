@@ -37,6 +37,7 @@ export const charData = [
     init: 4,
     dex: 1,
     inEncounter: true,
+    viewSheet: false,
   },
   {
     id: 13,
@@ -49,6 +50,7 @@ export const charData = [
     hp: 23,
     ac: 4,
     inEncounter: false,
+    viewSheet: true,
   },
   {
     id: 14,
@@ -61,6 +63,7 @@ export const charData = [
     hp: 1,
     ac: 32,
     inEncounter: false,
+    viewSheet: false,
   },
   {
     id: 15,
@@ -73,5 +76,6 @@ export const charData = [
     hp: 44,
     ac: 13,
     inEncounter: true,
+    viewSheet: true,
   },
 ];
