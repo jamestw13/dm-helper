@@ -1,36 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { CharacterRow } from "./CharacterRow";
-import { statuses } from "./demoData";
 
-export const TrackerTable = ({ chars, numRounds }) => {
-  const [activeChars, setActiveChars] = useState(
-    chars.filter((char) => !!char.inEncounter)
-  );
-  const [encounterLog, setEncounterLog] = useState([]);
-
-  useEffect(() => {
-    const data = [...Array(numRounds + 1)].map((round, i) => {
-      return {
-        round: i,
-        turns: activeChars?.map((char, j) => {
-          return {
-            j,
-            char,
-            statuses: statuses.filter((status) => {
-              return status.startRound === i && status.startTurn === j;
-            }),
-          };
-        }),
-      };
-    });
-    setEncounterLog(data);
-  }, [activeChars]);
-
-  useEffect(() => {
-    setActiveChars(chars.filter((char) => !!char.inEncounter));
-  }, [chars]);
-
+export const TrackerTable = ({
+  encounterLog,
+  setEncounterLog,
+  setCurrentRound,
+  setCurrentTurn,
+  currentRound,
+  currentTurn,
+}) => {
   return (
     <>
       <table id="tracker-table">
@@ -46,23 +25,32 @@ export const TrackerTable = ({ chars, numRounds }) => {
           </tr>
         </thead>
         <tbody>
-          {encounterLog &&
-            encounterLog.map((e) =>
-              e.turns.map((turn, j) => {
-                console.log(turn);
-                return (
-                  <tr key={turn.index}>
-                    <td>&gt;</td>
-                    {j === 0 && <td rowSpan={e.turns.length}>{e.round}</td>}
-                    <CharacterRow
-                      key={turn.char.name + j}
-                      character={turn.char}
-                      statuses={turn.statuses}
-                    />
-                  </tr>
-                );
-              })
-            )}
+          {encounterLog?.map((e, i) =>
+            e.turns.map((turn, j) => (
+              <tr key={turn.index}>
+                <td
+                  data-row-round={i}
+                  data-row-turn={j}
+                  style={{
+                    backgroundColor:
+                      i === currentRound && j === currentTurn && "yellow",
+                  }}
+                  onClick={() => {
+                    setCurrentRound(i);
+                    setCurrentTurn(j);
+                  }}
+                >
+                  &gt;
+                </td>
+                {j === 0 && <td rowSpan={e.turns.length}>{e.round}</td>}
+                <CharacterRow
+                  key={turn.char.name + j}
+                  character={turn.char}
+                  statuses={turn.statuses}
+                />
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </>
