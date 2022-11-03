@@ -1,6 +1,28 @@
 export const statuses = [
-  { charAffected: "Jean", name: "Stone Skin", startRound: 2, duration: 4 },
-  { charAffected: "George", name: "stunned", startRound: 1, duration: 3 },
+  {
+    target: "Jean",
+    name: "Stone Skin",
+    startRound: 2,
+    startTurn: 1,
+    caster: "Jean",
+    duration: 4,
+  },
+  {
+    target: "George",
+    name: "stunned",
+    startRound: 1,
+    startTurn: 1,
+    caster: "Jean",
+    duration: 3,
+  },
+  {
+    target: "George",
+    name: "Flat-footed",
+    startRound: 2,
+    startTurn: 0,
+    caster: "Jean",
+    duration: 1,
+  },
 ];
 
 export const charData = [
