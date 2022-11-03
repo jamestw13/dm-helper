@@ -1,3 +1,62 @@
+import {
+  rand,
+  seed,
+  incrementalNumber,
+  randNumber,
+  randBoolean,
+  randFirstName,
+} from "@ngneat/falso";
+
+export const generateCharData = (numChars) => {
+  seed("d&d");
+  let chars = [];
+  const idFactory = incrementalNumber({ from: 20, to: 1000, step: 1 });
+  for (let i = 0; i < numChars; i++) {
+    const char = {
+      id: idFactory(),
+      name: randFirstName({ withAccents: true }),
+      race: rand([
+        "human",
+        "elf",
+        "dwarf",
+        "halfling",
+        "dragonborn",
+        "gnome",
+        "half-elf",
+        "half-orc",
+        "tiefling",
+        "warforged",
+      ]),
+      class: rand([
+        "barbarian",
+        "bard",
+        "cleric",
+        "druid",
+        "fighter",
+        "monk",
+        "paladin",
+        "ranger",
+        "rogue",
+        "sorcerer",
+        "warlock",
+        "wizard",
+      ]),
+      level: randNumber({ min: 1, max: 5 }),
+      init: randNumber({ min: -5, max: 5 }),
+      dex: randNumber({ min: -5, max: 5 }),
+      hp: randNumber({ min: 0, max: 35 }),
+      ac: randNumber({ min: -5, max: 5 }),
+      inEncounter: randBoolean(),
+      viewSheet: randBoolean(),
+    };
+
+    chars.push(char);
+  }
+  return chars;
+};
+
+export const characterData = generateCharData(7);
+
 export const statuses = [
   {
     target: "Jean",
