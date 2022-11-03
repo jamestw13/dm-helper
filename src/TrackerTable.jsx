@@ -27,7 +27,7 @@ export const TrackerTable = ({
         <tbody>
           {encounterLog?.map((e, i) =>
             e.turns.map((turn, j) => (
-              <tr key={turn.index}>
+              <tr key={j}>
                 <td
                   data-row-round={i}
                   data-row-turn={j}

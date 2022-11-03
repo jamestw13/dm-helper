@@ -36,18 +36,24 @@ body {
   height: 3em;
 }
 
-#tracker-table {
-  height: 70vh;
-}
-table,
-th,
-td {
+#tracker-table,
+#tracker-table > * > * > * {
+  /* height: 70vh; */
   border: 2px solid black;
   border-collapse: collapse;
   padding: 0.25em;
 }
+table,
+th,
+td {
+}
 
 #char-list {
+}
+
+#char-list-table {
+  border-style: none;
+  border: 0 solid none;
 }
 
 ul {

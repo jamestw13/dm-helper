@@ -25,27 +25,42 @@ export const CharacterList = ({ chars, setChars }) => {
   return (
     <div id="char-list" className="card">
       <h2>Character List</h2>
-      <ul>
-        {chars?.map((char) => {
-          return (
-            <li className="list-row" key={char.id}>
-              <input
-                type="checkbox"
-                checked={char.inEncounter}
-                onChange={encounterStatus}
-                id={char.id}
-              />
-              <h3>{char.name}</h3>
-              <input
-                type="checkbox"
-                checked={char.viewSheet}
-                onChange={handleViewSheet}
-                id={char.id}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <table id="char-list-table">
+        <thead>
+          <tr>
+            <th>In Encounter</th>
+            <th>Character</th>
+            <th>View Sheet</th>
+          </tr>
+        </thead>
+        <tbody>
+          {chars?.map((char) => {
+            return (
+              <tr key={char.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={char.inEncounter}
+                    onChange={encounterStatus}
+                    id={char.id}
+                  />
+                </td>
+                <td style={{ backgroundColor: char.color }}>
+                  <h4>{char.name}</h4>
+                </td>
+                <td style={{ textAlign: "right" }}>
+                  <input
+                    type="checkbox"
+                    checked={char.viewSheet}
+                    onChange={handleViewSheet}
+                    id={char.id}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
