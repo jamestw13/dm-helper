@@ -2,52 +2,56 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { CharacterRow } from "./CharacterRow";
 
-export const TrackerTable = ({ chars, numRounds }) => {
-  console.log(
-    "activeChars: ",
-    chars.reduce((val, char) => char.inEncounter && val++)
-  );
-  const charRows = [];
-  for (let i = 0; i <= numRounds; i++) {
-    chars.forEach((c) => {
-      if (c.inEncounter) {
-        charRows.push(
-          <CharacterRow key={c.name + i} character={c} index={i} numChars={2} />
-        );
-      }
-    });
-  }
-
+export const TrackerTable = ({
+  encounterLog,
+  setEncounterLog,
+  setCurrentRound,
+  setCurrentTurn,
+  currentRound,
+  currentTurn,
+}) => {
   return (
     <>
       <table id="tracker-table">
         <thead id="tracker-header">
           <tr>
-            <th rowSpan="2"></th>
-            <th rowSpan="2">Round</th>
-            <th rowSpan="2">Name</th>
-            <th rowSpan="2">HP</th>
-            <th rowSpan="2">AC</th>
-
-            <th rowSpan="2">Init</th>
-            <th
-              colSpan={
-                chars.map((c, i) => {
-                  return c.inEncounter && <th key={i}>{c.name}</th>;
-                }).length
-              }
-              id="status-header"
-            >
-              Statuses
-            </th>
-          </tr>
-          <tr>
-            {chars.map((c, i) => {
-              return c.inEncounter && <th key={i}>{c.name}</th>;
-            })}
+            <th></th>
+            <th>Round</th>
+            <th>Name</th>
+            <th>HP</th>
+            <th>AC</th>
+            <th>Init</th>
+            <th colSpan="100%">Statuses</th>
           </tr>
         </thead>
-        <tbody id="tracker-body">{charRows}</tbody>
+        <tbody>
+          {encounterLog?.map((e, i) =>
+            e.turns.map((turn, j) => (
+              <tr key={turn.index}>
+                <td
+                  data-row-round={i}
+                  data-row-turn={j}
+                  style={{
+                    backgroundColor:
+                      i === currentRound && j === currentTurn && "yellow",
+                  }}
+                  onClick={() => {
+                    setCurrentRound(i);
+                    setCurrentTurn(j);
+                  }}
+                >
+                  &gt;
+                </td>
+                {j === 0 && <td rowSpan={e.turns.length}>{e.round}</td>}
+                <CharacterRow
+                  key={turn.char.name + j}
+                  character={turn.char}
+                  statuses={turn.statuses}
+                />
+              </tr>
+            ))
+          )}
+        </tbody>
       </table>
     </>
   );
