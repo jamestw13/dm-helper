@@ -28,9 +28,9 @@ export const CharacterList = ({ chars, setChars }) => {
       <table id="char-list-table">
         <thead>
           <tr>
-            <th>In Encounter</th>
+            <th>In Enc</th>
             <th>Character</th>
-            <th>View Sheet</th>
+            <th>Open</th>
           </tr>
         </thead>
         <tbody>
@@ -46,8 +46,9 @@ export const CharacterList = ({ chars, setChars }) => {
                   />
                 </td>
                 <td style={{ backgroundColor: char.color }}>
-                  <h4>{char.name}</h4>
+                  <h4>{`${char.name} ${char.isNPC ? "*" : ""}`}</h4>
                 </td>
+
                 <td style={{ textAlign: "right" }}>
                   <input
                     type="checkbox"

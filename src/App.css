@@ -19,6 +19,8 @@ body {
   gap: 1em;
 }
 .card {
+  height: 90vh;
+  overflow: auto;
   margin: 1em;
   padding: 1em;
   background-color: lightgray;
@@ -47,7 +49,6 @@ body {
   display: block;
 }
 #tracker-table {
-  height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }

@@ -7,7 +7,7 @@ export const CharacterSheet = ({ chars }) => {
           <h3>{char.name}</h3>
           <ul>
             <li>Race: {char.race}</li>
-            <li>Class: {char.class}</li>
+            <li>Class: {char.class.type}</li>
             <li>Level: {char.level}</li>
             <li>Player: {char.player}</li>
           </ul>

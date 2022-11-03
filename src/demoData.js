@@ -8,45 +8,88 @@ import {
   randHex,
   randFullName,
 } from "@ngneat/falso";
+import { v4 as uuidv4 } from "uuid";
 
 const NUM_CHARS = 7;
 const NUM_STATUSES = 10;
 
-seed("TJ");
-
-const rollStat = () => {
-  let rolls = [1, 1, 1, 1];
-  rolls = rolls.map((roll) => {
-    return randNumber({ min: 1, max: 6 });
-  });
-  rolls.sort((a, b) => b - a).pop();
-  const result = rolls.reduce((acc, i) => acc + i);
-  return result;
-};
-rollStat();
+seed("D&D");
 
 class Character {
-  constructor(id) {
-    this.id = id;
+  constructor() {
+    this.id = uuidv4();
     this.name = randFirstName({ withAccents: true });
     this.race = rand(races);
-    this.class = rand(classes);
+    this.class = rand(this.classes);
     this.level = randNumber({ min: 1, max: 5 });
-    this.str = rollStat();
-    this.dex = rollStat();
-    this.con = rollStat();
-    this.int = rollStat();
-    this.wis = rollStat();
-    this.cha = rollStat();
-    this.init = randNumber({ min: -5, max: 5 });
-    this.hp = randNumber({ min: 0, max: 35 });
-    this.ac = randNumber({ min: -5, max: 5 });
+    this.str = this.rollAbilityScore();
+    this.dex = this.rollAbilityScore();
+    this.con = this.rollAbilityScore();
+    this.int = this.rollAbilityScore();
+    this.wis = this.rollAbilityScore();
+    this.cha = this.rollAbilityScore();
+    this.strMod = this.getAbilityMod(this.str);
+    this.dexMod = this.getAbilityMod(this.dex);
+    this.conMod = this.getAbilityMod(this.con);
+    this.intMod = this.getAbilityMod(this.int);
+    this.wisMod = this.getAbilityMod(this.wis);
+    this.chaMod = this.getAbilityMod(this.cha);
+    this.initMod = this.dexMod;
+    this.init = this.rollDie(20) + this.intMod;
+    this.hp = this.getHP();
+    this.ac = 10 + this.dexMod + randNumber({ min: -2, max: 4 });
     this.inEncounter = randBoolean();
     this.viewSheet = randBoolean();
     this.color = randHex();
     this.isNPC = randBoolean();
     this.player = randFullName();
   }
+
+  rollAbilityScore = () => {
+    let rolls = [1, 1, 1, 1];
+    rolls = rolls.map((roll) => {
+      return randNumber({ min: 1, max: 6 });
+    });
+    rolls.sort((a, b) => b - a).pop();
+    const result = rolls.reduce((acc, i) => acc + i);
+    return result;
+  };
+
+  getAbilityMod = (stat) => {
+    return Math.floor((stat - 10) / 2);
+  };
+
+  getHP = () => {
+    let result = 0;
+    console.log("HP for ", this.name, ":");
+    for (let i = this.level; i > 0; i--) {
+      if (i === 1) {
+        result += this.class.hitDice + this.conMod;
+      } else {
+        result += randNumber({ min: 1, max: this.class.hitDice }) + this.conMod;
+      }
+      console.log(result);
+    }
+    return result;
+  };
+
+  rollDie = (numSides) => {
+    return randNumber({ min: 1, max: numSides });
+  };
+  classes = [
+    { type: "Barbarian", hitDice: 12 },
+    { type: "Bard", hitDice: 8 },
+    { type: "Cleric", hitDice: 8 },
+    { type: "Druid", hitDice: 8 },
+    { type: "Fighter", hitDice: 10 },
+    { type: "Monk", hitDice: 8 },
+    { type: "Paladin", hitDice: 10 },
+    { type: "Ranger", hitDice: 10 },
+    { type: "Rogue", hitDice: 8 },
+    { type: "Sorcerer", hitDice: 6 },
+    { type: "Warlock", hitDice: 10 },
+    { type: "Wizard", hitDice: 6 },
+  ];
 }
 export const generateCharData = (numChars) => {
   let chars = [];
@@ -86,20 +129,6 @@ const races = [
   "Half-orc",
   "Tiefling",
   "Warforged",
-];
-const classes = [
-  "Barbarian",
-  "Bard",
-  "Cleric",
-  "Druid",
-  "Fighter",
-  "Monk",
-  "Paladin",
-  "Ranger",
-  "Rogue",
-  "Sorcerer",
-  "Warlock",
-  "Wizard",
 ];
 
 const conditions = [
