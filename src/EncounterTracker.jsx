@@ -35,15 +35,14 @@ export const EncounterTracker = ({ chars }) => {
   }, [chars, numRounds]);
 
   const addRound = () => {
-    console.log(encounterLog);
     const logCopy = JSON.parse(JSON.stringify(encounterLog));
 
     const lastRound = logCopy.pop();
     lastRound.round++;
 
-    console.log(lastRound, encounterLog, logCopy);
+    lastRound.turns.forEach((turn) => (turn.statuses = []));
+
     setEncounterLog([...encounterLog, lastRound]);
-    console.log(encounterLog);
   };
 
   return (

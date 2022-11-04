@@ -19,10 +19,10 @@ body {
   gap: 1em;
 }
 .card {
-  height: 90vh;
+  height: 95vh;
   overflow: auto;
-  margin: auto;
-  padding: 1em;
+  /* margin: 0.5em; */
+  padding: 1em 3em 1em;
   background-color: lightgray;
 }
 #tracker {
@@ -31,7 +31,9 @@ body {
 }
 
 .char-sheet-open {
+  padding-inline: 5em;
   border-style: inset;
+  border-color: black;
 }
 .char-sheet-closed {
   border-style: outset;
@@ -56,7 +58,7 @@ body {
 }
 #tracker-table {
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 #char-list {
@@ -86,8 +88,12 @@ ul {
 .character-table {
   padding: 1em;
   width: 100%;
+  display: block;
+  height: 40vh;
+  overflow-y: auto;
 }
-
+.character-table tbody {
+}
 .character-table th,
 .character-table td {
   border: 1px solid black;
