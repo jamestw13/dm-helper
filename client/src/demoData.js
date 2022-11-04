@@ -19,9 +19,10 @@ class Character {
   constructor() {
     this.id = uuidv4();
     this.name = randFirstName({ withAccents: true });
-    this.race = rand(races);
+    this.race = rand(this.races);
     this.class = rand(this.classes);
     this.level = randNumber({ min: 1, max: 5 });
+    this.background = rand(this.backgrounds);
     this.str = this.rollAbilityScore();
     this.dex = this.rollAbilityScore();
     this.con = this.rollAbilityScore();
@@ -90,6 +91,35 @@ class Character {
     { type: "Warlock", hitDice: 10 },
     { type: "Wizard", hitDice: 6 },
   ];
+
+  races = [
+    "Human",
+    "Elf",
+    "Dwarf",
+    "Halfling",
+    "Dragonborn",
+    "Gnome",
+    "Half-elf",
+    "Half-orc",
+    "Tiefling",
+    "Warforged",
+  ];
+
+  backgrounds = [
+    "Acolyte",
+    "Charlatan",
+    "Criminal",
+    "Entertainer",
+    "Folk Hero",
+    "Guild Artisan",
+    "Hermit",
+    "Noble",
+    "Outlander",
+    "Sage",
+    "Sailor",
+    "Soldier",
+    "Urchin",
+  ];
 }
 export const generateCharData = (numChars) => {
   let chars = [];
@@ -117,19 +147,6 @@ const generateStatusData = (numStatuses) => {
   }
   return statusData;
 };
-
-const races = [
-  "Human",
-  "Elf",
-  "Dwarf",
-  "Halfling",
-  "Dragonborn",
-  "Gnome",
-  "Half-elf",
-  "Half-orc",
-  "Tiefling",
-  "Warforged",
-];
 
 const conditions = [
   "Blinded",

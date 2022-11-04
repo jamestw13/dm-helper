@@ -1,6 +1,6 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-// import { Character } from "./character";
+
 import { characterData } from "./demoData";
 import { EncounterTracker } from "./EncounterTracker";
 import { CharacterList } from "./CharacterList";
