@@ -9,9 +9,11 @@ export const EncounterTracker = ({ chars }) => {
   const [currentTurn, setCurrentTurn] = useState(0);
   const [encounterLog, setEncounterLog] = useState([]);
 
+  // Initialize encounterLog
   useEffect(() => {
+    let activeChars = chars?.filter((char) => !!char.inEncounter);
+    activeChars = activeChars.sort((a, b) => b.init - a.init);
     const data = [...Array(numRounds + 1)].map((round, i) => {
-      const activeChars = chars?.filter((char) => !!char.inEncounter);
       return {
         round: i,
         turns: activeChars?.map((char, j) => {
@@ -32,12 +34,22 @@ export const EncounterTracker = ({ chars }) => {
     setEncounterLog(data);
   }, [chars, numRounds]);
 
+  const addRound = () => {
+    console.log(encounterLog);
+    const logCopy = JSON.parse(JSON.stringify(encounterLog));
+
+    const lastRound = logCopy.pop();
+    lastRound.round++;
+
+    console.log(lastRound, encounterLog, logCopy);
+    setEncounterLog([...encounterLog, lastRound]);
+    console.log(encounterLog);
+  };
+
   return (
     <div id="tracker" className="card">
       <h2>Encounter</h2>
       <TrackerNavigator
-        numRounds={numRounds}
-        setNumRounds={setNumRounds}
         currentRound={currentRound}
         setCurrentRound={setCurrentRound}
         currentTurn={currentTurn}
@@ -51,6 +63,7 @@ export const EncounterTracker = ({ chars }) => {
         setCurrentTurn={setCurrentTurn}
         encounterLog={encounterLog}
         setEncounterLog={setEncounterLog}
+        addRound={addRound}
       />
     </div>
   );

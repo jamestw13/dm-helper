@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { characterData } from "./demoData";
 import { EncounterTracker } from "./EncounterTracker";
 import { CharacterList } from "./CharacterList";
-import { CharacterSheet } from "./CharacterSheet";
+import { SheetContainer } from "./SheetContainer";
 
 function App() {
   const [chars, setChars] = useState(characterData);
@@ -15,7 +15,7 @@ function App() {
         <div id="container">
           <EncounterTracker chars={chars} />
           <CharacterList chars={chars} setChars={setChars} />
-          <CharacterSheet chars={chars.filter((char) => char.viewSheet)} />
+          <SheetContainer chars={chars.filter((char) => char.viewSheet)} />
         </div>
       )}
     </>

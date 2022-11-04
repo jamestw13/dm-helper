@@ -1,3 +1,4 @@
+import { indexOf } from "lodash";
 import { useEffect } from "react";
 import { useState } from "react";
 import { CharacterRow } from "./CharacterRow";
@@ -9,6 +10,7 @@ export const TrackerTable = ({
   setCurrentTurn,
   currentRound,
   currentTurn,
+  addRound,
 }) => {
   return (
     <>
@@ -20,7 +22,7 @@ export const TrackerTable = ({
             <th>Name</th>
             <th>HP</th>
             <th>AC</th>
-            <th>Init</th>
+
             <th colSpan="100%">Notes</th>
           </tr>
         </thead>
@@ -52,8 +54,10 @@ export const TrackerTable = ({
             ))
           )}
           <tr>
-            <td colSpan="100%" onClick={() => console.log("pressed")}>
-              Add Round
+            <td colSpan="100%">
+              <button style={{ width: "100%" }} onClick={addRound}>
+                Add Round
+              </button>
             </td>
           </tr>
         </tbody>

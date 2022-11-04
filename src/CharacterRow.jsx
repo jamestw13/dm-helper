@@ -4,7 +4,7 @@ export const CharacterRow = ({ character: c, statuses: s }) => {
       <td style={{ backgroundColor: c.color }}>{c.name}</td>
       <td>{c.hp}</td>
       <td>{c.ac}</td>
-      <td>{c.init}</td>
+
       {s?.map((status, i) => (
         <td
           key={i}
@@ -12,9 +12,7 @@ export const CharacterRow = ({ character: c, statuses: s }) => {
           className="status-cell"
           style={{ backgroundColor: status.targetColor }}
         >
-          Effect: {status.condition}
-          <br />
-          Effected: {status.target}
+          {status.condition}
         </td>
       ))}
     </>

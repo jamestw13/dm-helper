@@ -34,6 +34,7 @@ class Character {
     this.intMod = this.getAbilityMod(this.int);
     this.wisMod = this.getAbilityMod(this.wis);
     this.chaMod = this.getAbilityMod(this.cha);
+    this.profBonus = Math.floor(this.level / 4) + 2;
     this.initMod = this.dexMod;
     this.init = this.rollDie(20) + this.intMod;
     this.hp = this.getHP();
@@ -61,14 +62,13 @@ class Character {
 
   getHP = () => {
     let result = 0;
-    console.log("HP for ", this.name, ":");
+
     for (let i = this.level; i > 0; i--) {
       if (i === 1) {
         result += this.class.hitDice + this.conMod;
       } else {
         result += randNumber({ min: 1, max: this.class.hitDice }) + this.conMod;
       }
-      console.log(result);
     }
     return result;
   };

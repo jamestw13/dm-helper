@@ -21,7 +21,7 @@ body {
 .card {
   height: 90vh;
   overflow: auto;
-  margin: 1em;
+  margin: auto;
   padding: 1em;
   background-color: lightgray;
 }
@@ -30,6 +30,12 @@ body {
   flex-direction: column;
 }
 
+.char-sheet-open {
+  border-style: inset;
+}
+.char-sheet-closed {
+  border-style: outset;
+}
 #tracker-nav {
   display: flex;
   justify-content: center;
@@ -69,10 +75,25 @@ ul {
   display: flex;
 }
 
-.status-cell {
+/* .status-cell {
   font-size: 0.5rem;
 }
 
 .status-cell:hover {
   font-size: 1rem;
+} */
+
+.character-table {
+  padding: 1em;
+  width: 100%;
+}
+
+.character-table th,
+.character-table td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.char-list-row {
+  height: 5em;
 }

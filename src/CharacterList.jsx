@@ -26,17 +26,16 @@ export const CharacterList = ({ chars, setChars }) => {
     <div id="char-list" className="card">
       <h2>Character List</h2>
       <table id="char-list-table">
-        <thead>
-          <tr>
-            <th>In Enc</th>
-            <th>Character</th>
-            <th>Open</th>
-          </tr>
-        </thead>
         <tbody>
           {chars?.map((char) => {
             return (
-              <tr key={char.id}>
+              <tr
+                key={char.id}
+                className="char-list-row"
+                style={{
+                  backgroundColor: char.color,
+                }}
+              >
                 <td>
                   <input
                     type="checkbox"
@@ -45,18 +44,24 @@ export const CharacterList = ({ chars, setChars }) => {
                     id={char.id}
                   />
                 </td>
-                <td style={{ backgroundColor: char.color }}>
-                  <h4>{`${char.name} ${char.isNPC ? "*" : ""}`}</h4>
-                </td>
-
+                <th
+                  className={
+                    char.viewSheet ? "char-sheet-open" : "char-sheet-closed"
+                  }
+                  id={char.id}
+                  onClick={handleViewSheet}
+                >
+                  {`${char.name} ${char.isNPC ? " *" : ""}`}
+                </th>
+                {/* 
                 <td style={{ textAlign: "right" }}>
                   <input
                     type="checkbox"
                     checked={char.viewSheet}
                     onChange={handleViewSheet}
                     id={char.id}
-                  />
-                </td>
+                  /> 
+                </td> */}
               </tr>
             );
           })}
