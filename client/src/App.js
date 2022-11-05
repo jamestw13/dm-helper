@@ -1,24 +1,62 @@
-import "./App.css";
-import { useEffect, useState } from "react";
+import React from 'react';
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { characterData } from "./demoData";
-import { EncounterTracker } from "./EncounterTracker";
-import { CharacterList } from "./CharacterList";
-import { SheetContainer } from "./SheetContainer";
+import './App.css';
+
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Login from './pages/Login';
+import NoMatch from './pages/NoMatch';
+
+import Signup from './pages/Signup';
+
+import Home from './pages/Home';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
-  const [chars, setChars] = useState(characterData);
-
   return (
-    <>
-      {chars && (
-        <div id="container">
-          <EncounterTracker chars={chars} />
-          <CharacterList chars={chars} setChars={setChars} />
-          <SheetContainer chars={chars.filter((char) => char.viewSheet)} />
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <Header />
+          <div>
+            <Routes>
+              <Route exact path='/' element={<Home />} />
+              <Route exact path='/login' element={<Login />} />
+              <Route exact path='/signup' element={<Signup />} />
+
+              <Route element={<NoMatch />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-      )}
-    </>
+      </Router>
+    </ApolloProvider>
   );
 }
 
