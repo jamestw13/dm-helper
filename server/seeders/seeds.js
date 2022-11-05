@@ -1,25 +1,16 @@
-const { randUserName, randEmail } = require('@ngneat/falso');
-
 const db = require('../config/connection');
-const { User } = require('../models');
+const { User, Character } = require('../models');
+const generateUsers = require('./userSeed');
 
 const NUM_USERS = 5;
+const NUM_CHARS = 15;
 
 db.once('open', async () => {
+  // Clear previous documents
   await User.deleteMany({});
+  await Character.deleteMany({});
 
-  // create user data
-  const userData = [];
-
-  for (let i = 0; i < NUM_USERS; i += 1) {
-    const username = randUserName();
-    const email = randEmail();
-    const password = 11111111;
-
-    userData.push({ username, email, password });
-  }
-
-  const createdUsers = await User.create(userData);
+  await User.create(await generateUsers(NUM_USERS));
 
   console.log('Finished Seeding');
   process.exit(0);
