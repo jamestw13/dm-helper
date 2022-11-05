@@ -13,7 +13,7 @@ db.once('open', async () => {
 
   for (let i = 0; i < NUM_USERS; i += 1) {
     const username = randUserName();
-    const email = randEmail(username);
+    const email = randEmail();
     const password = 11111111;
 
     userData.push({ username, email, password });

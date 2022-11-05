@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { QUERY_USERS } from '../utils/queries';
 
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
+  const { userData } = useQuery(QUERY_USERS);
   const [formState, setFormState] = useState({ email: '', password: '' });
 
   // update state based on form input changes
@@ -63,6 +65,19 @@ const Login = props => {
       </form>
 
       {error && <div>Login failed</div>}
+
+      {userData ? (
+        <ul>
+          {userData.map(user => (
+            <li>
+              {user._id}
+              {user.email}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h4>Loading</h4>
+      )}
     </main>
   );
 };

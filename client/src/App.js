@@ -33,8 +33,10 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// ! will have to fix this for authentication
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  uri: 'http://localhost:3001/graphql',
+  // link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -42,19 +44,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
-          <Header />
-          <div>
-            <Routes>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/login' element={<Login />} />
-              <Route exact path='/signup' element={<Signup />} />
-
-              <Route element={<NoMatch />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
+        <Header />
+        <main className='app-container'>
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/signup' element={<Signup />} />
+            <Route element={<NoMatch />} />
+          </Routes>
+        </main>
+        <Footer />
       </Router>
     </ApolloProvider>
   );
