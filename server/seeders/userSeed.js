@@ -9,14 +9,16 @@ module.exports = async function generateUsers(numUsers) {
   let userData = [];
 
   for (let i = 0; i < numUsers; i += 1) {
-    const char = generateCharacters(numChars);
-    console.log(char);
+    const chars = generateCharacters(numChars);
+    let charObs = await Character.create(chars);
+    charObs = charObs.map(char => char._id);
+    console.log('await result: ', charObs);
 
     const user = {
       username: randUserName(),
       email: randEmail(),
       password: 11111111,
-      // characters: await Character.create(generateCharacters(numChars)),
+      characters: chars,
     };
 
     userData.push(user);

@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const CharacterSchema = new Schema({
+const characterSchema = new Schema({
   name: {
     type: String,
     trim: true,
@@ -99,6 +99,6 @@ const CharacterSchema = new Schema({
   },
 });
 
-const Character = model('Character', CharacterSchema);
+const Character = model('Character', characterSchema);
 
 module.exports = Character;

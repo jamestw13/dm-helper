@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { Character } = require('../models');
+
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -24,7 +24,7 @@ const userSchema = new Schema(
       minlength: 5,
     },
 
-    characters: { type: [Character] },
+    characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
   },
   {
     toJSON: {

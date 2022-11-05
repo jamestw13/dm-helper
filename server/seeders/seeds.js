@@ -10,7 +10,8 @@ db.once('open', async () => {
   await User.deleteMany({});
   await Character.deleteMany({});
 
-  await User.create(await generateUsers(NUM_USERS));
+  const users = await User.create(await generateUsers(NUM_USERS));
+  console.log(users);
 
   console.log('Finished Seeding');
   process.exit(0);
