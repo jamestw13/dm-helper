@@ -9,10 +9,8 @@ module.exports = async function generateUsers(numUsers) {
   let userData = [];
 
   for (let i = 0; i < numUsers; i += 1) {
-    const chars = generateCharacters(numChars);
-    let charObs = await Character.create(chars);
-    charObs = charObs.map(char => char._id);
-    console.log('await result: ', charObs);
+    let chars = await Character.create(generateCharacters(numChars));
+    chars = chars.map(char => char._id);
 
     const user = {
       username: randUserName(),
