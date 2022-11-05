@@ -1,7 +1,6 @@
-import { indexOf } from "lodash";
-import { useEffect } from "react";
-import { useState } from "react";
-import { CharacterRow } from "./CharacterRow";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { CharacterRow } from './CharacterRow';
 
 export const TrackerTable = ({
   encounterLog,
@@ -14,8 +13,8 @@ export const TrackerTable = ({
 }) => {
   return (
     <>
-      <table id="tracker-table">
-        <thead id="tracker-header">
+      <table id='tracker-table'>
+        <thead id='tracker-header'>
           <tr>
             <th></th>
             <th>Round</th>
@@ -23,10 +22,10 @@ export const TrackerTable = ({
             <th>HP</th>
             <th>AC</th>
 
-            <th colSpan="100%">Notes</th>
+            <th colSpan='100%'>Notes</th>
           </tr>
         </thead>
-        <tbody id="tracker-table-body">
+        <tbody id='tracker-table-body'>
           {encounterLog?.map((e, i) =>
             e.turns.map((turn, j) => (
               <tr key={j}>
@@ -35,7 +34,7 @@ export const TrackerTable = ({
                   data-row-turn={j}
                   style={{
                     backgroundColor:
-                      i === currentRound && j === currentTurn && "yellow",
+                      i === currentRound && j === currentTurn && 'yellow',
                   }}
                   onClick={() => {
                     setCurrentRound(i);
@@ -54,8 +53,8 @@ export const TrackerTable = ({
             ))
           )}
           <tr>
-            <td colSpan="100%">
-              <button style={{ width: "100%" }} onClick={addRound}>
+            <td colSpan='100%'>
+              <button style={{ width: '100%' }} onClick={addRound}>
                 Add Round
               </button>
             </td>
