@@ -74,7 +74,7 @@ const Login = props => {
               {user.email}
               <button
                 onClick={() => {
-                  setFormState({ ...formState, email: user.email });
+                  setFormState({ password: '11111111', email: user.email });
                 }}
               >
                 +

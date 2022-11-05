@@ -3,7 +3,7 @@ const { randUserName, randEmail } = require('@ngneat/falso');
 const db = require('../config/connection');
 const { User } = require('../models');
 
-const NUM_USERS = 3;
+const NUM_USERS = 5;
 
 db.once('open', async () => {
   await User.deleteMany({});
@@ -19,7 +19,7 @@ db.once('open', async () => {
     userData.push({ username, email, password });
   }
 
-  const createdUsers = await User.collection.insertMany(userData);
+  const createdUsers = await User.create(userData);
 
   console.log('Finished Seeding');
   process.exit(0);
