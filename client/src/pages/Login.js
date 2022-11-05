@@ -6,7 +6,7 @@ import { QUERY_USERS } from '../utils/queries';
 
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
-  const { userData } = useQuery(QUERY_USERS);
+  const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);
   const [formState, setFormState] = useState({ email: '', password: '' });
 
   // update state based on form input changes
@@ -66,12 +66,19 @@ const Login = props => {
 
       {error && <div>Login failed</div>}
 
-      {userData ? (
+      <h4>Test Users:</h4>
+      {!userLoading ? (
         <ul>
-          {userData.map(user => (
-            <li>
-              {user._id}
+          {userData.users.map(user => (
+            <li key={user._id}>
               {user.email}
+              <button
+                onClick={() => {
+                  setFormState({ ...formState, email: user.email });
+                }}
+              >
+                +
+              </button>
             </li>
           ))}
         </ul>
