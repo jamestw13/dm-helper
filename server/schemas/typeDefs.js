@@ -7,6 +7,12 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    characters: [Character]
+  }
+
+  type Character {
+    _id: ID
+    name: String
   }
 
   type Query {

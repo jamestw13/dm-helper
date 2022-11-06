@@ -20,7 +20,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -35,8 +35,8 @@ const authLink = setContext((_, { headers }) => {
 
 // ! will have to fix this for authentication
 const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
-  // link: authLink.concat(httpLink),
+  // uri: 'http://localhost:3001/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
