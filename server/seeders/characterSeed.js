@@ -1,10 +1,4 @@
-const {
-  rand,
-  randNumber,
-  randBoolean,
-  randHex,
-  randFullName,
-} = require('@ngneat/falso');
+const { rand, randNumber, randHex, randFullName } = require('@ngneat/falso');
 
 const classes = [
   { type: 'Barbarian', hitDice: 12 },
@@ -86,42 +80,37 @@ const rollDie = numSides => {
   return randNumber({ min: 1, max: numSides });
 };
 
-module.exports = function generateCharacters(numChars) {
-  let charData = [];
+module.exports = function generateCharacter(isNPC) {
+  const scores = rollAbilityScores();
+  const level = randNumber({ min: 1, max: 20 });
 
-  for (let i = 0; i < numChars; i++) {
-    const scores = rollAbilityScores();
-    const level = randNumber({ min: 1, max: 20 });
+  const character = {
+    name: randFullName({ withAccents: true }),
+    race: rand(races),
+    class: rand(classes),
+    level: level,
+    background: rand(backgrounds),
+    str: scores[0],
+    dex: scores[1],
+    con: scores[2],
+    int: scores[3],
+    wis: scores[4],
+    cha: scores[5],
+    strMod: getAbilityMod(scores[0]),
+    dexMod: getAbilityMod(scores[1]),
+    conMod: getAbilityMod(scores[2]),
+    intMod: getAbilityMod(scores[3]),
+    wisMod: getAbilityMod(scores[4]),
+    chaMod: getAbilityMod(scores[5]),
+    profBonus: Math.floor(level / 4) + 2,
+    initMod: getAbilityMod(scores[1]),
+    init: rollDie(20) + getAbilityMod(scores[3]),
+    hp: getHP(),
+    ac: 10 + getAbilityMod(scores[1]) + randNumber({ min: -2, max: 4 }),
 
-    const character = {
-      name: randFullName({ withAccents: true }),
-      race: rand(races),
-      class: rand(classes),
-      level: level,
-      background: rand(backgrounds),
-      str: scores[0],
-      dex: scores[1],
-      con: scores[2],
-      int: scores[3],
-      wis: scores[4],
-      cha: scores[5],
-      strMod: getAbilityMod(scores[0]),
-      dexMod: getAbilityMod(scores[1]),
-      conMod: getAbilityMod(scores[2]),
-      intMod: getAbilityMod(scores[3]),
-      wisMod: getAbilityMod(scores[4]),
-      chaMod: getAbilityMod(scores[5]),
-      profBonus: Math.floor(level / 4) + 2,
-      initMod: getAbilityMod(scores[1]),
-      init: rollDie(20) + getAbilityMod(scores[3]),
-      hp: getHP(),
-      ac: 10 + getAbilityMod(scores[1]) + randNumber({ min: -2, max: 4 }),
+    color: randHex(),
+    isNPC: isNPC,
+  };
 
-      color: randHex(),
-      isNPC: randBoolean(),
-    };
-
-    charData.push(character);
-  }
-  return charData;
+  return character;
 };

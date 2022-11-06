@@ -25,6 +25,7 @@ const userSchema = new Schema(
     },
 
     characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
+    campaigns: [{ type: Schema.Types.ObjectId, ref: 'Campaigns' }],
   },
   {
     toJSON: {
