@@ -18,14 +18,29 @@ const userSchema = new Schema(
       trim: true,
     },
 
+    firstName: {
+      type: String,
+      trim: true,
+    },
+
+    lastName: {
+      type: String,
+      trim: true,
+    },
+
     password: {
       type: String,
       required: true,
       minlength: 5,
     },
 
+    avatar: {
+      type: String,
+    },
+
     characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
-    campaigns: [{ type: Schema.Types.ObjectId, ref: 'Campaigns' }],
+
+    campaigns: [{ type: Schema.Types.ObjectId, ref: 'Campaign' }],
   },
   {
     toJSON: {

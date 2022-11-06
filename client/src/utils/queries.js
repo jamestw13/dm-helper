@@ -25,9 +25,25 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      firstname
+      lastname
+      avatar
       characters {
         name
       }
+      campaigns {
+        name
+      }
+    }
+  }
+`;
+
+export const QUERY_HEADER = gql`
+  {
+    me {
+      firstname
+      lastname
+      avatar
     }
   }
 `;

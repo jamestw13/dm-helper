@@ -1,18 +1,16 @@
-import { useQuery } from '@apollo/client';
-import { QUERY_ME } from '../utils/queries';
-import Auth from '../utils/auth';
+import Login from './Login';
+import Signup from './Signup';
 
 function Home() {
-  const { data, error: userError } = useQuery(QUERY_ME);
-
   return (
     <main>
-      <h3>{data?.me.username}</h3>
-      <ul>
-        {data?.me.characters.map((char, i) => (
-          <li key={i}>{char.name}</li>
-        ))}
-      </ul>
+      <p>
+        This is the homepage. Put some stuff here that people would see when
+        they're not logged in. Description? Links to sign up or login
+      </p>
+
+      <Login />
+      <Signup />
     </main>
   );
 }

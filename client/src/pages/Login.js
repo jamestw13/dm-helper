@@ -69,7 +69,7 @@ const Login = props => {
       <h4>Test Users:</h4>
       {!userLoading ? (
         <ul>
-          {userData.users.map(user => (
+          {userData?.users?.map(user => (
             <li key={user._id}>
               {user.email}
               <button

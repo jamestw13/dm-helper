@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 
 import Home from './pages/Home';
 
@@ -33,9 +34,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// ! will have to fix this for authentication
 const client = new ApolloClient({
-  // uri: 'http://localhost:3001/graphql',
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
@@ -50,6 +49,8 @@ function App() {
             <Route exact path='/' element={<Home />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/profile/' element={<Profile />} />
+            <Route exact path='/profile/:username?' element={<Profile />} />
             <Route element={<NoMatch />} />
           </Routes>
         </main>

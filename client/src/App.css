@@ -17,7 +17,7 @@ a {
 }
 
 .app-container {
-  height: 95vh;
+  min-height: 95vh;
 }
 
 #container {

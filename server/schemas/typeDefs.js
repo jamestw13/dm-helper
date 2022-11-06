@@ -7,12 +7,24 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    firstname: String
+    lastname: String
     characters: [Character]
+    campaigns: [Campaign]
+    avatar: String
   }
 
   type Character {
     _id: ID
     name: String
+  }
+
+  type Campaign {
+    _id: ID
+    name: String
+    owner: User
+    characters: [Character]
+    players: [User]
   }
 
   type Query {
