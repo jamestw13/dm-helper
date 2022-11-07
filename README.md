@@ -24,6 +24,7 @@ This is set up to run with a Mongo database running in a Docker container.
 
 ## Next Steps
 
-- Refactor to move data models to the back-end
-- Make the data editable by the users
-- Add visual style / de-uglify
+- [x] Refactor to move data models to the back-end
+- [ ] Make the data editable by the users
+- [ ] Add visual style / de-uglify
+- [ ] Add websockets so data can be live updated by DM and players during gameplay
