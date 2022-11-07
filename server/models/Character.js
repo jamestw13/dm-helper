@@ -97,6 +97,10 @@ const characterSchema = new Schema({
     type: Boolean,
     trim: true,
   },
+  campaign: {
+    type: Schema.Types.ObjectId,
+    ref: 'Campaign',
+  },
 });
 
 const Character = model('Character', characterSchema);

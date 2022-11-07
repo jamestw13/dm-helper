@@ -17,6 +17,43 @@ const typeDefs = gql`
   type Character {
     _id: ID
     name: String
+    race: Race
+    class: Class
+    level: Int
+    background: Background
+    str: Int
+    dex: Int
+    con: Int
+    int: Int
+    wis: Int
+    cha: Int
+    strMod: Int
+    dexMod: Int
+    conMod: Int
+    intMod: Int
+    wisMod: Int
+    chaMod: Int
+    profBonus: Int
+    initMod: Int
+    initiative: Int
+    hp: Int
+    ac: Int
+    color: String
+    isNPC: Boolean
+    campaign: Campaign
+  }
+
+  type Race {
+    type: String
+  }
+
+  type Class {
+    type: String
+    hitDice: Int
+  }
+
+  type Background {
+    type: String
   }
 
   type Campaign {
@@ -44,5 +81,4 @@ const typeDefs = gql`
   }
 `;
 
-// export typeDefs
 module.exports = typeDefs;

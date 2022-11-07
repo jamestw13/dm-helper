@@ -11,7 +11,8 @@ const Header = () => {
     Auth.logout();
   };
 
-  const { me } = useQuery(QUERY_HEADER);
+  const { data } = useQuery(QUERY_HEADER);
+  // console.log('header', me);
 
   return (
     <header>
@@ -22,21 +23,26 @@ const Header = () => {
 
         <nav>
           {Auth.loggedIn() ? (
-            <>
-              <Link to='/profile'>{`${me?.firstname} ${me?.lastname}`}</Link>
+            <div className='header-options'>
               <a className='link' href='/' onClick={logout}>
                 Logout
               </a>
-            </>
+              <Link to='/profile'>
+                {`${data?.me.firstname} ${data?.me.lastname}`}
+              </Link>
+              <Link to='/profile'>
+                <img src={data?.me.avatar} className='avatar' />
+              </Link>
+            </div>
           ) : (
-            <>
+            <div className='header-options'>
               <Link className='link header-link' to={'/login'}>
                 Login
               </Link>
               <Link className='link header-link' to={'/signup'}>
                 Signup
               </Link>
-            </>
+            </div>
           )}
         </nav>
       </div>

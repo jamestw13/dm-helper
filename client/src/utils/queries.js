@@ -27,12 +27,19 @@ export const QUERY_ME = gql`
       email
       firstname
       lastname
-      avatar
+
       characters {
+        _id
         name
+        color
       }
       campaigns {
+        _id
         name
+        owner {
+          _id
+          username
+        }
       }
     }
   }

@@ -5,7 +5,7 @@ const generateCharacter = require('./characterSeed');
 const { rand, randBook, randNumber, randBoolean } = require('@ngneat/falso');
 
 const NUM_USERS = 20;
-const NUM_CAMPAIGNS = 15;
+const NUM_CAMPAIGNS = 20;
 const NUM_PLAYERS = 4 * NUM_CAMPAIGNS;
 
 db.once('open', async () => {

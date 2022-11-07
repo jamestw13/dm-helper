@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate } from 'react-router-dom';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import './Profile.css';
+import CharacterList from '../components/CharacterList';
+import SheetContainer from '../components/SheetContainer';
 
 import Auth from '../utils/auth';
+import CampaignList from '../components/CampaignList';
 
 const Profile = props => {
   const { username: userParam } = useParams();
@@ -14,6 +18,9 @@ const Profile = props => {
   });
 
   const user = data?.me || data?.user || {};
+  const [selectedChar, setSelectedChar] = useState([]);
+
+  if (!Auth.loggedIn()) return <Navigate to='/' />;
 
   // redirect to person profile page if username is the logged-in user's
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -34,27 +41,17 @@ const Profile = props => {
   }
   return (
     <main>
-      <div className='flex-row mb-3'>
-        <h2 className='bg-dark text-secondary p-3 display-inline-block'>
+      <div className=''>
+        <h2 className=''>
           Viewing {userParam ? `${user.username}'s` : 'your'} profile
         </h2>
       </div>
 
-      <div>
-        <img src={data?.me.avatar} />
-        <h3>{data?.me.username}</h3>
-        <h4>{data?.me.email}</h4>
-        <ul>
-          {data?.me.characters.map((char, i) => (
-            <li key={i}>{char.name}</li>
-          ))}
-        </ul>
-        <ul>
-          {data.me.campaigns?.map((campaign, i) => (
-            <li key={i}>{campaign.name}</li>
-          ))}
-        </ul>
-      </div>
+      <section>
+        <CharacterList chars={data?.me.characters} setChars={setSelectedChar} />
+        <SheetContainer chars={selectedChar} />
+        <CampaignList campaigns={data?.me.campaigns} me={data?.me._id} />
+      </section>
     </main>
   );
 };
