@@ -16,11 +16,12 @@ import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 
 import Home from './pages/Home';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -42,19 +43,18 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div>
-          <Header />
-          <div>
-            <Routes>
-              <Route exact path='/' element={<Home />} />
-              <Route exact path='/login' element={<Login />} />
-              <Route exact path='/signup' element={<Signup />} />
-
-              <Route element={<NoMatch />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
+        <Header />
+        <main className='app-container'>
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/profile/' element={<Profile />} />
+            <Route exact path='/profile/:username?' element={<Profile />} />
+            <Route element={<NoMatch />} />
+          </Routes>
+        </main>
+        <Footer />
       </Router>
     </ApolloProvider>
   );

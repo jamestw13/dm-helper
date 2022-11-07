@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: lightgray;
+}
+
+.link {
+  padding: 1em;
+}
+.home-link {
+  font-size: 2rem;
+}
+
+.header-options {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-inline: 1rem;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

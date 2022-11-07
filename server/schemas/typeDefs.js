@@ -1,5 +1,5 @@
 // import the gql tagged template function
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
 // create typeDefs
 const typeDefs = gql`
@@ -7,6 +7,61 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    firstname: String
+    lastname: String
+    characters: [Character]
+    campaigns: [Campaign]
+    avatar: String
+  }
+
+  type Character {
+    _id: ID
+    name: String
+    race: Race
+    class: Class
+    level: Int
+    background: Background
+    str: Int
+    dex: Int
+    con: Int
+    int: Int
+    wis: Int
+    cha: Int
+    strMod: Int
+    dexMod: Int
+    conMod: Int
+    intMod: Int
+    wisMod: Int
+    chaMod: Int
+    profBonus: Int
+    initMod: Int
+    initiative: Int
+    hp: Int
+    ac: Int
+    color: String
+    isNPC: Boolean
+    campaign: Campaign
+  }
+
+  type Race {
+    type: String
+  }
+
+  type Class {
+    type: String
+    hitDice: Int
+  }
+
+  type Background {
+    type: String
+  }
+
+  type Campaign {
+    _id: ID
+    name: String
+    owner: User
+    characters: [Character]
+    players: [User]
   }
 
   type Query {
@@ -26,5 +81,4 @@ const typeDefs = gql`
   }
 `;
 
-// export typeDefs
 module.exports = typeDefs;

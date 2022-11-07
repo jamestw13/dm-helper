@@ -1,6 +1,6 @@
-export const SheetContainer = ({ chars }) => {
+const SheetContainer = ({ chars }) => {
   return (
-    <div className="card">
+    <div className='card'>
       <h2>Character Sheet</h2>
       {chars.map((char, i) => (
         <CharacterSheet character={char} key={i} />
@@ -11,7 +11,7 @@ export const SheetContainer = ({ chars }) => {
 
 const CharacterSheet = ({ character: c }) => {
   return (
-    <table style={{ backgroundColor: c.color }} className="character-table">
+    <table style={{ backgroundColor: c.color }} className='character-table'>
       <tbody>
         <tr>
           <th style={{ backgroundColor: c.color }} colSpan={6} rowSpan={3}>
@@ -64,7 +64,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>{c.str}</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.strST}</th>
           <td>Strength</td>
@@ -75,7 +75,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>Dexterity</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.dexST}</th>
           <td>Dexterity</td>
@@ -90,7 +90,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.dexMod > 0 ? `+${c.dexMod}` : c.dexMod}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.conST}</th>
           <td>Constitution</td>
@@ -98,7 +98,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>{c.dex}</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.intST}</th>
           <td>Intelligence</td>
@@ -109,7 +109,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>Constitution</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.wisST}</th>
           <td>Wisdom</td>
@@ -123,7 +123,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.conMod > 0 ? `+${c.conMod}` : c.conMod}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.chaST}</th>
           <td>Charisma</td>
@@ -137,7 +137,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>Intelligence</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -145,7 +145,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.intMod > 0 ? `+${c.intMod}` : c.intMod}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -153,7 +153,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>{c.int}</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -161,7 +161,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>Wisdom</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -169,7 +169,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.wisMod > 0 ? `+${c.wisMod}` : c.wisMod}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -177,7 +177,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>{c.wis}</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -185,7 +185,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>Charisma</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -193,7 +193,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.chaMod > 0 ? `+${c.chaMod}` : c.chaMod}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -201,7 +201,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2}>{c.cha}</td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -209,7 +209,7 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <th colSpan={2}>{c.passPerc}</th>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -219,14 +219,14 @@ const CharacterSheet = ({ character: c }) => {
             Passive Wisdom (Perception)
           </td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -234,42 +234,42 @@ const CharacterSheet = ({ character: c }) => {
         <tr>
           <td colSpan={2} rowSpan={7}></td>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
         </tr>
         <tr>
           <td>
-            <input type="checkbox" />
+            <input type='checkbox' />
           </td>
           <th>{c.SP}</th>
           <td></td>
@@ -281,3 +281,5 @@ const CharacterSheet = ({ character: c }) => {
     </table>
   );
 };
+
+export default SheetContainer;

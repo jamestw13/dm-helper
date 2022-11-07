@@ -8,11 +8,11 @@ const path = require('path');
 const db = require('./config/connection');
 
 // import graphQL apollo
-const {ApolloServer} = require('apollo-server-express');
-const {typeDefs, resolvers} = require('./schemas');
+const { ApolloServer } = require('apollo-server-express');
+const { typeDefs, resolvers } = require('./schemas');
 
 // import authorization middleware
-const {authMiddleware} = require('./utils/auth');
+const { authMiddleware } = require('./utils/auth');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -29,7 +29,7 @@ const startServer = async () => {
   await server.start();
 
   // integrate Apollo server with Express app as middleware
-  server.applyMiddleware({app});
+  server.applyMiddleware({ app });
 
   // log where we can use GQL API
   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
@@ -38,7 +38,7 @@ const startServer = async () => {
 // initialize Apollo server
 startServer();
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Serve up static assets
