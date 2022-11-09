@@ -38,7 +38,9 @@ const typeDefs = gql`
     initiative: Int
     hp: Int
     ac: Int
-    color: String
+    primaryColor: String
+    secondaryColor: String
+
     isNPC: Boolean
     campaign: Campaign
   }

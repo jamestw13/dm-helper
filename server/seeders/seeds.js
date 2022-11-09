@@ -34,18 +34,26 @@ db.once('open', async () => {
       { $addToSet: { campaigns: campaignId } }
     );
 
-    // Create NPCs
+    // NPC Loop
     for (let j = 0; j < randNumber({ min: 0, max: 7 }); j++) {
+      // Create NPC
       const { _id: npcId } = await Character.create(generateCharacter(true));
-      // Associate NPCs with DM
+
+      // Connect NPC with DM
       await User.findOneAndUpdate(
         { _id: dmId },
         { $addToSet: { characters: npcId } }
       );
-      // Associate NPCs with campaign
+
+      // Connect NPC with campaign
       await Campaign.findOneAndUpdate(
         { _id: campaignId },
         { $addToSet: { characters: npcId } }
+      );
+
+      await Character.findOneAndUpdate(
+        { _id: npcId },
+        { campaign: campaignId }
       );
     }
   }

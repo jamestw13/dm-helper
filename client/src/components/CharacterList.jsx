@@ -1,3 +1,6 @@
+import './CharacterList.css';
+import { getTextColor } from '../utils/helpers';
+
 const CharacterList = ({ chars, setChars }) => {
   const encounterStatus = e => {
     const newChars = chars?.map(c => {
@@ -23,33 +26,30 @@ const CharacterList = ({ chars, setChars }) => {
   };
 
   return (
-    <div id='char-list' className='card'>
+    <div id='char-container' className='card'>
       <h2>Character List</h2>
-      <table id='char-list-table'>
-        <tbody>
-          {chars?.map(char => {
-            return (
-              <tr
-                key={char._id}
-                className='char-list-row'
-                style={{
-                  backgroundColor: char.color,
-                }}
-              >
-                <th
-                  className={
-                    char.viewSheet ? 'char-sheet-open' : 'char-sheet-closed'
-                  }
-                  id={char.id}
-                  onClick={handleViewSheet}
-                >
-                  {`${char.name} ${char.isNPC ? ' *' : ''}`}
-                </th>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div id='char-list'>
+        {chars?.map(char => {
+          return (
+            <div
+              key={char._id}
+              className={`char-list-item `}
+              style={{
+                '--prim-color': char.primaryColor,
+                '--scnd-color': char.secondaryColor,
+                '--text-color': getTextColor(char.primaryColor),
+              }}
+            >
+              <div id={char.id} onClick={handleViewSheet}>
+                <div className='char-name'>{char.name}</div>
+                <div className='char-encounter'>
+                  {char.campaign?.name || ''}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

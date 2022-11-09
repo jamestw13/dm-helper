@@ -31,7 +31,12 @@ export const QUERY_ME = gql`
       characters {
         _id
         name
-        color
+        primaryColor
+        secondaryColor
+
+        campaign {
+          name
+        }
       }
       campaigns {
         _id

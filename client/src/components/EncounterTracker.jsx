@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { TrackerNavigator } from "./TrackerNavigator";
-import { TrackerTable } from "./TrackerTable";
-import { statuses } from "./demoData";
+import { useState, useEffect } from 'react';
+import { TrackerNavigator } from './TrackerNavigator';
+import { TrackerTable } from './TrackerTable';
+import { statuses } from './demoData';
 
 export const EncounterTracker = ({ chars }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -11,7 +11,7 @@ export const EncounterTracker = ({ chars }) => {
 
   // Initialize encounterLog
   useEffect(() => {
-    let activeChars = chars?.filter((char) => !!char.inEncounter);
+    let activeChars = chars?.filter(char => !!char.inEncounter);
     activeChars = activeChars.sort((a, b) => b.init - a.init);
     const data = [...Array(numRounds + 1)].map((round, i) => {
       return {
@@ -20,11 +20,11 @@ export const EncounterTracker = ({ chars }) => {
           return {
             j,
             char,
-            statuses: statuses.filter((status) => {
+            statuses: statuses.filter(status => {
               return (
                 status.startRound === i &&
                 status.startTurn === j &&
-                activeChars.filter((char) => char.name === status.target).length
+                activeChars.filter(char => char.name === status.target).length
               );
             }),
           };
@@ -40,13 +40,13 @@ export const EncounterTracker = ({ chars }) => {
     const lastRound = logCopy.pop();
     lastRound.round++;
 
-    lastRound.turns.forEach((turn) => (turn.statuses = []));
+    lastRound.turns.forEach(turn => (turn.statuses = []));
 
     setEncounterLog([...encounterLog, lastRound]);
   };
 
   return (
-    <div id="tracker" className="card">
+    <div id='tracker' className='card'>
       <h2>Encounter</h2>
       <TrackerNavigator
         currentRound={currentRound}

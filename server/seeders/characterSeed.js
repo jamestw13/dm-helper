@@ -108,7 +108,8 @@ module.exports = function generateCharacter(isNPC) {
     hp: getHP(),
     ac: 10 + getAbilityMod(scores[1]) + randNumber({ min: -2, max: 4 }),
 
-    color: randHex(),
+    primaryColor: randHex(),
+    secondaryColor: randHex(),
     isNPC: isNPC,
   };
 

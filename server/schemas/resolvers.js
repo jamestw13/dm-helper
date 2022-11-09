@@ -8,8 +8,13 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('characters')
-          .populate('campaigns');
+          .populate([
+            { path: 'campaigns' },
+            {
+              path: 'characters',
+              populate: { path: 'campaign', model: 'Campaign' },
+            },
+          ]);
 
         return userData;
       }

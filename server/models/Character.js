@@ -89,7 +89,11 @@ const characterSchema = new Schema({
     type: Number,
     trim: true,
   },
-  color: {
+  primaryColor: {
+    type: String,
+    trim: true,
+  },
+  secondaryColor: {
     type: String,
     trim: true,
   },

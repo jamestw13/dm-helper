@@ -31,14 +31,6 @@ const Profile = props => {
     return <div>Loading...</div>;
   }
 
-  if (!user?.username) {
-    return (
-      <h4>
-        You need to be logged in to see this page. Use the navigation links
-        above to sign up or log in.
-      </h4>
-    );
-  }
   return (
     <main>
       <div className=''>
@@ -49,7 +41,6 @@ const Profile = props => {
 
       <section>
         <CharacterList chars={data?.me.characters} setChars={setSelectedChar} />
-        <SheetContainer chars={selectedChar} />
         <CampaignList campaigns={data?.me.campaigns} me={data?.me._id} />
       </section>
     </main>
