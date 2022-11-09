@@ -1,5 +1,6 @@
 import './CharacterList.css';
 import { getTextColor } from '../utils/helpers';
+import { Card } from './Card';
 
 const handleCharacterClick = char => {
   console.log(char.name);
@@ -7,8 +8,7 @@ const handleCharacterClick = char => {
 
 const CharacterList = ({ chars }) => {
   return (
-    <div id='char-container' className='card'>
-      <h2>Character List</h2>
+    <Card title='Character List'>
       <div id='char-list'>
         {chars?.map(char => {
           return (
@@ -34,7 +34,7 @@ const CharacterList = ({ chars }) => {
           );
         })}
       </div>
-    </div>
+    </Card>
   );
 };
 

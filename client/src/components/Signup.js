@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
+import { Card } from './Card';
 
 const Signup = () => {
   const [addUser, { error }] = useMutation(ADD_USER);
   const [formState, setFormState] = useState({
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
   });
 
   // update state based on form input changes
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
 
     setFormState({
@@ -22,7 +23,7 @@ const Signup = () => {
   };
 
   // submit form
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
 
     try {
@@ -37,38 +38,36 @@ const Signup = () => {
   };
 
   return (
-    <main>
-      <h4>Sign Up</h4>
-
+    <Card title='Sign Up'>
       <form onSubmit={handleFormSubmit}>
         <input
-          placeholder="Your username"
-          name="username"
-          type="username"
-          id="username"
+          placeholder='Your username'
+          name='username'
+          type='username'
+          id='username'
           value={formState.username}
           onChange={handleChange}
         />
         <input
-          placeholder="Your email"
-          name="email"
-          type="email"
-          id="email"
+          placeholder='Your email'
+          name='email'
+          type='email'
+          id='email'
           value={formState.email}
           onChange={handleChange}
         />
         <input
-          placeholder="******"
-          name="password"
-          type="password"
-          id="password"
+          placeholder='******'
+          name='password'
+          type='password'
+          id='password'
           value={formState.password}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
         {error && <div>Sign up failed</div>}
       </form>
-    </main>
+    </Card>
   );
 };
 

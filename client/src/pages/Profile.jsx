@@ -5,11 +5,12 @@ import { useParams, Navigate } from 'react-router-dom';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import './Profile.css';
 import CharacterList from '../components/CharacterList';
-import SheetContainer from '../components/SheetContainer';
+import SheetContainer from '../components/CharacterSheet';
 
 import Auth from '../utils/auth';
 import CampaignList from '../components/CampaignList';
 import Container from '../components/Container';
+import CharacterSheet from '../components/CharacterSheet';
 
 const Profile = props => {
   const { username: userParam } = useParams();
@@ -42,6 +43,7 @@ const Profile = props => {
 
       <section>
         <CharacterList chars={data?.me.characters} setChars={setSelectedChar} />
+        <CharacterSheet charId={data?.me.characters[0]._id} />
         <CampaignList campaigns={data?.me.campaigns} me={data?.me._id} />
       </section>
     </>

@@ -20,9 +20,7 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
-#char-container {
-  width: fit-content;
-}
+
 .char-encounter {
   padding-block: 0.5em;
   min-height: 1rem;
@@ -51,8 +49,6 @@
   padding: 1em;
   width: 100%;
   display: block;
-  height: 40vh;
-  overflow-y: auto;
 }
 
 .character-table tbody {
@@ -62,6 +58,8 @@
 .character-table td {
   border: 1px solid black;
   text-align: center;
+  height: 1.5rem;
+  width: 1rem;
 }
 
 .char-list-row {

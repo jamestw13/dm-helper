@@ -38,6 +38,48 @@ export const QUERY_CHARACTERS = gql`
   }
 `;
 
+export const QUERY_CHARACTER = gql`
+  query character($_id: String!) {
+    character(_id: $id) {
+      _id
+      name
+      race {
+        type
+      }
+      class {
+        type
+        hitDice
+      }
+      level
+      background {
+        type
+      }
+      str
+      dex
+      con
+      int
+      wis
+      cha
+      strMod
+      dexMod
+      conMod
+      intMod
+      wisMod
+      chaMod
+      profBonus
+      initMod
+      initiative
+      hp
+      ac
+      primaryColor
+      secondaryColor
+      isNPC
+      campaign
+      user
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     me {

@@ -12,11 +12,11 @@ function Campaign() {
   return (
     <main>
       {chars && (
-        <div id='container'>
+        <>
           <EncounterTracker chars={chars} />
           <CharacterList chars={chars} setChars={setChars} />
           <SheetContainer chars={chars.filter(char => char.viewSheet)} />
-        </div>
+        </>
       )}
     </main>
   );

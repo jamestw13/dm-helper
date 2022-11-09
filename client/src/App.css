@@ -12,31 +12,25 @@ body {
 a {
   text-decoration: none;
 }
-.App {
-  text-align: center;
-}
+
 .main-wrapper {
+  position: relative;
   margin-inline: auto;
-  border: 1px solid aqua;
-
   width: 80vw;
-}
-.app-container {
-  padding: 1em 2em 1em;
-  background-color: darkgray;
-  max-width: 70%;
-  margin-inline: auto;
+  min-height: 120vh;
 }
 
-#container {
+.home-container {
   display: flex;
-  justify-content: center;
   gap: 1em;
 }
 
 .card {
   padding: 1em 2em 1em;
   background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 #tracker {
