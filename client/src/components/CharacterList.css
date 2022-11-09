@@ -20,7 +20,9 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
-
+#char-container {
+  width: fit-content;
+}
 .char-encounter {
   padding-block: 0.5em;
   min-height: 1rem;
@@ -37,6 +39,7 @@
 }
 
 #char-list {
+  width: fit-content;
 }
 
 #char-list-table {

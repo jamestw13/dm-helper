@@ -9,7 +9,7 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
           .populate([
-            { path: 'campaigns' },
+            { path: 'campaigns', populate: { path: 'owner', model: 'User' } },
             {
               path: 'characters',
               populate: { path: 'campaign', model: 'Campaign' },
