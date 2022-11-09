@@ -75,6 +75,7 @@ const Login = props => {
               <button
                 onClick={() => {
                   setFormState({ password: '11111111', email: user.email });
+                  handleFormSubmit();
                 }}
               >
                 +

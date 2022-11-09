@@ -1,3 +1,4 @@
+import Auth from '../utils/auth';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -9,8 +10,12 @@ function Home() {
         they're not logged in. Description? Links to sign up or login
       </p>
 
-      <Login />
-      <Signup />
+      {!Auth.loggedIn && (
+        <>
+          <Login />
+          <Signup />
+        </>
+      )}
     </main>
   );
 }
