@@ -1,23 +1,42 @@
 import { useEffect, useState } from 'react';
 
-import { characterData } from '../demoData';
-import { EncounterTracker } from '../EncounterTracker';
-import { CharacterList } from '../CharacterList';
-import { SheetContainer } from '../SheetContainer';
+import { EncounterTracker } from '../components/EncounterTracker';
+import CharacterList from '../components/CharacterList';
+import Sheet from './Sheet';
+import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_CAMPAIGN } from '../utils/queries';
+
+import './Campaign.css';
 
 function Campaign() {
-  const [chars, setChars] = useState(characterData);
+  const { campaignId } = useParams();
+  const { data: campaignData, loading: campaignLoading } = useQuery(
+    QUERY_CAMPAIGN,
+    {
+      variables: { _id: campaignId },
+    }
+  );
+
+  const campaign = campaignData?.campaign || {};
+  const [chars, setChars] = useState([]);
+  useEffect(() => {
+    campaignData?.campaign && setChars(campaignData.campaign.characters);
+  }, [campaignData]);
 
   // const loggedIn = Auth.loggedIn();
   return (
     <main>
-      {chars && (
-        <>
-          <EncounterTracker chars={chars} />
-          <CharacterList chars={chars} setChars={setChars} />
-          <SheetContainer chars={chars.filter(char => char.viewSheet)} />
-        </>
-      )}
+      <Link to='/profile'>Go back</Link>
+      <div>{campaign.name}</div>
+
+      <div className='campaign-container'>
+        <EncounterTracker chars={chars} />
+        <CharacterList chars={chars} setChars={setChars} />
+        {/* {chars.length > 0 && (
+          <Sheet chars={chars.filter(char => char.viewSheet)} />
+        )} */}
+      </div>
     </main>
   );
 }

@@ -33,11 +33,6 @@ a {
   justify-content: flex-start;
 }
 
-#tracker {
-  display: flex;
-  flex-direction: column;
-}
-
 #tracker-nav {
   display: flex;
   justify-content: center;

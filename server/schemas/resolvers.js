@@ -1,4 +1,4 @@
-const { User, Character } = require('../models');
+const { User, Character, Campaign } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -34,8 +34,13 @@ const resolvers = {
       return Character.findOne({ _id: _id })
         .select('-__v')
         .populate('campaign')
-        .populate('user')
-        .populate('raceObject.$*.type');
+        .populate('user');
+    },
+    campaign: async (parent, { _id }, context) => {
+      return Campaign.findOne({ _id: _id })
+        .select('-__v')
+        .populate('characters')
+        .populate('owner');
     },
   },
 

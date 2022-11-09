@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { TrackerNavigator } from './TrackerNavigator';
 import { TrackerTable } from './TrackerTable';
 import { statuses } from './demoData';
+import { Card } from './Card';
 
 export const EncounterTracker = ({ chars }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -46,24 +47,25 @@ export const EncounterTracker = ({ chars }) => {
   };
 
   return (
-    <div id='tracker' className='card'>
-      <h2>Encounter</h2>
-      <TrackerNavigator
-        currentRound={currentRound}
-        setCurrentRound={setCurrentRound}
-        currentTurn={currentTurn}
-        setCurrentTurn={setCurrentTurn}
-      />
+    <Card title='Encounter Tracker'>
+      <div>
+        <TrackerNavigator
+          currentRound={currentRound}
+          setCurrentRound={setCurrentRound}
+          currentTurn={currentTurn}
+          setCurrentTurn={setCurrentTurn}
+        />
 
-      <TrackerTable
-        currentRound={currentRound}
-        setCurrentRound={setCurrentRound}
-        currentTurn={currentTurn}
-        setCurrentTurn={setCurrentTurn}
-        encounterLog={encounterLog}
-        setEncounterLog={setEncounterLog}
-        addRound={addRound}
-      />
-    </div>
+        <TrackerTable
+          currentRound={currentRound}
+          setCurrentRound={setCurrentRound}
+          currentTurn={currentTurn}
+          setCurrentTurn={setCurrentTurn}
+          encounterLog={encounterLog}
+          setEncounterLog={setEncounterLog}
+          addRound={addRound}
+        />
+      </div>
+    </Card>
   );
 };

@@ -38,6 +38,52 @@ export const QUERY_CHARACTERS = gql`
   }
 `;
 
+export const QUERY_CAMPAIGN = gql`
+  query campaign($_id: ID) {
+    campaign(_id: $_id) {
+      name
+      owner {
+        username
+      }
+      characters {
+        name
+        race
+        class
+        hitDice
+        level
+        background
+        str
+        dex
+        con
+        int
+        wis
+        cha
+        strMod
+        dexMod
+        conMod
+        intMod
+        wisMod
+        chaMod
+        profBonus
+        initMod
+        initiative
+        hp
+        ac
+        primaryColor
+        secondaryColor
+        isNPC
+        campaign {
+          _id
+          name
+        }
+        user {
+          firstname
+        }
+      }
+    }
+  }
+`;
+
 export const QUERY_CHARACTER = gql`
   query character($_id: ID!) {
     character(_id: $_id) {

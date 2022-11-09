@@ -3,7 +3,6 @@ import { QUERY_CHARACTER } from '../utils/queries';
 import { Card } from './Card';
 
 const CharacterSheet = ({ charId }) => {
-  console.log(charId);
   const { data: charData } = useQuery(QUERY_CHARACTER, {
     variables: { _id: charId },
   });
