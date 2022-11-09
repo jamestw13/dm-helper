@@ -33,6 +33,7 @@ export const QUERY_ME = gql`
         name
         primaryColor
         secondaryColor
+        isNPC
 
         campaign {
           name
