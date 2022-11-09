@@ -84,12 +84,17 @@ module.exports = function generateCharacter(isNPC) {
   const scores = rollAbilityScores();
   const level = randNumber({ min: 1, max: 20 });
 
+  const raceStats = rand(races);
+  const classStats = rand(classes);
+  const backgroundStats = rand(backgrounds);
+
   const character = {
     name: randFullName({ withAccents: true }),
-    race: rand(races),
-    class: rand(classes),
+    race: raceStats.type,
+    class: classStats.type,
+    hitDice: classStats.hitDice,
     level: level,
-    background: rand(backgrounds),
+    background: backgroundStats.type,
     str: scores[0],
     dex: scores[1],
     con: scores[2],
@@ -108,7 +113,8 @@ module.exports = function generateCharacter(isNPC) {
     hp: getHP(),
     ac: 10 + getAbilityMod(scores[1]) + randNumber({ min: -2, max: 4 }),
 
-    color: randHex(),
+    primaryColor: randHex(),
+    secondaryColor: randHex(),
     isNPC: isNPC,
   };
 

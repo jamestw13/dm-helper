@@ -19,6 +19,112 @@ export const QUERY_USERS = gql`
     }
   }
 `;
+
+export const QUERY_CHARACTERS = gql`
+  {
+    characters {
+      _id
+      name
+      primaryColor
+      secondaryColor
+      isNPC
+      user {
+        username
+      }
+      campaign {
+        name
+      }
+    }
+  }
+`;
+
+export const QUERY_CAMPAIGN = gql`
+  query campaign($_id: ID) {
+    campaign(_id: $_id) {
+      name
+      owner {
+        username
+      }
+      characters {
+        name
+        race
+        class
+        hitDice
+        level
+        background
+        str
+        dex
+        con
+        int
+        wis
+        cha
+        strMod
+        dexMod
+        conMod
+        intMod
+        wisMod
+        chaMod
+        profBonus
+        initMod
+        initiative
+        hp
+        ac
+        primaryColor
+        secondaryColor
+        isNPC
+        campaign {
+          _id
+          name
+        }
+        user {
+          firstname
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_CHARACTER = gql`
+  query character($_id: ID!) {
+    character(_id: $_id) {
+      _id
+      name
+      race
+      class
+      hitDice
+      level
+      background
+      str
+      dex
+      con
+      int
+      wis
+      cha
+      strMod
+      dexMod
+      conMod
+      intMod
+      wisMod
+      chaMod
+      profBonus
+      initMod
+      initiative
+      hp
+      ac
+      primaryColor
+      secondaryColor
+      isNPC
+      campaign {
+        _id
+        name
+      }
+      user {
+        firstname
+      }
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     me {
@@ -27,11 +133,18 @@ export const QUERY_ME = gql`
       email
       firstname
       lastname
+      avatar
 
       characters {
         _id
         name
-        color
+        primaryColor
+        secondaryColor
+        isNPC
+
+        campaign {
+          name
+        }
       }
       campaigns {
         _id
@@ -41,16 +154,6 @@ export const QUERY_ME = gql`
           username
         }
       }
-    }
-  }
-`;
-
-export const QUERY_HEADER = gql`
-  {
-    me {
-      firstname
-      lastname
-      avatar
     }
   }
 `;

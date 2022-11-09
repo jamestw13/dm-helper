@@ -7,6 +7,8 @@ const path = require('path');
 // import mongoose database connection
 const db = require('./config/connection');
 
+require('dotenv').config();
+
 // import graphQL apollo
 const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');

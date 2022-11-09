@@ -1,10 +1,11 @@
 .footer {
   font-size: 1rem;
   text-align: end;
-  padding: 1em;
+  padding-block: 1em;
   display: block;
   background-color: lightgrey;
   border-top: 0.25rem solid gray;
   position: sticky;
   bottom: 0;
+  width: 100%;
 }

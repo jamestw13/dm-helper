@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Character, Campaign } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -8,8 +8,13 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('characters')
-          .populate('campaigns');
+          .populate([
+            { path: 'campaigns', populate: { path: 'owner', model: 'User' } },
+            {
+              path: 'characters',
+              populate: { path: 'campaign', model: 'Campaign' },
+            },
+          ]);
 
         return userData;
       }
@@ -21,6 +26,21 @@ const resolvers = {
     },
     user: async (parent, { username }) => {
       return User.findOne({ username }).select('-__v -password');
+    },
+    characters: async () => {
+      return Character.find().select('-__v').populate('campaign');
+    },
+    character: async (parent, { _id }, context) => {
+      return Character.findOne({ _id: _id })
+        .select('-__v')
+        .populate('campaign')
+        .populate('user');
+    },
+    campaign: async (parent, { _id }, context) => {
+      return Campaign.findOne({ _id: _id })
+        .select('-__v')
+        .populate('characters')
+        .populate('owner');
     },
   },
 

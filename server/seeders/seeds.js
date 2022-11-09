@@ -34,18 +34,26 @@ db.once('open', async () => {
       { $addToSet: { campaigns: campaignId } }
     );
 
-    // Create NPCs
+    // NPC Loop
     for (let j = 0; j < randNumber({ min: 0, max: 7 }); j++) {
+      // Create NPC
       const { _id: npcId } = await Character.create(generateCharacter(true));
-      // Associate NPCs with DM
+
+      // Connect NPC with DM
       await User.findOneAndUpdate(
         { _id: dmId },
         { $addToSet: { characters: npcId } }
       );
-      // Associate NPCs with campaign
+
+      // Connect NPC with campaign
       await Campaign.findOneAndUpdate(
         { _id: campaignId },
         { $addToSet: { characters: npcId } }
+      );
+
+      await Character.findOneAndUpdate(
+        { _id: npcId },
+        { campaign: campaignId, user: dmId }
       );
     }
   }
@@ -65,19 +73,26 @@ db.once('open', async () => {
       campaign = rand(campaigns);
       dmId = campaign.owner._id;
     }
+
     // Create PC
     const { _id: pcId } = await Character.create(generateCharacter(false));
+
     // Associate PC with user
     await User.findOneAndUpdate(
       { _id: playerId },
       { $addToSet: { characters: pcId } }
     );
+
+    await Character.findOneAndUpdate({ _id: pcId }, { user: playerId });
+
     // Randomly select whether to associate with the campaign and do so
-    randBoolean() &&
-      Campaign.findOneAndUpdate(
+    if (randBoolean()) {
+      const { _id: campaignId } = await Campaign.findOneAndUpdate(
         { _id: campaign._id },
         { $addToSet: { characters: pcId }, $addToSet: { players: playerId } }
       );
+      await Character.findOneAndUpdate({ _id: pcId }, { campaign: campaignId });
+    }
   }
   console.log('Finished Seeding');
   process.exit(0);

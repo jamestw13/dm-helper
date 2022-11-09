@@ -17,10 +17,12 @@ const typeDefs = gql`
   type Character {
     _id: ID
     name: String
-    race: Race
-    class: Class
+
+    race: String
+    class: String
     level: Int
-    background: Background
+    hitDice: Int
+    background: String
     str: Int
     dex: Int
     con: Int
@@ -38,9 +40,12 @@ const typeDefs = gql`
     initiative: Int
     hp: Int
     ac: Int
-    color: String
+    primaryColor: String
+    secondaryColor: String
+
     isNPC: Boolean
     campaign: Campaign
+    user: User
   }
 
   type Race {
@@ -68,6 +73,9 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
+    characters: [Character]
+    character(_id: ID): Character
+    campaign(_id: ID): Campaign
   }
 
   type Mutation {

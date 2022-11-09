@@ -1,30 +1,28 @@
+import { Navigate, useNavigate } from 'react-router-dom';
+import { Card } from './Card';
+
 const CampaignList = ({ campaigns, me }) => {
+  const navigate = useNavigate();
+
+  const handleCampaignClick = campaignId => {
+    return navigate(`/campaign/${campaignId}`);
+  };
   return (
-    <div id='char-list' className='card'>
-      <h2>Campaign List</h2>
-      <h3>I'm the DM</h3>
-      <ul>
-        {campaigns?.map(campaign => {
-          if (campaign.owner._id === me)
-            return (
-              <li key={campaign._id} className='char-list-row' style={{}}>
-                {campaign.name}
-              </li>
-            );
-        })}
-      </ul>
-      <h3>I'm a player</h3>
-      <ul>
-        {campaigns?.map(campaign => {
-          if (campaign.owner._id !== me)
-            return (
-              <li key={campaign._id} className='char-list-row' style={{}}>
-                {campaign.name}
-              </li>
-            );
-        })}
-      </ul>
-    </div>
+    <Card title='Campaign List'>
+      <div>
+        {campaigns?.map(campaign => (
+          <div
+            key={campaign._id}
+            className='char-list-item'
+            style={{ '--prim-color': '#000000', '--text-color': '#ffffff' }}
+            onClick={() => handleCampaignClick(campaign._id)}
+          >
+            <div className='char-name'>{campaign.name}</div>
+            <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
+          </div>
+        ))}
+      </div>
+    </Card>
   );
 };
 
