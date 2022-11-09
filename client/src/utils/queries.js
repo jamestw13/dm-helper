@@ -19,6 +19,25 @@ export const QUERY_USERS = gql`
     }
   }
 `;
+
+export const QUERY_CHARACTERS = gql`
+  {
+    characters {
+      _id
+      name
+      primaryColor
+      secondaryColor
+      isNPC
+      user {
+        username
+      }
+      campaign {
+        name
+      }
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     me {
@@ -27,6 +46,7 @@ export const QUERY_ME = gql`
       email
       firstname
       lastname
+      avatar
 
       characters {
         _id
@@ -47,16 +67,6 @@ export const QUERY_ME = gql`
           username
         }
       }
-    }
-  }
-`;
-
-export const QUERY_HEADER = gql`
-  {
-    me {
-      firstname
-      lastname
-      avatar
     }
   }
 `;

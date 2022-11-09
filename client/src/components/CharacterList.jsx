@@ -5,7 +5,7 @@ const handleCharacterClick = char => {
   console.log(char.name);
 };
 
-const CharacterList = ({ chars, setChars }) => {
+const CharacterList = ({ chars }) => {
   return (
     <div id='char-container' className='card'>
       <h2>Character List</h2>
@@ -24,9 +24,10 @@ const CharacterList = ({ chars, setChars }) => {
               <div id={char.id} onClick={() => handleCharacterClick(char)}>
                 <div className='char-name'>{char.name}</div>
                 <div className='char-encounter'>
-                  {`${char.isNPC ? 'NPC' : 'PC'} ${
-                    char.campaign ? 'in: ' : ''
-                  } ${!!char.campaign ? char.campaign.name : ' '}`}
+                  {!!char.campaign &&
+                    (char.isNPC
+                      ? `NPC in: ${char.campaign.name}`
+                      : `PC in: ${char.campaign.name}`)}
                 </div>
               </div>
             </div>

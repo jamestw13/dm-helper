@@ -43,6 +43,7 @@ const typeDefs = gql`
 
     isNPC: Boolean
     campaign: Campaign
+    user: User
   }
 
   type Race {
@@ -70,6 +71,7 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
+    characters: [Character]
   }
 
   type Mutation {

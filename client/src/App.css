@@ -15,7 +15,12 @@ a {
 .App {
   text-align: center;
 }
+.main-wrapper {
+  margin-inline: auto;
+  border: 1px solid aqua;
 
+  width: 80vw;
+}
 .app-container {
   padding: 1em 2em 1em;
   background-color: darkgray;

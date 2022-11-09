@@ -9,6 +9,7 @@ import SheetContainer from '../components/SheetContainer';
 
 import Auth from '../utils/auth';
 import CampaignList from '../components/CampaignList';
+import Container from '../components/Container';
 
 const Profile = props => {
   const { username: userParam } = useParams();
@@ -32,7 +33,7 @@ const Profile = props => {
   }
 
   return (
-    <main>
+    <>
       <div className=''>
         <h2 className=''>
           Viewing {userParam ? `${user.username}'s` : 'your'} profile
@@ -43,7 +44,7 @@ const Profile = props => {
         <CharacterList chars={data?.me.characters} setChars={setSelectedChar} />
         <CampaignList campaigns={data?.me.campaigns} me={data?.me._id} />
       </section>
-    </main>
+    </>
   );
 };
 

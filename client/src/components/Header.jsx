@@ -25,7 +25,7 @@ const Header = ({ me }) => {
               </a>
               <Link to='/profile'>{`${me?.firstname} ${me?.lastname}`}</Link>
               <Link to='/profile'>
-                <img src={me?.avatar} className='avatar' alt='avatar image' />
+                <img src={me?.avatar} className='avatar' alt="User's avatar" />
               </Link>
             </div>
           ) : (

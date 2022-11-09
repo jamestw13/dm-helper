@@ -105,6 +105,10 @@ const characterSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Campaign',
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 const Character = model('Character', characterSchema);

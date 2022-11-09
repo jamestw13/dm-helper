@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Character } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -26,6 +26,9 @@ const resolvers = {
     },
     user: async (parent, { username }) => {
       return User.findOne({ username }).select('-__v -password');
+    },
+    characters: async () => {
+      return Character.find().select('-__v').populate('campaign');
     },
   },
 
