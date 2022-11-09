@@ -39,21 +39,15 @@ export const QUERY_CHARACTERS = gql`
 `;
 
 export const QUERY_CHARACTER = gql`
-  query character($_id: String!) {
-    character(_id: $id) {
+  query character($_id: ID!) {
+    character(_id: $_id) {
       _id
       name
-      race {
-        type
-      }
-      class {
-        type
-        hitDice
-      }
+      race
+      class
+      hitDice
       level
-      background {
-        type
-      }
+      background
       str
       dex
       con
@@ -74,8 +68,13 @@ export const QUERY_CHARACTER = gql`
       primaryColor
       secondaryColor
       isNPC
-      campaign
-      user
+      campaign {
+        _id
+        name
+      }
+      user {
+        firstname
+      }
     }
   }
 `;

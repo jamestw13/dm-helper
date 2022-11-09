@@ -17,10 +17,12 @@ const typeDefs = gql`
   type Character {
     _id: ID
     name: String
-    race: Race
-    class: Class
+
+    race: String
+    class: String
     level: Int
-    background: Background
+    hitDice: Int
+    background: String
     str: Int
     dex: Int
     con: Int
@@ -72,6 +74,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     characters: [Character]
+    character(_id: ID): Character
   }
 
   type Mutation {

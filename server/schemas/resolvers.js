@@ -30,6 +30,13 @@ const resolvers = {
     characters: async () => {
       return Character.find().select('-__v').populate('campaign');
     },
+    character: async (parent, { _id }, context) => {
+      return Character.findOne({ _id: _id })
+        .select('-__v')
+        .populate('campaign')
+        .populate('user')
+        .populate('raceObject.$*.type');
+    },
   },
 
   Mutation: {
