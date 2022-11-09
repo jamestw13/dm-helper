@@ -7,13 +7,13 @@ import {
   randFirstName,
   randHex,
   randFullName,
-} from "@ngneat/falso";
-import { v4 as uuidv4 } from "uuid";
+} from '@ngneat/falso';
+import { v4 as uuidv4 } from 'uuid';
 
 const NUM_CHARS = 7;
 const NUM_STATUSES = 10;
 
-seed("D&D");
+seed('D&D');
 
 class Character {
   constructor() {
@@ -49,7 +49,7 @@ class Character {
 
   rollAbilityScore = () => {
     let rolls = [1, 1, 1, 1];
-    rolls = rolls.map((roll) => {
+    rolls = rolls.map(roll => {
       return randNumber({ min: 1, max: 6 });
     });
     rolls.sort((a, b) => b - a).pop();
@@ -57,7 +57,7 @@ class Character {
     return result;
   };
 
-  getAbilityMod = (stat) => {
+  getAbilityMod = stat => {
     return Math.floor((stat - 10) / 2);
   };
 
@@ -74,54 +74,54 @@ class Character {
     return result;
   };
 
-  rollDie = (numSides) => {
+  rollDie = numSides => {
     return randNumber({ min: 1, max: numSides });
   };
   classes = [
-    { type: "Barbarian", hitDice: 12 },
-    { type: "Bard", hitDice: 8 },
-    { type: "Cleric", hitDice: 8 },
-    { type: "Druid", hitDice: 8 },
-    { type: "Fighter", hitDice: 10 },
-    { type: "Monk", hitDice: 8 },
-    { type: "Paladin", hitDice: 10 },
-    { type: "Ranger", hitDice: 10 },
-    { type: "Rogue", hitDice: 8 },
-    { type: "Sorcerer", hitDice: 6 },
-    { type: "Warlock", hitDice: 10 },
-    { type: "Wizard", hitDice: 6 },
+    { type: 'Barbarian', hitDice: 12 },
+    { type: 'Bard', hitDice: 8 },
+    { type: 'Cleric', hitDice: 8 },
+    { type: 'Druid', hitDice: 8 },
+    { type: 'Fighter', hitDice: 10 },
+    { type: 'Monk', hitDice: 8 },
+    { type: 'Paladin', hitDice: 10 },
+    { type: 'Ranger', hitDice: 10 },
+    { type: 'Rogue', hitDice: 8 },
+    { type: 'Sorcerer', hitDice: 6 },
+    { type: 'Warlock', hitDice: 10 },
+    { type: 'Wizard', hitDice: 6 },
   ];
 
   races = [
-    "Human",
-    "Elf",
-    "Dwarf",
-    "Halfling",
-    "Dragonborn",
-    "Gnome",
-    "Half-elf",
-    "Half-orc",
-    "Tiefling",
-    "Warforged",
+    'Human',
+    'Elf',
+    'Dwarf',
+    'Halfling',
+    'Dragonborn',
+    'Gnome',
+    'Half-elf',
+    'Half-orc',
+    'Tiefling',
+    'Warforged',
   ];
 
   backgrounds = [
-    "Acolyte",
-    "Charlatan",
-    "Criminal",
-    "Entertainer",
-    "Folk Hero",
-    "Guild Artisan",
-    "Hermit",
-    "Noble",
-    "Outlander",
-    "Sage",
-    "Sailor",
-    "Soldier",
-    "Urchin",
+    'Acolyte',
+    'Charlatan',
+    'Criminal',
+    'Entertainer',
+    'Folk Hero',
+    'Guild Artisan',
+    'Hermit',
+    'Noble',
+    'Outlander',
+    'Sage',
+    'Sailor',
+    'Soldier',
+    'Urchin',
   ];
 }
-export const generateCharData = (numChars) => {
+export const generateCharData = numChars => {
   let chars = [];
   const idFactory = incrementalNumber({ from: 20, to: 1000, step: 1 });
   for (let i = 0; i < numChars; i++) {
@@ -130,14 +130,14 @@ export const generateCharData = (numChars) => {
   return chars;
 };
 
-const generateStatusData = (numStatuses) => {
+const generateStatusData = numStatuses => {
   let statusData = [];
   for (let i = 0; i < numStatuses; i++) {
     const targetChar = rand(characterData);
     const status = {
       target: targetChar.name,
       targetColor: targetChar.color,
-      caster: rand(characterData.map((char) => char.name)),
+      caster: rand(characterData.map(char => char.name)),
       condition: rand(conditions),
       startRound: randNumber({ min: 0, max: 6 }),
       startTurn: randNumber({ min: 0, max: NUM_CHARS }),
@@ -149,20 +149,20 @@ const generateStatusData = (numStatuses) => {
 };
 
 const conditions = [
-  "Blinded",
-  "Charmed",
-  "Deafened",
-  "Frightened",
-  "Grappled",
-  "Incapacitated",
-  "Invisible",
-  "Paralyzed",
-  "Petrified",
-  "Poisoned",
-  "Prone",
-  "Restrained",
-  "Stunned",
-  "Unconscious",
+  'Blinded',
+  'Charmed',
+  'Deafened',
+  'Frightened',
+  'Grappled',
+  'Incapacitated',
+  'Invisible',
+  'Paralyzed',
+  'Petrified',
+  'Poisoned',
+  'Prone',
+  'Restrained',
+  'Stunned',
+  'Unconscious',
 ];
 
 export const characterData = generateCharData(NUM_CHARS);

@@ -1,0 +1,67 @@
+:root {
+  --prim-color: #ff0000;
+  --scnd-color: #00ff00;
+  --text-color: #0000ff;
+}
+
+.char-list-item {
+  padding: 0.5em;
+  margin-block: 0.5em;
+
+  background: linear-gradient(
+    135deg,
+    var(--prim-color) 85%,
+    var(--scnd-color) 85%
+  );
+  color: var(--text-color);
+}
+
+.char-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.char-encounter {
+  padding-block: 0.5em;
+  min-height: 1rem;
+}
+
+.char-sheet-open {
+  padding-inline: 5em;
+  border-style: inset;
+  border-color: black;
+}
+
+.char-sheet-closed {
+  border-style: outset;
+}
+
+#char-list {
+  width: fit-content;
+}
+
+#char-list-table {
+  border-style: none;
+  border: 0 solid none;
+}
+
+.character-table {
+  padding: 1em;
+  width: 100%;
+  display: block;
+}
+
+.character-table tbody {
+}
+
+.character-table th,
+.character-table td {
+  border: 1px solid black;
+  text-align: center;
+  height: 1.5rem;
+  width: 1rem;
+}
+
+.char-list-row {
+  height: 5em;
+}

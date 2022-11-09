@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,35 +9,35 @@ body {
   background-color: gray;
 }
 
-.App {
-  text-align: center;
+a {
+  text-decoration: none;
 }
 
-#container {
+.main-wrapper {
+  position: relative;
+  margin-inline: auto;
+  width: 80vw;
+  min-height: 120vh;
+}
+
+.home-container {
   display: flex;
-  justify-content: center;
   gap: 1em;
 }
+
 .card {
-  height: 95vh;
-  overflow: auto;
-  /* margin: 0.5em; */
-  padding: 1em 3em 1em;
+  padding: 1em 2em 1em;
   background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
+
 #tracker {
   display: flex;
   flex-direction: column;
 }
 
-.char-sheet-open {
-  padding-inline: 5em;
-  border-style: inset;
-  border-color: black;
-}
-.char-sheet-closed {
-  border-style: outset;
-}
 #tracker-nav {
   display: flex;
   justify-content: center;
@@ -61,14 +61,6 @@ body {
   overflow-x: auto;
 }
 
-#char-list {
-}
-
-#char-list-table {
-  border-style: none;
-  border: 0 solid none;
-}
-
 ul {
   list-style: none;
 }
@@ -84,22 +76,3 @@ ul {
 .status-cell:hover {
   font-size: 1rem;
 } */
-
-.character-table {
-  padding: 1em;
-  width: 100%;
-  display: block;
-  height: 40vh;
-  overflow-y: auto;
-}
-.character-table tbody {
-}
-.character-table th,
-.character-table td {
-  border: 1px solid black;
-  text-align: center;
-}
-
-.char-list-row {
-  height: 5em;
-}
