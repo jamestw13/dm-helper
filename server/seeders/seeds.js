@@ -3,6 +3,8 @@ const { User, Character, Campaign } = require('../models');
 const generateUsers = require('./userSeed');
 const generateCharacter = require('./characterSeed');
 const { rand, randBook, randNumber, randBoolean } = require('@ngneat/falso');
+const Monster = require('../models/Monster');
+const seedMonsters = require('./monsterSeed');
 
 const NUM_USERS = 20;
 const NUM_CAMPAIGNS = 20;
@@ -13,6 +15,9 @@ db.once('open', async () => {
   await User.deleteMany({});
   await Character.deleteMany({});
   await Campaign.deleteMany({});
+  await Monster.deleteMany({});
+
+  seedMonsters();
 
   // Make pool of users
   const users = await User.create(await generateUsers(NUM_USERS));
