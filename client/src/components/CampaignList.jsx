@@ -8,21 +8,19 @@ const CampaignList = ({ campaigns, me }) => {
     return navigate(`/campaign/${campaignId}`);
   };
   return (
-    <Card title='Campaign List'>
-      <div>
-        {campaigns?.map(campaign => (
-          <div
-            key={campaign._id}
-            className='char-list-item'
-            style={{ '--prim-color': '#000000', '--text-color': '#ffffff' }}
-            onClick={() => handleCampaignClick(campaign._id)}
-          >
-            <div className='char-name'>{campaign.name}</div>
-            <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
-          </div>
-        ))}
-      </div>
-    </Card>
+    <>
+      {campaigns?.map(campaign => (
+        <div
+          key={campaign._id}
+          className='char-list-item'
+          style={{ '--prim-color': '#000000', '--text-color': '#ffffff' }}
+          onClick={() => handleCampaignClick(campaign._id)}
+        >
+          <div className='char-name'>{campaign.name}</div>
+          <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
+        </div>
+      ))}
+    </>
   );
 };
 

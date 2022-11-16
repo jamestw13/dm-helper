@@ -6,7 +6,7 @@ const { rand, randBook, randNumber, randBoolean } = require('@ngneat/falso');
 
 const NUM_USERS = 20;
 const NUM_CAMPAIGNS = 20;
-const NUM_PLAYERS = 4 * NUM_CAMPAIGNS;
+const NUM_PLAYERS = 8 * NUM_CAMPAIGNS;
 
 db.once('open', async () => {
   // Clear previous documents
@@ -58,21 +58,12 @@ db.once('open', async () => {
     }
   }
 
-  // PLAYER ROUND
+  // PC Round
   const campaigns = await Campaign.find({});
 
   for (let i = 0; i < NUM_PLAYERS; i++) {
     // Select random user to be a player
     const { _id: playerId } = rand(users);
-
-    //  Select random campaign where user is not DM
-    let dmId = playerId;
-    let campaign;
-
-    while (dmId === playerId) {
-      campaign = rand(campaigns);
-      dmId = campaign.owner._id;
-    }
 
     // Create PC
     const { _id: pcId } = await Character.create(generateCharacter(false));
@@ -87,11 +78,31 @@ db.once('open', async () => {
 
     // Randomly select whether to associate with the campaign and do so
     if (randBoolean()) {
-      const { _id: campaignId } = await Campaign.findOneAndUpdate(
+      //  Select random campaign where user is not DM
+      let dmId = playerId;
+      let campaign;
+
+      while (dmId === playerId) {
+        campaign = rand(campaigns);
+        dmId = campaign.owner._id;
+      }
+
+      // Associate character and campaign
+      await Campaign.findOneAndUpdate(
         { _id: campaign._id },
-        { $addToSet: { characters: pcId }, $addToSet: { players: playerId } }
+        { $addToSet: { characters: pcId } },
+        { $addToSet: { players: playerId } }
       );
-      await Character.findOneAndUpdate({ _id: pcId }, { campaign: campaignId });
+
+      await Character.findOneAndUpdate(
+        { _id: pcId },
+        { campaign: campaign._id }
+      );
+
+      await User.findOneAndUpdate(
+        { _id: playerId },
+        { $addToSet: { campaigns: campaign._id } }
+      );
     }
   }
   console.log('Finished Seeding');

@@ -47,25 +47,23 @@ export const EncounterTracker = ({ chars }) => {
   };
 
   return (
-    <Card title='Encounter Tracker'>
-      <div>
-        <TrackerNavigator
-          currentRound={currentRound}
-          setCurrentRound={setCurrentRound}
-          currentTurn={currentTurn}
-          setCurrentTurn={setCurrentTurn}
-        />
+    <div>
+      <TrackerNavigator
+        currentRound={currentRound}
+        setCurrentRound={setCurrentRound}
+        currentTurn={currentTurn}
+        setCurrentTurn={setCurrentTurn}
+      />
 
-        <TrackerTable
-          currentRound={currentRound}
-          setCurrentRound={setCurrentRound}
-          currentTurn={currentTurn}
-          setCurrentTurn={setCurrentTurn}
-          encounterLog={encounterLog}
-          setEncounterLog={setEncounterLog}
-          addRound={addRound}
-        />
-      </div>
-    </Card>
+      <TrackerTable
+        currentRound={currentRound}
+        setCurrentRound={setCurrentRound}
+        currentTurn={currentTurn}
+        setCurrentTurn={setCurrentTurn}
+        encounterLog={encounterLog}
+        setEncounterLog={setEncounterLog}
+        addRound={addRound}
+      />
+    </div>
   );
 };

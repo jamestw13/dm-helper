@@ -9,15 +9,17 @@ import Auth from '../utils/auth';
 import CharacterSheet from '../components/CharacterSheet';
 import { Card } from '../components/Card';
 import { QUERY_CHARACTER } from '../utils/queries';
+import PageWrapper from '../components/PageWrapper';
 
 const Sheet = ({}) => {
   const { charId } = useParams();
 
   return (
-    <Card title='Character Sheet'>
-      <Link to='/profile'>Go Back</Link>
-      <CharacterSheet charId={charId} />
-    </Card>
+    <PageWrapper title='Character Sheet'>
+      <div className='card'>
+        <CharacterSheet charId={charId} />
+      </div>
+    </PageWrapper>
   );
 };
 export default Sheet;
