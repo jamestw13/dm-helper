@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { getTextColor } from '../utils/helpers';
 
-export const Card = ({ children, title, collapsable }) => {
-  const [cardOpen, setCardOpen] = useState(true);
-
+const Card = ({ lineOne, lineTwo, colorOne, colorTwo, handleCardClick }) => {
   return (
-    <section className='card'>
-      {collapsable && (
-        <div className='collapse-button' onClick={() => setCardOpen(!cardOpen)}>
-          {title}
-        </div>
-      )}
-      <h2 className={cardOpen ? 'card-title' : 'card-closed'}>{title}</h2>
-      <div className={cardOpen ? 'card-children' : 'card-closed'}>
-        {children}
-      </div>
-    </section>
+    <div
+      className='char-list-item'
+      style={{
+        '--prim-color': colorOne,
+        '--scnd-color': colorTwo,
+        '--text-color': getTextColor(colorOne),
+      }}
+      onClick={() => handleCardClick(char._id)}
+    >
+      <div className='char-name'>{lineOne}</div>
+      <div className='char-encounter'>{lineTwo}</div>
+    </div>
   );
 };
+export default Card;

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { EncounterTracker } from '../components/EncounterTracker';
 import CharacterList from '../components/CharacterList';
-import { Card } from '../components/Card';
+import { Section } from '../components/Section';
 import CharacterSheet from '../components/CharacterSheet';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -30,17 +30,17 @@ function Campaign() {
   return (
     <PageWrapper title={campaign.name} className='campaign-container'>
       <section className='campaign-container'>
-        <Card title='Characters' collapsable>
+        <Section title='Characters' collapsable>
           <CharacterList chars={chars} setChars={setChars} />
-        </Card>
-        <Card title='Encounter Tracker' collapsable>
+        </Section>
+        <Section title='Encounter Tracker' collapsable>
           <EncounterTracker chars={chars} />
-        </Card>
-        <Card title='Character Sheet' collapsable>
+        </Section>
+        <Section title='Character Sheet' collapsable>
           {chars.length > 0 && (
             <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
           )}
-        </Card>
+        </Section>
       </section>
     </PageWrapper>
   );

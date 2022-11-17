@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 import CampaignList from '../components/CampaignList';
 
 import CharacterSheet from '../components/CharacterSheet';
-import { Card } from '../components/Card';
+import { Section } from '../components/Section';
 import PageWrapper from '../components/PageWrapper';
 
 const Profile = ({ data }) => {
@@ -36,22 +36,22 @@ const Profile = ({ data }) => {
   return (
     <PageWrapper title='Dashboard'>
       <section>
-        <Card title='Character List'>
+        <Section title='Character List'>
           <CharacterList
             chars={data?.characters}
             handleCharacterClick={handleCharacterClick}
             selectedCar={selectedChar}
             setSelectedChar={setSelectedChar}
           />
-        </Card>
+        </Section>
         {!!selectedChar && (
-          <Card title='Character Sheet'>
+          <Section title='Character Sheet'>
             <CharacterSheet charId={selectedChar._id} />
-          </Card>
+          </Section>
         )}
-        <Card title='Campaign List'>
+        <Section title='Campaign List'>
           <CampaignList campaigns={data?.campaigns} me={data?._id} />
-        </Card>
+        </Section>
       </section>
     </PageWrapper>
   );

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { TrackerNavigator } from './TrackerNavigator';
 import { TrackerTable } from './TrackerTable';
 import { statuses } from './demoData';
-import { Card } from './Card';
 
 export const EncounterTracker = ({ chars }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -95,10 +94,12 @@ export const EncounterTracker = ({ chars }) => {
       <>
         <p>Set Up Encounter</p>
         <table>
-          <th>Characters</th>
-          {charPickerList.map(char => {
-            return (
-              <tr>
+          <tbody>
+            <tr>
+              <th>Characters</th>
+            </tr>
+            {charPickerList.map((char, i) => (
+              <tr key={i}>
                 <td>
                   <p>{char.name}</p>
                 </td>
@@ -106,15 +107,17 @@ export const EncounterTracker = ({ chars }) => {
                   <button onClick={() => addToEncounter(char)}>+</button>
                 </td>
               </tr>
-            );
-          })}
+            ))}
+          </tbody>
         </table>
-        <table>
-          <th>Chars to add</th>
 
-          {charChoiceList.map(char => {
-            return (
-              <tr>
+        <table>
+          <tbody>
+            <tr>
+              <th>Chars to add</th>
+            </tr>
+            {charChoiceList.map((char, i) => (
+              <tr key={i}>
                 <td>
                   <p>{char.name}</p>
                 </td>
@@ -125,8 +128,8 @@ export const EncounterTracker = ({ chars }) => {
                   initiative: <input type='number' />
                 </td>
               </tr>
-            );
-          })}
+            ))}
+          </tbody>
         </table>
 
         <button onClick={startEncounter}>Start Encounter</button>

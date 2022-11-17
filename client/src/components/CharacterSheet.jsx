@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { QUERY_CHARACTER } from '../utils/queries';
-import { Card } from './Card';
 
 const CharacterSheet = ({ charId }) => {
-  const { data: charData } = useQuery(QUERY_CHARACTER, {
-    variables: { _id: charId },
-  });
+  const charData = [];
+  // const { data: charData } = useQuery(QUERY_CHARACTER, {
+  //   variables: { _id: charId },
+  // });
 
   const c = charData?.character;
   return (

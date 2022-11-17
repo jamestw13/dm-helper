@@ -7,7 +7,7 @@ import './Profile.css';
 import Auth from '../utils/auth';
 
 import CharacterSheet from '../components/CharacterSheet';
-import { Card } from '../components/Card';
+
 import { QUERY_CHARACTER } from '../utils/queries';
 import PageWrapper from '../components/PageWrapper';
 

@@ -1,5 +1,4 @@
 import { Navigate, useNavigate } from 'react-router-dom';
-import { Card } from './Card';
 
 const CampaignList = ({ campaigns, me }) => {
   const navigate = useNavigate();
