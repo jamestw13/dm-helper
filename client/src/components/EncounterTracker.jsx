@@ -9,6 +9,7 @@ export const EncounterTracker = ({ chars }) => {
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTurn, setCurrentTurn] = useState(0);
   const [encounterLog, setEncounterLog] = useState([]);
+  const [encounterActive, setEncounterActive] = useState(false);
 
   // Initialize encounterLog
   useEffect(() => {
@@ -47,23 +48,89 @@ export const EncounterTracker = ({ chars }) => {
   };
 
   return (
-    <div>
-      <TrackerNavigator
-        currentRound={currentRound}
-        setCurrentRound={setCurrentRound}
-        currentTurn={currentTurn}
-        setCurrentTurn={setCurrentTurn}
-      />
+    <>
+      {encounterActive ? (
+        <>
+          <TrackerNavigator
+            currentRound={currentRound}
+            setCurrentRound={setCurrentRound}
+            currentTurn={currentTurn}
+            setCurrentTurn={setCurrentTurn}
+          />
 
-      <TrackerTable
-        currentRound={currentRound}
-        setCurrentRound={setCurrentRound}
-        currentTurn={currentTurn}
-        setCurrentTurn={setCurrentTurn}
-        encounterLog={encounterLog}
-        setEncounterLog={setEncounterLog}
-        addRound={addRound}
-      />
-    </div>
+          <TrackerTable
+            currentRound={currentRound}
+            setCurrentRound={setCurrentRound}
+            currentTurn={currentTurn}
+            setCurrentTurn={setCurrentTurn}
+            encounterLog={encounterLog}
+            setEncounterLog={setEncounterLog}
+            addRound={addRound}
+          />
+        </>
+      ) : (
+        <EncounterForm setEncounterActive={setEncounterActive} />
+      )}
+    </>
   );
+
+  function EncounterForm({ setEncounterActive }) {
+    const [charPickerList, setCharPickerList] = useState(chars);
+    const [charChoiceList, setCharChoiceList] = useState([]);
+
+    const addToEncounter = _char => {
+      setCharChoiceList([...charChoiceList, _char]);
+      setCharPickerList(charPickerList.filter(char => char !== _char));
+    };
+
+    const removeFromEncounter = _char => {
+      setCharChoiceList(charChoiceList.filter(char => char !== _char));
+      setCharPickerList([...charPickerList, _char]);
+    };
+
+    const startEncounter = () => {
+      setEncounterActive(true);
+    };
+    return (
+      <>
+        <p>Set Up Encounter</p>
+        <table>
+          <th>Characters</th>
+          {charPickerList.map(char => {
+            return (
+              <tr>
+                <td>
+                  <p>{char.name}</p>
+                </td>
+                <td>
+                  <button onClick={() => addToEncounter(char)}>+</button>
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+        <table>
+          <th>Chars to add</th>
+
+          {charChoiceList.map(char => {
+            return (
+              <tr>
+                <td>
+                  <p>{char.name}</p>
+                </td>
+                <td>
+                  <button onClick={() => removeFromEncounter(char)}>-</button>
+                </td>
+                <td>
+                  initiative: <input type='number' />
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+
+        <button onClick={startEncounter}>Start Encounter</button>
+      </>
+    );
+  }
 };
