@@ -58,17 +58,19 @@ a {
   align-items: top;
   min-height: 70vh;
   overflow-y: auto;
+
   grid-template-areas:
     'title collapse'
-    'children collapse'
-    '. collapse';
+    'children collapse';
 
   gap: 0;
 }
+
 .collapse-button {
   grid-area: collapse;
+
   padding: 0.5em;
-  /* border: 1px solid green; */
+
   writing-mode: vertical-lr;
   text-orientation: sideways-right;
   background-color: lightslategray;
@@ -77,21 +79,24 @@ a {
   margin: 0;
   padding: 0.5em;
   grid-area: title;
-  align-self: start;
   /* border: 1px solid red; */
-  height: fit-content;
+  align-self: start;
 }
 
 .card-children {
   grid-area: children;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: start; */
+  align-self: start;
+  padding: 0.5em;
   /* border: 1px solid blue; */
 }
 
 .card-closed {
   display: none;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
 }
 
 #tracker-table {

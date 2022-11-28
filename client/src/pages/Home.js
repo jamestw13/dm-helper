@@ -15,15 +15,10 @@ function Home() {
     <PageWrapper title='Stat Block'>
       <h2>TTRPG Managment Tools</h2>
       <div className='home-container'>
-        <CharacterList
-          chars={charData?.characters}
-          handleCharacterClick={() => {}}
-        />
-
         {!loggedIn && (
           <div>
-            <Signup />
             <Login />
+            <Signup />
           </div>
         )}
       </div>

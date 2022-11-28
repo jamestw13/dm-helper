@@ -36,7 +36,7 @@ function Campaign() {
         <Section title='Encounter Tracker' collapsable>
           <EncounterTracker chars={chars} />
         </Section>
-        <Section title='Character Sheet' collapsable>
+        <Section title='Character Sheet' collapsable startOpen={false}>
           {chars.length > 0 && (
             <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
           )}
