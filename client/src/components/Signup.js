@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
-import { Card } from './Card';
+import { Section } from './Section';
 
 const Signup = () => {
   const [addUser, { error }] = useMutation(ADD_USER);
@@ -38,7 +38,7 @@ const Signup = () => {
   };
 
   return (
-    <Card title='Sign Up'>
+    <Section title='Sign Up'>
       <form onSubmit={handleFormSubmit}>
         <input
           placeholder='Your username'
@@ -67,7 +67,7 @@ const Signup = () => {
         <button type='submit'>Submit</button>
         {error && <div>Sign up failed</div>}
       </form>
-    </Card>
+    </Section>
   );
 };
 

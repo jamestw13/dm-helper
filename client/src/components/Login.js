@@ -4,7 +4,7 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { QUERY_USERS } from '../utils/queries';
 
-import { Card } from './Card';
+import { Section } from './Section';
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);
@@ -42,7 +42,7 @@ const Login = props => {
   };
 
   return (
-    <Card title='Login'>
+    <Section title='Login'>
       <form onSubmit={handleFormSubmit}>
         <input
           placeholder='Your email'
@@ -84,7 +84,7 @@ const Login = props => {
       ) : (
         <h4>Loading</h4>
       )}
-    </Card>
+    </Section>
   );
 };
 

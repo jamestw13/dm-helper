@@ -1,6 +1,7 @@
-const { User, Character } = require('../models');
+const { User, Character, Campaign } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const { GraphQLJSONObject } = require('graphql-type-json');
 
 const resolvers = {
   Query: {
@@ -30,6 +31,22 @@ const resolvers = {
     characters: async () => {
       return Character.find().select('-__v').populate('campaign');
     },
+    character: async (parent, { _id }, context) => {
+      return Character.findOne({ _id: _id })
+        .select('-__v')
+        .populate('campaign')
+        .populate('user');
+    },
+    campaign: async (parent, { _id }, context) => {
+      return (
+        Campaign.findOne({ _id: _id })
+          .select('-__v')
+          .populate('characters')
+          .populate('owner')
+          // .populate('encounters')
+          .populate({ path: 'encounters', populate: { path: 'characters' } })
+      );
+    },
   },
 
   Mutation: {
@@ -56,6 +73,7 @@ const resolvers = {
       return { user, token };
     },
   },
+  EncounterLog: GraphQLJSONObject,
 };
 
 module.exports = resolvers;

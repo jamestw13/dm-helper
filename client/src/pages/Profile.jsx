@@ -1,52 +1,59 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import './Profile.css';
 import CharacterList from '../components/CharacterList';
-import SheetContainer from '../components/CharacterSheet';
 
 import Auth from '../utils/auth';
 import CampaignList from '../components/CampaignList';
-import Container from '../components/Container';
+
 import CharacterSheet from '../components/CharacterSheet';
+import { Section } from '../components/Section';
+import PageWrapper from '../components/PageWrapper';
 
-const Profile = props => {
-  const { username: userParam } = useParams();
+const Profile = ({ data }) => {
+  const navigate = useNavigate();
+  const handleCharacterClick = charId => {
+    navigate(`/sheet/${charId}`);
+  };
+  // const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
+  // const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  //   variables: { username: userParam },
+  // });
 
-  const user = data?.me || data?.user || {};
-  const [selectedChar, setSelectedChar] = useState([]);
+  // const user = data?.me || data?.user || {};
+  const [selectedChar, setSelectedChar] = useState('');
 
   if (!Auth.loggedIn()) return <Navigate to='/' />;
 
-  // redirect to person profile page if username is the logged-in user's
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-    return <Navigate to='/profile' />;
-  }
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // // redirect to person profile page if username is the logged-in user's
+  // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+  //   return <Navigate to='/profile' />;
+  // }
 
   return (
-    <>
-      <div className=''>
-        <h2 className=''>
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile
-        </h2>
-      </div>
-
+    <PageWrapper title='Dashboard'>
       <section>
-        <CharacterList chars={data?.me.characters} setChars={setSelectedChar} />
-        <CharacterSheet charId={data?.me.characters[0]._id} />
-        <CampaignList campaigns={data?.me.campaigns} me={data?.me._id} />
+        <Section title='Character List'>
+          <CharacterList
+            chars={data?.characters}
+            handleCharacterClick={handleCharacterClick}
+            selectedCar={selectedChar}
+            setSelectedChar={setSelectedChar}
+          />
+        </Section>
+        {!!selectedChar && (
+          <Section title='Character Sheet'>
+            <CharacterSheet charId={selectedChar._id} />
+          </Section>
+        )}
+        <Section title='Campaign List'>
+          <CampaignList campaigns={data?.campaigns} me={data?._id} />
+        </Section>
       </section>
-    </>
+    </PageWrapper>
   );
 };
 

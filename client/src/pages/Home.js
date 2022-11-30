@@ -1,3 +1,4 @@
+import PageWrapper from '../components/PageWrapper';
 import Auth from '../utils/auth';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
@@ -11,20 +12,17 @@ function Home() {
   const loggedIn = Auth.loggedIn();
 
   return (
-    <>
-      <h1>Stat Block</h1>
+    <PageWrapper title='Stat Block'>
       <h2>TTRPG Managment Tools</h2>
       <div className='home-container'>
-        <CharacterList chars={charData?.characters} />
-
         {!loggedIn && (
           <div>
-            <Signup />
             <Login />
+            <Signup />
           </div>
         )}
       </div>
-    </>
+    </PageWrapper>
   );
 }
 

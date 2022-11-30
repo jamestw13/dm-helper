@@ -1,9 +1,7 @@
-const { randUser, randAvatar } = require('@ngneat/falso');
-
-const generateCharacters = require('./characterSeed');
-const { Character } = require('../models');
+const { seed, randUser, randAvatar } = require('@ngneat/falso');
 
 module.exports = async function generateUsers(numUsers) {
+  // seed('Stat Block');
   let userData = [];
 
   for (let i = 0; i < numUsers; i += 1) {
