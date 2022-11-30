@@ -67,7 +67,16 @@ const typeDefs = gql`
     owner: User
     characters: [Character]
     players: [User]
+    encounters: [Encounter]
   }
+
+  type Encounter {
+    title: String
+    characters: [Character]
+    encounterLog: EncounterLog
+  }
+
+  scalar EncounterLog
 
   type Query {
     me: User

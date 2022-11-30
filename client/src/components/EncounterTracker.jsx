@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TrackerNavigator } from './TrackerNavigator';
 import { TrackerTable } from './TrackerTable';
-import { statuses } from './demoData';
 
 export const EncounterTracker = ({ chars }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -11,29 +10,7 @@ export const EncounterTracker = ({ chars }) => {
   const [encounterActive, setEncounterActive] = useState(false);
 
   // Initialize encounterLog
-  useEffect(() => {
-    let activeChars = chars?.filter(char => !!char.inEncounter);
-    activeChars = activeChars.sort((a, b) => b.init - a.init);
-    const data = [...Array(numRounds + 1)].map((round, i) => {
-      return {
-        round: i,
-        turns: activeChars?.map((char, j) => {
-          return {
-            j,
-            char,
-            statuses: statuses.filter(status => {
-              return (
-                status.startRound === i &&
-                status.startTurn === j &&
-                activeChars.filter(char => char.name === status.target).length
-              );
-            }),
-          };
-        }),
-      };
-    });
-    setEncounterLog(data);
-  }, [chars, numRounds]);
+  useEffect(() => {}, [chars, numRounds]);
 
   const addRound = () => {
     const logCopy = JSON.parse(JSON.stringify(encounterLog));

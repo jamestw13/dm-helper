@@ -129,12 +129,12 @@ db.once('open', async () => {
     const numEncounters = randNumber({ min: 1, max: 3 });
 
     for (let i = 0; i < numEncounters; i++) {
-      let encounterCharacters = [];
       if (campaign.characters?.length > 0) {
-        // randomly pick characters to be in encounter
-        encounterCharacters = campaign.characters.filter(character =>
-          randBoolean()
-        );
+        let encounterCharacters = [...campaign.characters];
+        // // randomly pick characters to be in encounter
+        // encounterCharacters = campaign.characters.filter(character =>
+        //   randBoolean()
+        // );
 
         if (encounterCharacters.length > 1) {
           // for (char of encounterCharacters) {
@@ -146,7 +146,9 @@ db.once('open', async () => {
             return bNum - aNum;
           });
 
-          const data = [...Array(NUM_ROUNDS + 1)].map((round, i) => {
+          const data = [
+            ...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 })),
+          ].map((round, i) => {
             return {
               round: i,
               turns: encounterCharacters?.map((char, j) => {
@@ -180,7 +182,6 @@ db.once('open', async () => {
             { $addToSet: { encounters: encounter } }
           );
         }
-        // console.log('New Encounter: ', data);
       }
     }
   }

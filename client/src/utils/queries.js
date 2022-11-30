@@ -80,6 +80,13 @@ export const QUERY_CAMPAIGN = gql`
           firstname
         }
       }
+      encounters {
+        title
+        characters {
+          name
+        }
+        encounterLog
+      }
     }
   }
 `;

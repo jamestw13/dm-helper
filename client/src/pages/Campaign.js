@@ -33,6 +33,11 @@ function Campaign() {
         <Section title='Characters' collapsable>
           <CharacterList chars={chars} setChars={setChars} />
         </Section>
+        <Section title='Encounter List' collapsable>
+          {campaign?.encounters?.map(enc => (
+            <div>{enc.title}</div>
+          ))}
+        </Section>
         <Section title='Encounter Tracker' collapsable>
           <EncounterTracker chars={chars} />
         </Section>
