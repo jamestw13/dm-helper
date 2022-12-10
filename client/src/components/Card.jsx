@@ -9,7 +9,7 @@ const Card = ({ lineOne, lineTwo, colorOne, colorTwo, handleCardClick }) => {
         '--scnd-color': colorTwo,
         '--text-color': getTextColor(colorOne),
       }}
-      onClick={() => handleCardClick(char._id)}
+      // onClick={() => handleCardClick(char._id)}
     >
       <div className='char-name'>{lineOne}</div>
       <div className='char-encounter'>{lineTwo}</div>
