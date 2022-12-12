@@ -78,6 +78,7 @@ export const QUERY_ENCOUNTER = gql`
         name
         ac
         hp
+        primaryColor
       }
       encounterLog {
         round
@@ -85,6 +86,9 @@ export const QUERY_ENCOUNTER = gql`
           turn
           character {
             name
+            ac
+            hp
+            primaryColor
           }
           statuses {
             condition

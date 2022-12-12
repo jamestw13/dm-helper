@@ -7,6 +7,8 @@ export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
   const [numRounds, setNumRounds] = useState(6);
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTurn, setCurrentTurn] = useState(0);
+
+  // TODO: replace with mutation
   const [encounterLog, setEncounterLog] = useState([]);
 
   // Initialize encounterLog

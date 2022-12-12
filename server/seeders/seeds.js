@@ -146,7 +146,6 @@ db.once('open', async () => {
             return bNum - aNum;
           });
 
-          console.log(chars);
           const data = [
             ...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 })),
           ].map((round, i) => {

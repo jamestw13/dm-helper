@@ -34,7 +34,6 @@ function Campaign() {
   }, [campaignData]);
 
   useEffect(() => {
-    console.log({ encounterData });
     setActiveEncounter(encounterData?.encounter);
   }, [encounterData]);
   // const loggedIn = Auth.loggedIn();
@@ -45,9 +44,17 @@ function Campaign() {
         <div>Loading</div>
       ) : (
         <section className='campaign-container'>
-          {/* <div>{JSON.stringify(activeEncounter)}</div> */}
           <Section title='Characters' collapsable>
-            <CharacterList chars={chars} setChars={setChars} />
+            {campaign?.characters?.map((char, i) => (
+              <Card
+                key={i}
+                lineOne={char.name}
+                lineTwo={`Player: ${char.user.firstname}`}
+                handleCardClick={() => {}}
+                colorOne={char.primaryColor}
+                colorTwo={char.secondaryColor}
+              />
+            ))}
           </Section>
           <Section title='Encounter List' collapsable>
             <button>New Encounter</button>
@@ -56,7 +63,6 @@ function Campaign() {
                 key={i}
                 lineOne={enc.title}
                 handleCardClick={() => {
-                  console.log(enc.title, enc._id);
                   queryEncounter({ variables: { _id: enc._id } });
                 }}
               />

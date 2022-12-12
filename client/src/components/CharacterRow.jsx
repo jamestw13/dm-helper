@@ -1,7 +1,7 @@
 export const CharacterRow = ({ character: c, statuses: s }) => {
   return (
     <>
-      <td style={{ backgroundColor: c.color }}>{c.name}</td>
+      <td style={{ backgroundColor: c.primaryColor }}>{c.name}</td>
       <td>{c.hp}</td>
       <td>{c.ac}</td>
 
@@ -9,7 +9,7 @@ export const CharacterRow = ({ character: c, statuses: s }) => {
         <td
           key={i}
           rowSpan={status.duration}
-          className="status-cell"
+          className='status-cell'
           style={{ backgroundColor: status.targetColor }}
         >
           {status.condition}

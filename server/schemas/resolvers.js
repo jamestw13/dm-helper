@@ -39,12 +39,11 @@ const resolvers = {
     campaign: async (parent, { _id }, context) => {
       return Campaign.findOne({ _id: _id })
         .select('-__v')
-        .populate('characters')
+        .populate({ path: 'characters', populate: { path: 'user' } })
         .populate('owner')
         .populate('encounters');
     },
     encounter: async (parent, { _id }, context) => {
-      console.log('encounter queried');
       return Encounter.findOne({ _id: _id })
         .select('-__v')
         .populate({
