@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { TrackerNavigator } from './TrackerNavigator';
 import { TrackerTable } from './TrackerTable';
+import { TrackerNavigator } from './TrackerNavigator';
+import { CharacterRow } from './CharacterRow';
 
 export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -9,11 +10,8 @@ export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
   const [encounterLog, setEncounterLog] = useState([]);
 
   // Initialize encounterLog
-  useEffect(() => {}, [chars, numRounds]);
 
   const addRound = () => {
-    const logCopy = JSON.parse(JSON.stringify(encounterLog));
-
     const lastRound = logCopy.pop();
     lastRound.round++;
 
@@ -24,24 +22,65 @@ export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
 
   return (
     <>
+      <div>{activeEncounter?.title}</div>
       {activeEncounter && (
         <>
-          <TrackerNavigator
+          {/* <TrackerNavigator
             currentRound={currentRound}
             setCurrentRound={setCurrentRound}
             currentTurn={currentTurn}
             setCurrentTurn={setCurrentTurn}
-          />
+          /> */}
+          <table id='tracker-table'>
+            <thead id='tracker-header'>
+              <tr>
+                <th></th>
+                <th>Round</th>
+                <th>Name</th>
+                <th>HP</th>
+                <th>AC</th>
 
-          <TrackerTable
-            currentRound={currentRound}
-            setCurrentRound={setCurrentRound}
-            currentTurn={currentTurn}
-            setCurrentTurn={setCurrentTurn}
-            encounterLog={encounterLog}
-            setEncounterLog={setEncounterLog}
-            addRound={addRound}
-          />
+                <th colSpan='100%'>Notes</th>
+              </tr>
+            </thead>
+            <tbody id='tracker-table-body'>
+              {activeEncounter?.encounterLog?.map((round, i) =>
+                round.turns.map((turn, j) => (
+                  <tr key={j}>
+                    <td
+                      data-row-round={i}
+                      data-row-turn={j}
+                      style={{
+                        backgroundColor:
+                          i === currentRound && j === currentTurn && 'yellow',
+                      }}
+                      onClick={() => {
+                        setCurrentRound(i);
+                        setCurrentTurn(j);
+                      }}
+                    >
+                      &gt;
+                    </td>
+                    {j === 0 && (
+                      <td rowSpan={round.turns.length}>{round.round}</td>
+                    )}
+                    <CharacterRow
+                      key={turn.character + j}
+                      character={turn.character}
+                      statuses={turn.statuses}
+                    />
+                  </tr>
+                ))
+              )}
+              <tr>
+                <td colSpan='100%'>
+                  <button style={{ width: '100%' }} onClick={addRound}>
+                    Add Round
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </>
       )}
     </>

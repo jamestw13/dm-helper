@@ -6,8 +6,9 @@ import { Section } from '../components/Section';
 import CharacterSheet from '../components/CharacterSheet';
 import EncounterForm from '../components/EncounterForm';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_CAMPAIGN } from '../utils/queries';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { QUERY_CAMPAIGN, QUERY_ENCOUNTER } from '../utils/queries';
+import Card from '../components/Card';
 
 import './Campaign.css';
 import PageWrapper from '../components/PageWrapper';
@@ -20,6 +21,8 @@ function Campaign() {
       variables: { _id: campaignId },
     }
   );
+  const [queryEncounter, { data: encounterData, loading: encounterLoading }] =
+    useLazyQuery(QUERY_ENCOUNTER);
 
   const campaign = campaignData?.campaign || {};
   const [chars, setChars] = useState([]);
@@ -30,32 +33,47 @@ function Campaign() {
     campaignData?.campaign && setChars(campaignData.campaign.characters);
   }, [campaignData]);
 
+  useEffect(() => {
+    console.log({ encounterData });
+    setActiveEncounter(encounterData?.encounter);
+  }, [encounterData]);
   // const loggedIn = Auth.loggedIn();
+
   return (
     <PageWrapper title={campaign.name} className='campaign-container'>
-      <section className='campaign-container'>
-        <Section title='Characters' collapsable>
-          <CharacterList chars={chars} setChars={setChars} />
-        </Section>
-        <Section title='Encounter List' collapsable>
-          <button>New Encounter</button>
-          {campaign?.encounters?.map((enc, i) => (
-            <div key={i} onClick={() => setActiveEncounter(enc)}>
-              <div>{enc.title}</div>
-              {/* <div>{JSON.stringify(enc)}</div> */}
-            </div>
-          ))}
-        </Section>
-        <Section title='Encounter Tracker' collapsable startOpen={false}>
-          <EncounterTracker chars={chars} activeEncounter={activeEncounter} />
-        </Section>
-        <Section title='Character Sheet' collapsable startOpen={false}>
-          {chars.length > 0 && (
-            <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
-          )}
-        </Section>
-      </section>
-      <EncounterForm setActiveEncounter={setActiveEncounter} chars={chars} />
+      {campaignLoading ? (
+        <div>Loading</div>
+      ) : (
+        <section className='campaign-container'>
+          {/* <div>{JSON.stringify(activeEncounter)}</div> */}
+          <Section title='Characters' collapsable>
+            <CharacterList chars={chars} setChars={setChars} />
+          </Section>
+          <Section title='Encounter List' collapsable>
+            <button>New Encounter</button>
+            {campaign?.encounters?.map((enc, i) => (
+              <Card
+                key={i}
+                lineOne={enc.title}
+                handleCardClick={() => {
+                  console.log(enc.title, enc._id);
+                  queryEncounter({ variables: { _id: enc._id } });
+                }}
+              />
+            ))}
+          </Section>
+          <Section title='Encounter Tracker' collapsable startOpen={true}>
+            {encounterLoading && <div>Loading...</div>}
+            <EncounterTracker chars={chars} activeEncounter={activeEncounter} />
+          </Section>
+          <Section title='Character Sheet' collapsable startOpen={false}>
+            {chars.length > 0 && (
+              <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
+            )}
+          </Section>
+        </section>
+        // <EncounterForm setActiveEncounter={setActiveEncounter} chars={chars} />
+      )}
     </PageWrapper>
   );
 }

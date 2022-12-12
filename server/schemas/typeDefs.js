@@ -71,12 +71,29 @@ const typeDefs = gql`
   }
 
   type Encounter {
+    _id: ID
     title: String
     characters: [Character]
-    encounterLog: EncounterLog
+    encounterLog: [Round]
   }
 
-  scalar EncounterLog
+  type Round {
+    round: Int
+    turns: [Turn]
+  }
+
+  type Turn {
+    turn: Int
+    character: Character
+    statuses: [Status]
+  }
+
+  type Status {
+    condition: String
+    duration: Int
+    startRound: Int
+    startTurn: Int
+  }
 
   type Query {
     me: User
@@ -85,6 +102,7 @@ const typeDefs = gql`
     characters: [Character]
     character(_id: ID): Character
     campaign(_id: ID): Campaign
+    encounter(_id: ID): Encounter
   }
 
   type Mutation {

@@ -135,10 +135,10 @@ db.once('open', async () => {
         // encounterCharacters = campaign.characters.filter(character =>
         //   randBoolean()
         // );
-
+        let chars;
         if (encounterCharacters.length > 1) {
           // for (char of encounterCharacters) {
-          let chars = await Character.find({ _id: encounterCharacters });
+          chars = await Character.find({ _id: encounterCharacters });
           chars = chars.sort((a, b) => {
             const bNum = b.initMod + randNumber({ min: 1, max: 20 });
             const aNum = a.initMod + randNumber({ min: 1, max: 20 });
@@ -146,14 +146,15 @@ db.once('open', async () => {
             return bNum - aNum;
           });
 
+          console.log(chars);
           const data = [
             ...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 })),
           ].map((round, i) => {
             return {
               round: i,
-              turns: encounterCharacters?.map((char, j) => {
+              turns: chars?.map((char, j) => {
                 return {
-                  turnNumber: j + 1,
+                  turn: j + 1,
                   character: char,
                   statuses: generateStatusData(encounterCharacters).filter(
                     status => {
@@ -174,7 +175,7 @@ db.once('open', async () => {
           const encounter = await Encounter.create({
             title: `${campaign.name} - ${i + 1}`,
             characters: [...encounterCharacters],
-            encounterLog: { data },
+            encounterLog: data,
           });
 
           await Campaign.findOneAndUpdate(

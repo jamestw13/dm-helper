@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const { characterSchema } = require('./Character');
 
 const encounterSchema = new Schema({
   title: {
@@ -9,7 +8,26 @@ const encounterSchema = new Schema({
   characters: {
     type: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
   },
-  encounterLog: { type: Object },
+  encounterLog: [
+    {
+      round: { type: Number, require: true },
+      turns: [
+        {
+          turn: { type: Number, require: true },
+          character: { type: Schema.Types.ObjectId, ref: 'Character' },
+          statuses: [
+            {
+              condition: { type: String, default: 'Deafened' },
+              // { type: Schema.Types.ObjectId, ref: 'Condition' }
+              duration: Number,
+              startRound: Number,
+              startTurn: Number,
+            },
+          ],
+        },
+      ],
+    },
+  ],
 });
 
 const Encounter = model('Encounter', encounterSchema);

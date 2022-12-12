@@ -46,46 +46,53 @@ export const QUERY_CAMPAIGN = gql`
         username
       }
       characters {
+        _id
         name
-        race
         class
-        hitDice
-        level
-        background
-        str
-        dex
-        con
-        int
-        wis
-        cha
-        strMod
-        dexMod
-        conMod
-        intMod
-        wisMod
-        chaMod
-        profBonus
-        initMod
-        initiative
-        hp
-        ac
+        race
+
         primaryColor
         secondaryColor
         isNPC
-        campaign {
-          _id
-          name
-        }
+
         user {
           firstname
         }
       }
       encounters {
+        _id
         title
         characters {
           name
         }
-        encounterLog
+      }
+    }
+  }
+`;
+
+export const QUERY_ENCOUNTER = gql`
+  query encounter($_id: ID) {
+    encounter(_id: $_id) {
+      title
+      characters {
+        name
+        ac
+        hp
+      }
+      encounterLog {
+        round
+        turns {
+          turn
+          character {
+            name
+          }
+          statuses {
+            condition
+            duration
+            startRound
+            startTurn
+          }
+        }
       }
     }
   }

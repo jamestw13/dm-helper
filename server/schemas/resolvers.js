@@ -1,7 +1,6 @@
-const { User, Character, Campaign } = require('../models');
+const { User, Character, Campaign, Encounter } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { GraphQLJSONObject } = require('graphql-type-json');
 
 const resolvers = {
   Query: {
@@ -38,14 +37,20 @@ const resolvers = {
         .populate('user');
     },
     campaign: async (parent, { _id }, context) => {
-      return (
-        Campaign.findOne({ _id: _id })
-          .select('-__v')
-          .populate('characters')
-          .populate('owner')
-          // .populate('encounters')
-          .populate({ path: 'encounters', populate: { path: 'characters' } })
-      );
+      return Campaign.findOne({ _id: _id })
+        .select('-__v')
+        .populate('characters')
+        .populate('owner')
+        .populate('encounters');
+    },
+    encounter: async (parent, { _id }, context) => {
+      console.log('encounter queried');
+      return Encounter.findOne({ _id: _id })
+        .select('-__v')
+        .populate({
+          path: 'encounterLog',
+          populate: { path: 'turns.character', model: 'Character' },
+        });
     },
   },
 
@@ -73,7 +78,6 @@ const resolvers = {
       return { user, token };
     },
   },
-  EncounterLog: GraphQLJSONObject,
 };
 
 module.exports = resolvers;
