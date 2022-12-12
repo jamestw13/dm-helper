@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.1",
+    "@mantine/core": "^5.9.3",
     "@ngneat/falso": "^6.1.0",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.13",

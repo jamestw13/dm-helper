@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 
-import './Profile.css';
+// import './Profile.css';
 import CharacterList from '../components/CharacterList';
 
 import Auth from '../utils/auth';

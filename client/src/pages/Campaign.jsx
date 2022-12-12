@@ -10,7 +10,7 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { QUERY_CAMPAIGN, QUERY_ENCOUNTER } from '../utils/queries';
 import Card from '../components/Card';
 
-import './Campaign.css';
+// import './Campaign.css';
 import PageWrapper from '../components/PageWrapper';
 
 function Campaign() {

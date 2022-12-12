@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { Paper, Flex, Title, Button } from '@mantine/core';
 
 const PageWrapper = ({ children, title }) => {
   const navigate = useNavigate();
   return (
-    <main className='page-container'>
-      <div className='page-title-bar'>
-        <h1>{title}</h1>
-        <div onClick={() => navigate(-1)}>Go back</div>
-      </div>
+    <Paper p='md'>
+      <Flex justify='space-between'>
+        <Title order={1}>{title}</Title>
+        <Button onClick={() => navigate(-1)}>Go back</Button>
+      </Flex>
+
       {children}
-    </main>
+    </Paper>
   );
 };
 

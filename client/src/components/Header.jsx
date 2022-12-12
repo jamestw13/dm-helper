@@ -1,8 +1,9 @@
 import React from 'react';
+import { Header as MHeader, Button, Avatar, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
-import './Header.css';
+// import './Header.css';
 
 const Header = ({ me }) => {
   const logout = event => {
@@ -11,27 +12,42 @@ const Header = ({ me }) => {
   };
 
   return (
-    <header>
-      <div className='header'>
-        <Link to='/' className='home-link link'>
-          Stat Block
+    <MHeader p='sm' height={90}>
+      <Flex align='center' justify='space-between' direction='row'>
+        <Link
+          to='/'
+          style={{ textDecoration: 'none' }}
+          className='home-link link'
+        >
+          <Button>Stat Block</Button>
         </Link>
 
         <nav>
           {Auth.loggedIn() && (
             <div className='header-options'>
-              <a className='link' href='/' onClick={logout}>
-                Logout
-              </a>
-              <Link to='/profile'>{`${me?.firstname} ${me?.lastname}`}</Link>
-              <Link to='/profile'>
-                <img src={me?.avatar} className='avatar' alt="User's avatar" />
-              </Link>
+              <Flex align='center' gap='1em'>
+                <a className='link' href='/' onClick={logout}>
+                  <Button>Logout</Button>
+                </a>
+                <Link to='/profile'>
+                  <Button>{`${me?.firstname} ${me?.lastname}`}</Button>
+                </Link>
+
+                <Link to='/profile'>
+                  <Avatar
+                    radius='xl'
+                    size='lg'
+                    src={me?.avatar}
+                    className='avatar'
+                    alt="User's avatar"
+                  />
+                </Link>
+              </Flex>
             </div>
           )}
         </nav>
-      </div>
-    </header>
+      </Flex>
+    </MHeader>
   );
 };
 

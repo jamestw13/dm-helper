@@ -1,4 +1,4 @@
-import './CharacterList.css';
+// import './CharacterList.css';
 
 import Card from './Card';
 
