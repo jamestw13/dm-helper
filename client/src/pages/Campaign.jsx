@@ -21,7 +21,10 @@ import {
   Chip,
   Indicator,
   Box,
+  Accordion,
+  ActionIcon,
 } from '@mantine/core';
+import { IconArrowRightTail } from '@tabler/icons';
 
 function Campaign() {
   const { campaignId } = useParams();
@@ -126,14 +129,33 @@ function Campaign() {
           <Section title='Encounter List' collapsable>
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
-              <Card
-                key={i}
-                onClick={() => {
-                  queryEncounter({ variables: { _id: enc._id } });
-                }}
-              >
-                <Title order={4}>{enc.title}</Title>
-              </Card>
+              //{/*  <Card
+              // key={i}
+
+              //> */}
+              // {/* <Card.Section> */}
+              <>
+                <Accordion key={i} chevronPosition='left'>
+                  <Accordion.Item value={enc.title}>
+                    <Flex align='center'>
+                      <Accordion.Control>{enc.title}</Accordion.Control>
+                      <ActionIcon size='xl'>
+                        <IconArrowRightTail
+                          onClick={() => {
+                            queryEncounter({ variables: { _id: enc._id } });
+                          }}
+                        />
+                      </ActionIcon>
+                    </Flex>
+                    <Accordion.Panel>
+                      <Text>{enc.description}</Text>
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                </Accordion>
+              </>
+              //{/* </Card.Section> */}
+              //{/* <Title order={4}>{enc.title}</Title> */}
+              //{/* </Card> */}
             ))}
           </Section>
           <Section title='Encounter Tracker' collapsable startOpen={true}>
@@ -148,6 +170,17 @@ function Campaign() {
         </>
       )}
     </PageWrapper>
+  );
+}
+
+function TJAccordionControl(props) {
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Accordion.Control {...props} />
+      <ActionIcon size='lg'>
+        <IconArrowRightTail size={16} />
+      </ActionIcon>
+    </Box>
   );
 }
 

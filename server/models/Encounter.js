@@ -8,6 +8,12 @@ const encounterSchema = new Schema({
   characters: {
     type: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
   },
+  progress: {
+    type: String,
+    enum: ['not started', 'active', 'on hold', 'completed'],
+    default: 'not started',
+  },
+  description: { type: String },
   encounterLog: [
     {
       round: { type: Number, require: true },

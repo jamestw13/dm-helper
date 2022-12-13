@@ -44,9 +44,9 @@ const Profile = ({ data }) => {
         {data?.characters?.map((char, i) => (
           <Card
             key={i}
-            colorOne={char.primaryColor}
-            colorTwo={char.secondaryColor}
-            handleCardClick={handleCharacterClick}
+            // colorOne={char.primaryColor}
+            // colorTwo={char.secondaryColor}
+            onClick={handleCharacterClick}
           >
             <Text weight={500} className='char-name'>
               {char.name}

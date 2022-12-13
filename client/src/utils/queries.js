@@ -76,6 +76,8 @@ export const QUERY_CAMPAIGN = gql`
       encounters {
         _id
         title
+        progress
+        description
         characters {
           name
         }

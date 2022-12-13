@@ -73,8 +73,10 @@ const typeDefs = gql`
   type Encounter {
     _id: ID
     title: String
+    progress: String
     characters: [Character]
     encounterLog: [Round]
+    description: String
   }
 
   type Round {

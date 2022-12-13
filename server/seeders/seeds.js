@@ -8,6 +8,10 @@ const {
   randBook,
   randNumber,
   randBoolean,
+  randParagraph,
+  randCatchPhrase,
+  randText,
+  randTextRange,
 } = require('@ngneat/falso');
 const Monster = require('../models/Monster');
 const seedMonsters = require('./monsterSeed');
@@ -172,8 +176,10 @@ db.once('open', async () => {
           });
 
           const encounter = await Encounter.create({
-            title: `${campaign.name} - ${i + 1}`,
+            title: randTextRange({ min: 15, max: 30 }),
             characters: [...encounterCharacters],
+            progress: i === 0 ? 'active' : 'not started',
+            description: randParagraph(),
             encounterLog: data,
           });
 
