@@ -123,17 +123,18 @@ db.once('open', async () => {
 
   // Create Encounters
 
-  for (campaign of campaigns) {
+  const encounterCampaigns = await Campaign.find({});
+  for (let campaign of encounterCampaigns) {
     // randomly set num of encounters in campaign
     const numEncounters = randNumber({ min: 1, max: 3 });
 
     for (let i = 0; i < numEncounters; i++) {
       if (campaign.characters?.length > 0) {
         let encounterCharacters = [...campaign.characters];
-        // // randomly pick characters to be in encounter
-        // encounterCharacters = campaign.characters.filter(character =>
-        //   randBoolean()
-        // );
+        // randomly pick characters to be in encounter
+        encounterCharacters = campaign.characters.filter(character =>
+          randBoolean()
+        );
         let chars;
         if (encounterCharacters.length > 1) {
           // for (char of encounterCharacters) {

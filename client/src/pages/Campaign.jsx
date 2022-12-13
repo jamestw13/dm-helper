@@ -10,7 +10,18 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { QUERY_CAMPAIGN, QUERY_ENCOUNTER } from '../utils/queries';
 
 import PageWrapper from '../components/PageWrapper';
-import { Button, Title, Text, Card, Group, Avatar, Flex } from '@mantine/core';
+import {
+  Button,
+  Title,
+  Text,
+  Card,
+  Group,
+  Avatar,
+  Flex,
+  Chip,
+  Indicator,
+  Box,
+} from '@mantine/core';
 
 function Campaign() {
   const { campaignId } = useParams();
@@ -27,6 +38,7 @@ function Campaign() {
   const [chars, setChars] = useState([]);
   const [activeEncounter, setActiveEncounter] = useState({});
   const [encounterFormOpen, setEncouterFormOpen] = useState(false);
+  const [charSelect, setCharSelect] = useState(['npc']);
 
   useEffect(() => {
     campaignData?.campaign && setChars(campaignData.campaign.characters);
@@ -43,15 +55,24 @@ function Campaign() {
       ) : (
         <>
           <Section title='Players' collapsable>
-            <Card>
-              <Flex align='center' gap='.25em'>
-                <Avatar src={campaign?.owner?.avatar} />
-                <Title order={4}>
-                  {`${campaign?.owner?.firstname} ${campaign?.owner?.lastname}`}
-                </Title>
-              </Flex>
-              <Text>DM</Text>
-            </Card>
+            <Indicator
+              label={<Title order={6}>DM</Title>}
+              color='red'
+              position='top-center'
+              size='sm'
+
+              // offset={12}
+            >
+              <Card>
+                <Flex align='center' gap='.25em'>
+                  <Avatar src={campaign?.owner?.avatar} />
+
+                  <Title order={4}>
+                    {`${campaign?.owner?.firstname} ${campaign?.owner?.lastname}`}
+                  </Title>
+                </Flex>
+              </Card>
+            </Indicator>
             {campaign?.players?.map((player, i) => (
               <Card key={i} onClick={() => {}}>
                 <Flex align='center' gap='.25em'>
@@ -71,17 +92,32 @@ function Campaign() {
             ))}
           </Section>
           <Section title='Characters' collapsable>
-            {campaign?.characters?.map((char, i) => (
-              <Card
-                key={i}
-                onClick={() => {}}
-                // colorOne={char.primaryColor}
-                // colorTwo={char.secondaryColor}
-              >
-                <div>{char.name}</div>
-                <div>{`Player: ${char.user.firstname}`}</div>
-              </Card>
-            ))}
+            <Chip.Group
+              multiple={true}
+              value={charSelect}
+              onChange={setCharSelect}
+              spacing='0'
+            >
+              <Chip variant='filled' radius='sm' value='pc'>
+                PCs
+              </Chip>
+              <Chip variant='filled' radius='sm' value='npc'>
+                NPCs
+              </Chip>
+            </Chip.Group>
+
+            {campaign?.characters
+              ?.filter(
+                char =>
+                  (charSelect.includes('pc') && !char.isNPC) ||
+                  (charSelect.includes('npc') && char.isNPC)
+              )
+              .map((char, i) => (
+                <Card key={i} onClick={() => {}}>
+                  <div>{char.name}</div>
+                  <div>{`Player: ${char.user.firstname}`}</div>
+                </Card>
+              ))}
           </Section>
           <Section title='Encounter List' collapsable>
             <Button>New Encounter</Button>

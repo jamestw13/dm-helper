@@ -15,5 +15,15 @@ export const theme = {
         c: 'white',
       },
     },
+    Header: {
+      defaultProps: {
+        c: 'white',
+      },
+    },
+    Footer: {
+      defaultProps: {
+        c: 'white',
+      },
+    },
   },
 };

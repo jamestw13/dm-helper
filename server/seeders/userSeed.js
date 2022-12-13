@@ -13,7 +13,7 @@ module.exports = async function generateUsers(numUsers) {
       firstname: userStats.firstName,
       lastname: userStats.lastName,
       password: 11111111,
-      avatar: randAvatar(),
+      avatar: '',
     };
 
     userData.push(user);
