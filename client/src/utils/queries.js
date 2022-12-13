@@ -44,6 +44,20 @@ export const QUERY_CAMPAIGN = gql`
       name
       owner {
         username
+        firstname
+        lastname
+      }
+      players {
+        firstname
+        lastname
+        avatar
+        characters {
+          _id
+          name
+          campaign {
+            _id
+          }
+        }
       }
       characters {
         _id

@@ -39,6 +39,7 @@ const resolvers = {
     campaign: async (parent, { _id }, context) => {
       return Campaign.findOne({ _id: _id })
         .select('-__v')
+        .populate({ path: 'players', populate: { path: 'characters' } })
         .populate({ path: 'characters', populate: { path: 'user' } })
         .populate('owner')
         .populate('encounters');

@@ -2,7 +2,6 @@ import PageWrapper from '../components/PageWrapper';
 import Auth from '../utils/auth';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
-import CharacterList from '../components/CharacterList';
 import { useQuery } from '@apollo/client';
 import { QUERY_CHARACTERS } from '../utils/queries';
 

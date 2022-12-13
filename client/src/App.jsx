@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { QUERY_ME } from './utils/queries';
 import { useQuery } from '@apollo/client';
-import { MantineProvider, AppShell, Container } from '@mantine/core';
+import { MantineProvider, AppShell } from '@mantine/core';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -11,22 +11,18 @@ import Sheet from './pages/Sheet';
 import Campaign from './pages/Campaign';
 
 import NoMatch from './pages/NoMatch';
+import Auth from './utils/auth';
 
-import './App.css';
+import { theme } from './Theme.jsx';
 
+const loggedIn = Auth.loggedIn();
 const App = () => {
   const { data: userData } = useQuery(QUERY_ME);
 
   return (
     <>
       <Router>
-        <MantineProvider
-          theme={{
-            colorScheme: 'dark',
-            fontFamily: 'Veranda, sans serif',
-            spacing: { xs: 15, sm: 20, md: 25, lg: 30, xl: 40 },
-          }}
-        >
+        <MantineProvider theme={theme}>
           <AppShell
             header={<Header me={userData?.me} />}
             footer={<Footer />}
@@ -42,13 +38,21 @@ const App = () => {
                 path='/profile/'
                 element={<Profile data={userData?.me} />}
               />
-              <Route exact path='/profile/:username?' element={<Profile />} />
-              <Route exact path='/sheet/:charId' element={<Sheet />} />
-              <Route
-                exact
-                path='/campaign/:campaignId'
-                element={<Campaign />}
-              />
+              {loggedIn && (
+                <>
+                  <Route
+                    exact
+                    path='/profile/:username?'
+                    element={<Profile />}
+                  />
+                  <Route exact path='/sheet/:charId' element={<Sheet />} />
+                  <Route
+                    exact
+                    path='/campaign/:campaignId'
+                    element={<Campaign />}
+                  />
+                </>
+              )}
               <Route path='*' element={<NoMatch />} />
             </Routes>
           </AppShell>

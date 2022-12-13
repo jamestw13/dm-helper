@@ -10,7 +10,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-// import './App.css';
+import './Index.css';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',

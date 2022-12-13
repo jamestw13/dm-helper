@@ -79,7 +79,7 @@ db.once('open', async () => {
   // Populate campaign with players and their PCs
   for (let i = 0; i < NUM_PCS; i++) {
     // Select random user to be a player
-    const { _id: playerId, firstname } = rand(users);
+    const { _id: playerId } = rand(users);
 
     // Create PC
     const { _id: pcId } = await Character.create(generateCharacter(false));
@@ -106,8 +106,7 @@ db.once('open', async () => {
       // Associate character and campaign
       await Campaign.findOneAndUpdate(
         { _id: campaign._id },
-        { $addToSet: { characters: pcId } },
-        { $addToSet: { players: playerId } }
+        { $addToSet: { characters: pcId, players: playerId } }
       );
 
       await Character.findOneAndUpdate(

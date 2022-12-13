@@ -6,7 +6,7 @@ const PageWrapper = ({ children, title }) => {
   return (
     <Container>
       <Flex justify='space-between' direction='row' m='sm'>
-        <Title order={2}>{title}</Title>
+        <Title order={1}>{title}</Title>
         <Button onClick={() => navigate(-1)}>Go back</Button>
       </Flex>
       <Flex direction='row' gap='sm' wrap='wrap'>

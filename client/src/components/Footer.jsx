@@ -1,10 +1,10 @@
 import React from 'react';
-import { Footer as MFooter } from '@mantine/core';
+import { Footer as MFooter, Text } from '@mantine/core';
 // import './Footer.css';
 const Footer = () => {
   return (
     <MFooter>
-      <footer className='footer'>&copy;TJ James 2022</footer>;
+      <Text>&copy;TJ James 2022</Text>;
     </MFooter>
   );
 };
