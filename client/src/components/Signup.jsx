@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Section } from './Section';
+import { Button, PasswordInput, TextInput } from '@mantine/core';
 
 const Signup = () => {
   const [addUser, { error }] = useMutation(ADD_USER);
@@ -40,7 +41,7 @@ const Signup = () => {
   return (
     <Section title='Sign Up'>
       <form onSubmit={handleFormSubmit}>
-        <input
+        <TextInput
           placeholder='Your username'
           name='username'
           type='username'
@@ -48,7 +49,7 @@ const Signup = () => {
           value={formState.username}
           onChange={handleChange}
         />
-        <input
+        <TextInput
           placeholder='Your email'
           name='email'
           type='email'
@@ -56,7 +57,7 @@ const Signup = () => {
           value={formState.email}
           onChange={handleChange}
         />
-        <input
+        <PasswordInput
           placeholder='******'
           name='password'
           type='password'
@@ -64,7 +65,7 @@ const Signup = () => {
           value={formState.password}
           onChange={handleChange}
         />
-        <button type='submit'>Submit</button>
+        <Button type='submit'>Submit</Button>
         {error && <div>Sign up failed</div>}
       </form>
     </Section>

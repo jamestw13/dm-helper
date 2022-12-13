@@ -25,5 +25,8 @@ export const theme = {
         c: 'white',
       },
     },
+    Paper: {
+      defaultProps: {},
+    },
   },
 };

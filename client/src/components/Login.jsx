@@ -5,6 +5,16 @@ import Auth from '../utils/auth';
 import { QUERY_USERS } from '../utils/queries';
 
 import { Section } from './Section';
+import {
+  Button,
+  Flex,
+  List,
+  PasswordInput,
+  TextInput,
+  Stack,
+  Title,
+  Text,
+} from '@mantine/core';
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);
@@ -44,7 +54,7 @@ const Login = props => {
   return (
     <Section title='Login'>
       <form onSubmit={handleFormSubmit}>
-        <input
+        <TextInput
           placeholder='Your email'
           name='email'
           type='email'
@@ -52,7 +62,7 @@ const Login = props => {
           value={formState.email}
           onChange={handleChange}
         />
-        <input
+        <PasswordInput
           placeholder='******'
           name='password'
           type='password'
@@ -60,30 +70,34 @@ const Login = props => {
           value={formState.password}
           onChange={handleChange}
         />
-        <button type='submit'>Submit</button>
+        <Button type='submit'>Submit</Button>
+
+        {error && <div>Login failed</div>}
+
+        <Title order={4}>Test Users:</Title>
+        {!userLoading ? (
+          <Stack>
+            {userData?.users?.map(user => (
+              <Flex gap='xs' key={user._id} align='center'>
+                <Text>{user.email}</Text>
+                <Button
+                  size='xs'
+                  onClick={() => {
+                    setFormState({ password: '11111111', email: user.email });
+                  }}
+                >
+                  +
+                </Button>
+                <Button type='submit' size='xs'>
+                  Go
+                </Button>
+              </Flex>
+            ))}
+          </Stack>
+        ) : (
+          <h4>Loading</h4>
+        )}
       </form>
-
-      {error && <div>Login failed</div>}
-
-      <h4>Test Users:</h4>
-      {!userLoading ? (
-        <ul>
-          {userData?.users?.map(user => (
-            <li key={user._id}>
-              {user.email}
-              <button
-                onClick={() => {
-                  setFormState({ password: '11111111', email: user.email });
-                }}
-              >
-                +
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h4>Loading</h4>
-      )}
     </Section>
   );
 };

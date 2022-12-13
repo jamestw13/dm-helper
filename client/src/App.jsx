@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { QUERY_ME } from './utils/queries';
 import { useQuery } from '@apollo/client';
-import { MantineProvider, AppShell } from '@mantine/core';
+import { MantineProvider, AppShell, Text } from '@mantine/core';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

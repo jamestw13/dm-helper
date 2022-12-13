@@ -54,14 +54,14 @@ function Campaign() {
         <div>Loading</div>
       ) : (
         <>
+          {/* Player Section */}
           <Section title='Players' collapsable>
             <Indicator
               label={<Title order={6}>DM</Title>}
               color='red'
               position='top-center'
               size='sm'
-
-              // offset={12}
+              zIndex={2}
             >
               <Card>
                 <Flex align='center' gap='.25em'>
@@ -91,6 +91,8 @@ function Campaign() {
               </Card>
             ))}
           </Section>
+
+          {/* Character Section */}
           <Section title='Characters' collapsable>
             <Chip.Group
               multiple={true}
@@ -114,11 +116,13 @@ function Campaign() {
               )
               .map((char, i) => (
                 <Card key={i} onClick={() => {}}>
-                  <div>{char.name}</div>
-                  <div>{`Player: ${char.user.firstname}`}</div>
+                  <Title order={5}>{char.name}</Title>
+                  <Text>{char.user.firstname}</Text>
                 </Card>
               ))}
           </Section>
+
+          {/* Encounter Section */}
           <Section title='Encounter List' collapsable>
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
@@ -128,7 +132,7 @@ function Campaign() {
                   queryEncounter({ variables: { _id: enc._id } });
                 }}
               >
-                <div>{enc.title}</div>
+                <Title order={4}>{enc.title}</Title>
               </Card>
             ))}
           </Section>
