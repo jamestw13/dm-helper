@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Paper, Title, Text, Button, Collapse, Flex } from '@mantine/core';
 
 export const Section = ({
   children,
@@ -9,20 +10,25 @@ export const Section = ({
   const [cardOpen, setCardOpen] = useState(startOpen);
 
   return (
-    <section className='card'>
-      {collapsable && (
-        <div className='collapse-button' onClick={() => setCardOpen(!cardOpen)}>
-          {title}
-        </div>
-      )}
-      <div>
-        <h2 className={cardOpen ? 'card-title' : 'card-closed'}>{title}</h2>
-        <div
-          className={`card-children ${cardOpen ? 'card-open' : 'card-closed'}`}
-        >
+    <Paper withBorder radius='md' p='sm'>
+      <Flex>
+        <Collapse in={cardOpen}>
+          <Title order={2}>{title}</Title>
           {children}
-        </div>
-      </div>
-    </section>
+        </Collapse>
+        {collapsable && (
+          <div
+            style={{
+              padding: '0.5em',
+              writingMode: 'vertical-lr',
+              textOrientation: 'sideways-right',
+            }}
+            onClick={() => setCardOpen(bool => !bool)}
+          >
+            <Text>{title}</Text>
+          </div>
+        )}
+      </Flex>
+    </Paper>
   );
 };

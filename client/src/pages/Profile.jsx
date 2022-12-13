@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { Card, Text } from '@mantine/core';
 
 // import './Profile.css';
 import CharacterList from '../components/CharacterList';
@@ -16,6 +17,10 @@ const Profile = ({ data }) => {
   const navigate = useNavigate();
   const handleCharacterClick = charId => {
     navigate(`/sheet/${charId}`);
+  };
+
+  const handleCampaignClick = campaignId => {
+    return navigate(`/campaign/${campaignId}`);
   };
   // const { username: userParam } = useParams();
 
@@ -35,24 +40,44 @@ const Profile = ({ data }) => {
 
   return (
     <PageWrapper title='Dashboard'>
-      <section>
-        <Section title='Character List'>
-          <CharacterList
-            chars={data?.characters}
-            handleCharacterClick={handleCharacterClick}
-            selectedCar={selectedChar}
-            setSelectedChar={setSelectedChar}
-          />
+      <Section title='Character List'>
+        {data?.characters?.map((char, i) => (
+          <Card
+            key={i}
+            colorOne={char.primaryColor}
+            colorTwo={char.secondaryColor}
+            handleCardClick={handleCharacterClick}
+          >
+            <Text weight={500} className='char-name'>
+              {char.name}
+            </Text>
+            <div className='char-encounter'>
+              {!!char.campaign &&
+                (char.isNPC
+                  ? `NPC in: ${char.campaign.name}`
+                  : `PC in: ${char.campaign.name}`)}
+            </div>
+          </Card>
+        ))}
+      </Section>
+      {!!selectedChar && (
+        <Section title='Character Sheet'>
+          <CharacterSheet charId={selectedChar._id} />
         </Section>
-        {!!selectedChar && (
-          <Section title='Character Sheet'>
-            <CharacterSheet charId={selectedChar._id} />
-          </Section>
-        )}
-        <Section title='Campaign List'>
-          <CampaignList campaigns={data?.campaigns} me={data?._id} />
-        </Section>
-      </section>
+      )}
+      <Section title='Campaign List'>
+        {data?.campaigns?.map(campaign => (
+          <Card
+            key={campaign._id}
+            onClick={() => handleCampaignClick(campaign._id)}
+          >
+            <Text weight={500} className='char-name'>
+              {campaign.name}
+            </Text>
+            <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
+          </Card>
+        ))}
+      </Section>
     </PageWrapper>
   );
 };

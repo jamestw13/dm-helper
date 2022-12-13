@@ -16,14 +16,13 @@ function Home() {
   return (
     <PageWrapper title='Stat Block'>
       <Title order={1}>TTRPG Managment Tools</Title>
-      <div className='home-container'>
-        {!loggedIn && (
-          <div>
-            <Login />
-            <Signup />
-          </div>
-        )}
-      </div>
+
+      {!loggedIn && (
+        <div>
+          <Login />
+          <Signup />
+        </div>
+      )}
     </PageWrapper>
   );
 }

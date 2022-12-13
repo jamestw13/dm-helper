@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import { Paper, Flex, Title, Button } from '@mantine/core';
+import { Paper, Flex, Title, Button, Container, Stack } from '@mantine/core';
 
 const PageWrapper = ({ children, title }) => {
   const navigate = useNavigate();
   return (
-    <Paper p='md'>
-      <Flex justify='space-between'>
-        <Title order={1}>{title}</Title>
+    <Container>
+      <Flex justify='space-between' direction='row' m='sm'>
+        <Title order={2}>{title}</Title>
         <Button onClick={() => navigate(-1)}>Go back</Button>
       </Flex>
-
-      {children}
-    </Paper>
+      <Flex direction='row' gap='sm' wrap='wrap'>
+        {children}
+      </Flex>
+    </Container>
   );
 };
 

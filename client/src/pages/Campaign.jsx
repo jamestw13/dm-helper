@@ -43,7 +43,7 @@ function Campaign() {
       {campaignLoading ? (
         <div>Loading</div>
       ) : (
-        <section className='campaign-container'>
+        <>
           <Section title='Characters' collapsable>
             {campaign?.characters?.map((char, i) => (
               <Card
@@ -77,8 +77,7 @@ function Campaign() {
               <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
             )}
           </Section>
-        </section>
-        // <EncounterForm setActiveEncounter={setActiveEncounter} chars={chars} />
+        </>
       )}
     </PageWrapper>
   );
