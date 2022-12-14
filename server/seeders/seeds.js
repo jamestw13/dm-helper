@@ -9,8 +9,6 @@ const {
   randNumber,
   randBoolean,
   randParagraph,
-  randCatchPhrase,
-  randText,
   randTextRange,
 } = require('@ngneat/falso');
 const Monster = require('../models/Monster');

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { TrackerTable } from './TrackerTable';
 import { TrackerNavigator } from './TrackerNavigator';
 import { CharacterRow } from './CharacterRow';
+import { Table } from '@mantine/core';
 
 export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
   const [numRounds, setNumRounds] = useState(6);
@@ -33,7 +34,7 @@ export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
             currentTurn={currentTurn}
             setCurrentTurn={setCurrentTurn}
           /> */}
-          <table id='tracker-table'>
+          <Table id='tracker-table'>
             <thead id='tracker-header'>
               <tr>
                 <th></th>
@@ -82,7 +83,7 @@ export const EncounterTracker = ({ chars, activeEncounter = {} }) => {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </Table>
         </>
       )}
     </>

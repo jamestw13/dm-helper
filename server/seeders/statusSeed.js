@@ -20,11 +20,10 @@ const conditions = [
 const generateStatusData = characterData => {
   let statusData = [];
   const roll = randNumber({ min: 1, max: 20 });
-  if (roll >= 5) {
+  if (roll >= 1) {
     const targetChar = rand(characterData);
     const status = {
       target: targetChar.name,
-      targetColor: targetChar.color,
       caster: rand(characterData.map(char => char.name)),
       condition: rand(conditions),
       startRound: randNumber({ min: 0, max: 6 }),

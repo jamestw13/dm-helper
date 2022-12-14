@@ -14,6 +14,7 @@ import NoMatch from './pages/NoMatch';
 import Auth from './utils/auth';
 
 import { theme } from './Theme.jsx';
+import Encounter from './pages/Encounter';
 
 const loggedIn = Auth.loggedIn();
 const App = () => {
@@ -40,16 +41,17 @@ const App = () => {
               />
               {loggedIn && (
                 <>
-                  <Route
-                    exact
-                    path='/profile/:username?'
-                    element={<Profile />}
-                  />
+                  <Route exact path='/profile/:userId' element={<Profile />} />
                   <Route exact path='/sheet/:charId' element={<Sheet />} />
                   <Route
                     exact
                     path='/campaign/:campaignId'
                     element={<Campaign />}
+                  />
+                  <Route
+                    exact
+                    path='/encounter/:encounterId'
+                    element={<Encounter />}
                   />
                 </>
               )}

@@ -12,6 +12,7 @@ export const CharacterRow = ({ character: c, statuses: s }) => {
           className='status-cell'
           style={{ backgroundColor: status.targetColor }}
         >
+          {status.targetColor}
           {status.condition}
         </td>
       ))}

@@ -26,7 +26,7 @@ export const theme = {
       },
     },
     Paper: {
-      defaultProps: {},
+      defaultProps: { color: 'white' },
     },
   },
 };

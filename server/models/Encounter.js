@@ -23,6 +23,8 @@ const encounterSchema = new Schema({
           character: { type: Schema.Types.ObjectId, ref: 'Character' },
           statuses: [
             {
+              target: { type: Schema.Types.ObjectId, ref: 'Character' },
+              caster: { type: Schema.Types.ObjectId, ref: 'Character' },
               condition: { type: String, default: 'Deafened' },
               // { type: Schema.Types.ObjectId, ref: 'Condition' }
               duration: Number,

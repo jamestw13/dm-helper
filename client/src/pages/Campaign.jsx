@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { EncounterTracker } from '../components/EncounterTracker';
-import CharacterList from '../components/CharacterList';
 import { Section } from '../components/Section';
 import CharacterSheet from '../components/CharacterSheet';
-import EncounterForm from '../components/EncounterForm';
-import { Link, useParams } from 'react-router-dom';
-import { useLazyQuery, useQuery } from '@apollo/client';
-import { QUERY_CAMPAIGN, QUERY_ENCOUNTER } from '../utils/queries';
+
+import { useParams, useNavigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_CAMPAIGN } from '../utils/queries';
 
 import PageWrapper from '../components/PageWrapper';
 import {
@@ -15,7 +13,6 @@ import {
   Title,
   Text,
   Card,
-  Group,
   Avatar,
   Flex,
   Chip,
@@ -34,25 +31,27 @@ function Campaign() {
       variables: { _id: campaignId },
     }
   );
-  const [queryEncounter, { data: encounterData, loading: encounterLoading }] =
-    useLazyQuery(QUERY_ENCOUNTER);
 
+  const navigate = useNavigate();
   const campaign = campaignData?.campaign || {};
   const [chars, setChars] = useState([]);
   const [activeEncounter, setActiveEncounter] = useState({});
-  const [encounterFormOpen, setEncouterFormOpen] = useState(false);
+
   const [charSelect, setCharSelect] = useState(['npc']);
 
   useEffect(() => {
     campaignData?.campaign && setChars(campaignData.campaign.characters);
   }, [campaignData]);
 
-  useEffect(() => {
-    setActiveEncounter(encounterData?.encounter);
-  }, [encounterData]);
+  const handleEncounterClick = encounterId => {
+    return navigate(`/encounter/${encounterId}`);
+  };
 
   return (
-    <PageWrapper title={campaign.name} className='campaign-container'>
+    <PageWrapper
+      title={`Campaign: ${campaign.name}`}
+      className='campaign-container'
+    >
       {campaignLoading ? (
         <div>Loading</div>
       ) : (
@@ -129,22 +128,18 @@ function Campaign() {
           <Section title='Encounter List' collapsable>
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
-              //{/*  <Card
-              // key={i}
-
-              //> */}
-              // {/* <Card.Section> */}
-              <>
-                <Accordion key={i} chevronPosition='left'>
+              <Box key={i}>
+                <Accordion chevronPosition='left'>
                   <Accordion.Item value={enc.title}>
                     <Flex align='center'>
                       <Accordion.Control>{enc.title}</Accordion.Control>
-                      <ActionIcon size='xl'>
-                        <IconArrowRightTail
-                          onClick={() => {
-                            queryEncounter({ variables: { _id: enc._id } });
-                          }}
-                        />
+                      <ActionIcon
+                        size='xl'
+                        onClick={() => {
+                          handleEncounterClick(enc._id);
+                        }}
+                      >
+                        <IconArrowRightTail />
                       </ActionIcon>
                     </Flex>
                     <Accordion.Panel>
@@ -152,35 +147,18 @@ function Campaign() {
                     </Accordion.Panel>
                   </Accordion.Item>
                 </Accordion>
-              </>
-              //{/* </Card.Section> */}
-              //{/* <Title order={4}>{enc.title}</Title> */}
-              //{/* </Card> */}
+              </Box>
             ))}
           </Section>
-          <Section title='Encounter Tracker' collapsable startOpen={true}>
-            {encounterLoading && <div>Loading...</div>}
-            <EncounterTracker chars={chars} activeEncounter={activeEncounter} />
-          </Section>
-          <Section title='Character Sheet' collapsable startOpen={false}>
+
+          {/* <Section title='Character Sheet' collapsable startOpen={false}>
             {chars.length > 0 && (
               <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
             )}
-          </Section>
+          </Section> */}
         </>
       )}
     </PageWrapper>
-  );
-}
-
-function TJAccordionControl(props) {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Accordion.Control {...props} />
-      <ActionIcon size='lg'>
-        <IconArrowRightTail size={16} />
-      </ActionIcon>
-    </Box>
   );
 }
 

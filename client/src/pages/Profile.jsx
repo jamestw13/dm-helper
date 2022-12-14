@@ -3,11 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { Card, Text } from '@mantine/core';
 
-// import './Profile.css';
-import CharacterList from '../components/CharacterList';
-
 import Auth from '../utils/auth';
-import CampaignList from '../components/CampaignList';
 
 import CharacterSheet from '../components/CharacterSheet';
 import { Section } from '../components/Section';
@@ -39,7 +35,7 @@ const Profile = ({ data }) => {
   // }
 
   return (
-    <PageWrapper title='Dashboard'>
+    <PageWrapper title={`Dashboard: ${true}`}>
       <Section title='Character List'>
         {data?.characters?.map((char, i) => (
           <Card
