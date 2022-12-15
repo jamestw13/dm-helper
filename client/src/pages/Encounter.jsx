@@ -16,11 +16,8 @@ const Encounter = () => {
   );
   const eData = encounterData?.encounter ? encounterData.encounter : {};
   return (
-    <PageWrapper title={`Encounter : ${eData.title}`}>
-      {/* <Section title='Details'>
-        <Text>{JSON.stringify(eData)}</Text>
-      </Section> */}
-      <Section title='Track'>
+    <PageWrapper title={eData.title}>
+      <Section>
         <EncounterTracker activeEncounter={eData} />
       </Section>
     </PageWrapper>

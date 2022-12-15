@@ -41,14 +41,14 @@ const Profile = () => {
     return navigate(`/campaign/${campaignId}`);
   };
   return (
-    <PageWrapper title={user.firstname}>
+    <PageWrapper title={`${user.firstname} ${user.lastname}`}>
       <Section title='Friends'>
         {user?.friends?.map((friend, i) => (
           <Card key={i} onClick={() => handleFriendClick(friend._id)}>
             <Flex align='center'>
               <Avatar />
               <Title
-                order={6}
+                order={4}
               >{`${friend.firstname} ${friend.lastname}`}</Title>
             </Flex>
           </Card>
@@ -60,17 +60,17 @@ const Profile = () => {
             key={i}
             // colorOne={char.primaryColor}
             // colorTwo={char.secondaryColor}
-            onClick={handleCharacterClick}
+            onClick={() => handleCharacterClick(char._id)}
           >
-            <Text weight={500} className='char-name'>
+            <Title order={4} className='char-name'>
               {char.name}
-            </Text>
-            <div className='char-encounter'>
+            </Title>
+            <Text className='char-encounter'>
               {!!char.campaign &&
                 (char.isNPC
                   ? `NPC in: ${char.campaign.name}`
                   : `PC in: ${char.campaign.name}`)}
-            </div>
+            </Text>
           </Card>
         ))}
       </Section>
@@ -85,10 +85,10 @@ const Profile = () => {
             key={campaign._id}
             onClick={() => handleCampaignClick(campaign._id)}
           >
-            <Text weight={500} className='char-name'>
+            <Title order={4} className='char-name'>
               {campaign.name}
-            </Text>
-            <div className='char-encounter'>{`DM: ${campaign?.owner?.username}`}</div>
+            </Title>
+            <Text className='char-encounter'>{`DM: ${campaign?.owner?.username}`}</Text>
           </Card>
         ))}
       </Section>
