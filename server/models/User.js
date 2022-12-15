@@ -34,6 +34,13 @@ const userSchema = new Schema(
       minlength: 5,
     },
 
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+
     avatar: {
       type: String,
     },

@@ -1,6 +1,6 @@
 const db = require('../config/connection');
 const { User, Character, Campaign, Encounter } = require('../models');
-const generateUsers = require('./userSeed');
+const { generateUsers, linkFriends } = require('./userSeed');
 const generateCharacter = require('./characterSeed');
 const {
   seed,
@@ -16,7 +16,7 @@ const seedMonsters = require('./monsterSeed');
 const generateStatusData = require('./statusSeed');
 
 const NUM_USERS = 20;
-const NUM_CAMPAIGNS = 20;
+const NUM_CAMPAIGNS = 12;
 const NUM_PCS = 6 * NUM_CAMPAIGNS;
 const NUM_ROUNDS = 6;
 
@@ -189,6 +189,35 @@ db.once('open', async () => {
       }
     }
   }
-  console.log('Finished Seeding');
+
+  // Link Friends
+
+  const friendPool = await User.find({}).select('_id');
+
+  // Randomize friends
+  for (let i = 0; i < NUM_USERS * 2; i++) {
+    let friend1 = rand(friendPool);
+    let friend2 = friend1;
+
+    while (friend1 === friend2) {
+      friend2 = rand(friendPool);
+    }
+
+    await linkFriends(friend1, friend2);
+  }
+
+  // Campaign friends
+  const friendlyCampaigns = await Campaign.find({}).select('players');
+  console.log(friendlyCampaigns);
+
+  for (let campaign of friendlyCampaigns) {
+    for (let player1 of campaign.players) {
+      for (let player2 of campaign.players) {
+        await linkFriends(player1, player2);
+      }
+    }
+  }
+
+  await console.log('Finished Seeding');
   process.exit(0);
 });

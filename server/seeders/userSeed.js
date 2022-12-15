@@ -1,6 +1,7 @@
 const { seed, randUser, randAvatar } = require('@ngneat/falso');
+const { User } = require('../models');
 
-module.exports = async function generateUsers(numUsers) {
+const generateUsers = async numUsers => {
   // seed('Stat Block');
   let userData = [];
 
@@ -21,3 +22,21 @@ module.exports = async function generateUsers(numUsers) {
 
   return userData;
 };
+
+const linkFriends = async (friend1, friend2) => {
+  try {
+    friend1 = await User.findOneAndUpdate(
+      { _id: friend1._id },
+      { $addToSet: { friends: friend2._id } }
+    );
+
+    friend2 = await User.findOneAndUpdate(
+      { _id: friend2._id },
+      { $addToSet: { friends: friend1._id } }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+module.exports = { generateUsers, linkFriends };

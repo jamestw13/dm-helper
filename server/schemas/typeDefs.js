@@ -12,6 +12,7 @@ const typeDefs = gql`
     characters: [Character]
     campaigns: [Campaign]
     avatar: String
+    friends: [User]
   }
 
   type Character {
