@@ -14,6 +14,7 @@ const resolvers = {
               path: 'characters',
               populate: { path: 'campaign', model: 'Campaign' },
             },
+            { path: 'friends' },
           ]);
 
         return userData;
@@ -22,10 +23,28 @@ const resolvers = {
     },
 
     users: async () => {
-      return User.find().select('-__v -password').populate('campaigns');
+      return User.find()
+        .select('-__v -password')
+        .populate([
+          { path: 'campaigns', populate: { path: 'owner', model: 'User' } },
+          {
+            path: 'characters',
+            populate: { path: 'campaign', model: 'Campaign' },
+          },
+          { path: 'friends' },
+        ]);
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).select('-__v -password');
+    user: async (parent, { _id }) => {
+      return User.findOne({ _id })
+        .select('-__v -password')
+        .populate([
+          { path: 'campaigns', populate: { path: 'owner', model: 'User' } },
+          {
+            path: 'characters',
+            populate: { path: 'campaign', model: 'Campaign' },
+          },
+          { path: 'friends' },
+        ]);
     },
     characters: async () => {
       return Character.find().select('-__v').populate('campaign');

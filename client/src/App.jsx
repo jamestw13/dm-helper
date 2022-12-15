@@ -19,13 +19,14 @@ import Encounter from './pages/Encounter';
 const loggedIn = Auth.loggedIn();
 const App = () => {
   const { data: userData } = useQuery(QUERY_ME);
+  const user = userData?.me || {};
 
   return (
     <>
       <Router>
         <MantineProvider theme={theme}>
           <AppShell
-            header={<Header me={userData?.me} />}
+            header={<Header user={user} />}
             footer={<Footer />}
             padding='0'
             bg='dark'
@@ -34,14 +35,10 @@ const App = () => {
               <Route exact path='/' element={<Home />} />
               <Route exact path='/login' element={<Home />} />
               <Route exact path='/signup' element={<Home />} />
-              <Route
-                exact
-                path='/profile/'
-                element={<Profile data={userData?.me} />}
-              />
+
               {loggedIn && (
                 <>
-                  <Route exact path='/profile/:userId' element={<Profile />} />
+                  <Route exact path='/:userId' element={<Profile />} />
                   <Route exact path='/sheet/:charId' element={<Sheet />} />
                   <Route
                     exact

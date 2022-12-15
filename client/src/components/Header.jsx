@@ -5,7 +5,7 @@ import Auth from '../utils/auth';
 
 // import './Header.css';
 
-const Header = ({ me }) => {
+const Header = ({ user }) => {
   const logout = event => {
     event.preventDefault();
     Auth.logout();
@@ -29,15 +29,15 @@ const Header = ({ me }) => {
                 <a className='link' href='/' onClick={logout}>
                   <Button>Logout</Button>
                 </a>
-                <Link to='/profile'>
-                  <Button>{`${me?.firstname} ${me?.lastname}`}</Button>
+                <Link to={`/${user?._id}`}>
+                  <Button>{`${user?.firstname} ${user?.lastname}`}</Button>
                 </Link>
 
-                <Link to='/profile'>
+                <Link to={`/${user?.username}`}>
                   <Avatar
                     radius='xl'
                     size='lg'
-                    src={me?.avatar}
+                    src={user?.avatar}
                     className='avatar'
                     alt="User's avatar"
                   />

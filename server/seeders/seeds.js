@@ -208,7 +208,6 @@ db.once('open', async () => {
 
   // Campaign friends
   const friendlyCampaigns = await Campaign.find({}).select('players');
-  console.log(friendlyCampaigns);
 
   for (let campaign of friendlyCampaigns) {
     for (let player1 of campaign.players) {

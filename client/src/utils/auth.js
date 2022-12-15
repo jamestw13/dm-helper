@@ -39,7 +39,7 @@ class AuthService {
     // saves user token to localStorage
     localStorage.setItem('id_token', idToken);
 
-    window.location.assign('/profile');
+    window.location.assign(`/${this.getProfile().data._id}`);
   }
 
   // clear token from localStyorage and force logout with relaed

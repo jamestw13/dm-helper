@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
-import { Card, Text } from '@mantine/core';
+import { Avatar, Card, Flex, Text, Title } from '@mantine/core';
+
+import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
@@ -9,8 +11,28 @@ import CharacterSheet from '../components/CharacterSheet';
 import { Section } from '../components/Section';
 import PageWrapper from '../components/PageWrapper';
 
-const Profile = ({ data }) => {
+const Profile = () => {
+  if (!Auth.loggedIn()) return <Navigate to='/' />;
+
   const navigate = useNavigate();
+
+  const { userId: userParam } = useParams();
+
+  const { loading, data: userData } = useQuery(
+    Auth.getProfile().data._id === userParam ? QUERY_ME : QUERY_USER,
+    {
+      variables: { _id: userParam },
+    }
+  );
+
+  const user = userData?.me || userData?.user || {};
+
+  const [selectedChar, setSelectedChar] = useState('');
+
+  const handleFriendClick = userId => {
+    navigate(`/${userId}`);
+  };
+
   const handleCharacterClick = charId => {
     navigate(`/sheet/${charId}`);
   };
@@ -18,26 +40,22 @@ const Profile = ({ data }) => {
   const handleCampaignClick = campaignId => {
     return navigate(`/campaign/${campaignId}`);
   };
-  // const { username: userParam } = useParams();
-
-  // const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-  //   variables: { username: userParam },
-  // });
-
-  // const user = data?.me || data?.user || {};
-  const [selectedChar, setSelectedChar] = useState('');
-
-  if (!Auth.loggedIn()) return <Navigate to='/' />;
-
-  // // redirect to person profile page if username is the logged-in user's
-  // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-  //   return <Navigate to='/profile' />;
-  // }
-
   return (
-    <PageWrapper title={`Dashboard: ${true}`}>
+    <PageWrapper title={user.firstname}>
+      <Section title='Friends'>
+        {user?.friends?.map((friend, i) => (
+          <Card key={i} onClick={() => handleFriendClick(friend._id)}>
+            <Flex align='center'>
+              <Avatar />
+              <Title
+                order={6}
+              >{`${friend.firstname} ${friend.lastname}`}</Title>
+            </Flex>
+          </Card>
+        ))}
+      </Section>
       <Section title='Character List'>
-        {data?.characters?.map((char, i) => (
+        {user?.characters?.map((char, i) => (
           <Card
             key={i}
             // colorOne={char.primaryColor}
@@ -62,7 +80,7 @@ const Profile = ({ data }) => {
         </Section>
       )}
       <Section title='Campaign List'>
-        {data?.campaigns?.map(campaign => (
+        {user?.campaigns?.map(campaign => (
           <Card
             key={campaign._id}
             onClick={() => handleCampaignClick(campaign._id)}
@@ -70,7 +88,7 @@ const Profile = ({ data }) => {
             <Text weight={500} className='char-name'>
               {campaign.name}
             </Text>
-            <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
+            <div className='char-encounter'>{`DM: ${campaign?.owner?.username}`}</div>
           </Card>
         ))}
       </Section>
