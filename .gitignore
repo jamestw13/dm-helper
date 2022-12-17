@@ -105,3 +105,5 @@ dist
 
 # Rest Client test file
 requests.rest
+
+/mongo_data
