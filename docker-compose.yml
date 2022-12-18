@@ -9,14 +9,14 @@ services:
     ports:
       - '27017:27017'
     networks:
-      - dm-network
+      - stat-block-network
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: dm-server
-    container_name: dm-server
+    image: stat-block-server
+    container_name: stat-block-server
     ports:
       - '4000:4000'
       - '3001:3001'
@@ -27,21 +27,21 @@ services:
       - NODE_ENV=development
       - MONGODB_URI=mongodb://mongo-db:27017
     networks:
-      - dm-network
+      - stat-block-network
 
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: dm-client
-    container_name: dm-client
+    image: stat-block-client
+    container_name: stat-block-client
     depends_on:
       - server
     ports:
       - '3000:3000'
     networks:
-      - dm-network
+      - stat-block-network
 
 networks:
-  dm-network:
+  stat-block-network:
     driver: bridge

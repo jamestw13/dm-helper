@@ -30,7 +30,11 @@ const Header = ({ user }) => {
                   <Button>Logout</Button>
                 </a>
                 <Link to={`/${user?._id}`}>
-                  <Button>{`${user?.firstname} ${user?.lastname}`}</Button>
+                  <Button>
+                    {user.firstname
+                      ? `${user.firstname || ''} ${user.lastname || ''}`
+                      : user.username}
+                  </Button>
                 </Link>
 
                 <Link to={`/${user?.username}`}>

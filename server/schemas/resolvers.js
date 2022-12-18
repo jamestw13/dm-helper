@@ -96,6 +96,15 @@ const resolvers = {
       const token = signToken(user);
       return { user, token };
     },
+    addCharacter: async (parent, { character: charInput }) => {
+      const character = await Character.create(charInput);
+      const user = await User.findOneAndUpdate(
+        { _id: charInput.user },
+        { $addToSet: { characters: character } }
+      );
+
+      return character;
+    },
   },
 };
 

@@ -18,7 +18,6 @@ const typeDefs = gql`
   type Character {
     _id: ID
     name: String
-
     race: String
     class: String
     level: Int
@@ -111,11 +110,17 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addCharacter(character: CharacterInput!): Character
   }
 
   type Auth {
     token: ID!
     user: User
+  }
+
+  input CharacterInput {
+    name: String!
+    user: ID!
   }
 `;
 
