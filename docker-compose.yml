@@ -1,6 +1,16 @@
 version: '3.7'
 
 services:
+  mongo:
+    image: mongo
+    container_name: mongo-db
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - dm-network
+
   server:
     build:
       context: ./server
@@ -9,34 +19,24 @@ services:
     container_name: dm-server
     ports:
       - '4000:4000'
+      - '3001:3001'
     depends_on:
       - mongo
     env_file: ./server/.env
     environment:
       - NODE_ENV=development
-      - MONGODB_URI=mongodb://mongo-server:27017
+      - MONGODB_URI=mongodb://mongo-db:27017
+    networks:
+      - dm-network
 
-    networks:
-      - dm-network
-  mongo:
-    image: mongo
-    container_name: mongo-server
-    volumes:
-      - ./mongo_data:/data/db
-    ports:
-      - '27017:27017'
-    networks:
-      - dm-network
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
     image: dm-client
     container_name: dm-client
-
     depends_on:
       - server
-
     ports:
       - '3000:3000'
     networks:
