@@ -5,8 +5,7 @@ const characterSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      required:
-        'Your character needs at least a name. Even just a working name.',
+      required: 'Your character needs at least a name. Even just a working name.',
     },
     race: {
       type: String,
@@ -114,7 +113,7 @@ const characterSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: 'Character needs to be associated with a user.',
+      // required: 'Character needs to be associated with a user.',
     },
   },
   { toJSON: { virtuals: true } }
