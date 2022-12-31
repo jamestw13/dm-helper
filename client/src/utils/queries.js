@@ -182,6 +182,7 @@ export const QUERY_CHARACTER = gql`
       }
       user {
         firstname
+        lastname
       }
     }
   }
