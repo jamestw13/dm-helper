@@ -1,8 +1,36 @@
 import { useQuery } from '@apollo/client';
-import { Box, Select, Checkbox, Grid, Group, Table, TextInput, Textarea, NumberInput } from '@mantine/core';
+import { Box, Select, Checkbox, Grid, Group, Table, TextInput, Textarea, NumberInput, Text } from '@mantine/core';
 import { QUERY_CHARACTER } from '../utils/queries';
 import { useForm } from '@mantine/form';
 import { useEffect } from 'react';
+
+const CustomInput = props => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: `${props.labelPos === 'bottom' ? 'column' : 'row'}`,
+        gap: '.5em',
+
+        alignItems: 'stretch',
+      }}
+    >
+      {props.checked && <Checkbox />}
+      {props.type === 'num' && (
+        <NumberInput
+          hide
+          hideControls
+          sx={{ width: !props.fullWidth && '3em' }}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      )}
+      {props.type === 'text' && <TextInput value={props.value} onChange={props.onChange} />}
+      {props.type === 'select' && <Select data={props.data} value={props.value} onChange={props.onChange} />}
+      <Text align="center">{props.label}</Text>
+    </Box>
+  );
+};
 
 const CharacterSheet = ({ charId }) => {
   // const charData = [];
@@ -28,35 +56,71 @@ const CharacterSheet = ({ charId }) => {
 
   return (
     <>
+      {/* Details Block */}
       <Grid gutter="xs">
-        {/* Details Block */}
         <Grid.Col span={6}>
-          <TextInput size="lg" label="Character Name" {...form.getInputProps('name')} />
+          <CustomInput type="text" label="Character Name" labelPos="bottom" {...form.getInputProps('name')} />
         </Grid.Col>
         <Grid.Col span={1}>
-          <Select searchable size="xs" label="Class" data={['Cleric', 'Barbarian']} {...form.getInputProps('class')} />
+          {/* <Select searchable size="xs" label="Class" data={['Cleric', 'Barbarian']} {...form.getInputProps('class')} /> */}
+          <CustomInput
+            type="select"
+            label="Class"
+            labelPos="bottom"
+            data={['Cleric', 'Barbarian']}
+            {...form.getInputProps('class')}
+          />
         </Grid.Col>
         <Grid.Col span={1}>
-          <NumberInput min={1} max={25} size="xs" label="Level" {...form.getInputProps('level')} />
+          {/* <NumberInput min={1} max={25} size="xs" label="Level" {...form.getInputProps('level')} /> */}
+          <CustomInput type="num" label="Level" labelPos="bottom" {...form.getInputProps('level')} />
         </Grid.Col>
         <Grid.Col span={2}>
-          <TextInput size="xs" label="Background" {...form.getInputProps('background')} />
+          {/* <TextInput size="xs" label="Background" {...form.getInputProps('background')} /> */}
+          <CustomInput type="text" label="Background" labelPos="bottom" {...form.getInputProps('background')} />
         </Grid.Col>
         <Grid.Col span={2}>
-          <TextInput size="xs" disabled label="Player" {...form.getInputProps('user')} />
+          {/* <TextInput size="xs" disabled label="Player" {...form.getInputProps('user')} /> */}
+          <CustomInput type="text" label="Player" labelPos="bottom" {...form.getInputProps('user')} />
         </Grid.Col>
         <Grid.Col span={6}></Grid.Col>
         <Grid.Col span={2}>
-          <Select
+          <CustomInput
+            type="select"
+            size="xs"
+            searchable
+            label="Race"
+            labelPos="bottom"
+            data={['Warforged', 'Dwarf', 'Elf', 'Human']}
+            {...form.getInputProps('race')}
+          />
+          {/* <Select
             size="xs"
             searchable
             label="Race"
             data={['Warforged', 'Dwarf', 'Elf', 'Human']}
             {...form.getInputProps('race')}
-          />
+          /> */}
         </Grid.Col>
         <Grid.Col span={2}>
-          <Select
+          <CustomInput
+            type="select"
+            label="Alignment"
+            labelPos="bottom"
+            data={[
+              'Lawful Good',
+              'Lawful Neutral',
+              'Lawful Evil',
+              'Neutral Good',
+              'True Neutral',
+              'Neutral Evil',
+              'Chaotic Good',
+              'Chaotic Neutral',
+              'Chaotic Evil',
+            ]}
+            {...form.getInputProps('alignment')}
+          />
+          {/* <Select
             searchable
             size="xs"
             label="Alignment"
@@ -72,15 +136,18 @@ const CharacterSheet = ({ charId }) => {
               'Chaotic Evil',
             ]}
             {...form.getInputProps('alignment')}
-          />
+          /> */}
         </Grid.Col>
         <Grid.Col span={2}>
-          <NumberInput min={0} size="xs" label="Experience Points" {...form.getInputProps('xp')} />
+          <CustomInput type="num" fullWidth label="Experience Points" labelPos="bottom" {...form.getInputProps('xp')} />
+          {/* <NumberInput min={0} size="xs" label="Experience Points" {...form.getInputProps('xp')} /> */}
         </Grid.Col>
+      </Grid>
 
-        {/* Roll Column */}
+      <Grid sx={{ border: '1px solid white' }}>
+        {/* Left Column */}
         <Grid.Col span={4}>
-          <Grid>
+          <Grid gutter="xs">
             {/* Ability Scores Block */}
             <Grid.Col span={4}>
               <NumberInput size="xs" label="Strength" {...form.getInputProps('strMod')} />
@@ -98,35 +165,46 @@ const CharacterSheet = ({ charId }) => {
             </Grid.Col>
 
             <Grid.Col span={8}>
-              <NumberInput size="xs" label="Inspiration" {...form.getInputProps('inspiration')} />
-              <NumberInput size="xs" label="Proficiency Bonus" {...form.getInputProps('profBonus')} />
-              {/* Saving Throws Block */}
+              <Grid>
+                {/* <NumberInput size="xs" label="Inspiration" {...form.getInputProps('inspiration')} /> */}
+                {/* <NumberInput size="xs" label="Proficiency Bonus" {...form.getInputProps('profBonus')} /> */}
+                <CustomInput type="num" size="xs" label="Inspiration" {...form.getInputProps('inspiration')} />
+                <CustomInput type="num" size="xs" label="Proficiency Bonus" {...form.getInputProps('profBonus')} />
+                <CustomInput type="num" label="Passive Wisdom (Perception)" {...form.getInputProps('wisMod')} />
+              </Grid>
 
+              {/* Saving Throws Block */}
               <Box>
                 <h5> Saving Throws</h5>
+                <Box display="flex">
+                  {/* <Checkbox {...form.getInputProps('strSTProf')} /> */}
+                  {/* <NumberInput size="xs" label="Strength" {...form.getInputProps('strSTProf')} /> */}
+                  <CustomInput type="num" label="Strength" checked {...form.getInputProps('strSTProf')} />
+                </Box>
+                <Box>
+                  {/* <Checkbox {...form.getInputProps('dexSTProf')} /> */}
+                  {/* <NumberInput size="xs" label="Dexterity" {...form.getInputProps('dexSTProf')} /> */}
+                  <CustomInput type="num" label="Dexterity" checked {...form.getInputProps('dexSTProf')} />
+                </Box>
                 <Group>
-                  <Checkbox {...form.getInputProps('strSTProf')} />
-                  <NumberInput size="xs" label="Strength" {...form.getInputProps('strSTProf')} />
+                  {/* <Checkbox {...form.getInputProps('conSTProf')} /> */}
+                  {/* <NumberInput size="xs" checked label="Constitution" {...form.getInputProps('conSTProf')} /> */}
+                  <CustomInput checked type="num" label="Constitution" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('dexSTProf')} />
-                  <NumberInput size="xs" label="Dexterity" {...form.getInputProps('dexSTProf')} />
+                  {/* <Checkbox {...form.getInputProps('intSTProf')} /> */}
+                  {/* <NumberInput size="xs" label="Intelligence" {...form.getInputProps('intSTProf')} /> */}
+                  <CustomInput checked type="num" label="Intelligence" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('conSTProf')} />
-                  <NumberInput size="xs" label="Constitution" {...form.getInputProps('conSTProf')} />
+                  {/* <Checkbox {...form.getInputProps('wisSTProf')} /> */}
+                  {/* <NumberInput size="xs" label="Wisdom" {...form.getInputProps('wisSTProf')} /> */}
+                  <CustomInput checked type="num" label="Wisdom" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('intSTProf')} />
-                  <NumberInput size="xs" label="Intelligence" {...form.getInputProps('intSTProf')} />
-                </Group>
-                <Group>
-                  <Checkbox {...form.getInputProps('wisSTProf')} />
-                  <NumberInput size="xs" label="Wisdom" {...form.getInputProps('wisSTProf')} />
-                </Group>
-                <Group>
-                  <Checkbox {...form.getInputProps('chaSTProf')} />
-                  <NumberInput size="xs" label="Charisma" {...form.getInputProps('chaSTProf')} />
+                  {/* <Checkbox {...form.getInputProps('chaSTProf')} /> */}
+                  {/* <NumberInput size="xs" label="Charisma" {...form.getInputProps('chaSTProf')} /> */}
+                  <CustomInput checked type="num" label="Charisma" {...form.getInputProps('conSTProf')} />
                 </Group>
               </Box>
 
@@ -134,87 +212,103 @@ const CharacterSheet = ({ charId }) => {
                 <h5> Skills</h5>
 
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Acrobatics" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Acrobatics" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Acrobatics" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Animal Handling" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Animal Handling" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Animal Handling" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Arcana" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Arcana" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Arcana" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Athletics" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Athletics" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Athletics" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Deception" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Deception" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Deception" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="History" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="History" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="History" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Insight" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Insight" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Insight" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Intimidation" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Intimidation" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Intimidation" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Investigation" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Investigation" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Investigation" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Medicine" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Medicine" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Medicine" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Nature" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Nature" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Nature" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Perception" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Perception" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Perception" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Performance" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Performance" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Performance" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Persuasion" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Persuasion" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Persuasion" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Religion" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Religion" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Religion" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Sleight of Hand" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Sleight of Hand" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Sleight of Hand" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Stealth" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Stealth" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Stealth" {...form.getInputProps('conSTProf')} />
                 </Group>
                 <Group>
-                  <Checkbox {...form.getInputProps('')} />
-                  <NumberInput size="xs" label="Survival" {...form.getInputProps('')} />
+                  {/* <Checkbox {...form.getInputProps('')} /> */}
+                  {/* <NumberInput size="xs" label="Survival" {...form.getInputProps('')} /> */}
+                  <CustomInput checked type="num" label="Survival" {...form.getInputProps('conSTProf')} />
                 </Group>
               </Box>
             </Grid.Col>
           </Grid>
-          <NumberInput label="Passive Wisdom (Perception)" {...form.getInputProps('wisMod')} />
-          <Textarea label="Other Proficiencies & Languages" autosize {...form.getInputProps('otherProfs')} />
         </Grid.Col>
 
-        {/* Stats Column */}
+        {/* Center Column */}
         <Grid.Col span={4}>
-          <Grid>
+          <Grid gutter="xs">
             <Grid.Col span={4}>
               <NumberInput size="xs" label="Armor Class" {...form.getInputProps('ac')} />
             </Grid.Col>
@@ -222,14 +316,21 @@ const CharacterSheet = ({ charId }) => {
               <NumberInput size="xs" label="Initiative" {...form.getInputProps('init')} />
             </Grid.Col>
             <Grid.Col span={4}>
-              <TextInput size="xs" label="Speed" {...form.getInputProps('speed')} />
+              <Textarea size="xs" label="Speed" {...form.getInputProps('speed')} />
             </Grid.Col>
-          </Grid>
-          <h5>Hit Points</h5>
-          <NumberInput size="xs" label="Max " {...form.getInputProps('maxHP')} />
-          <NumberInput size="xs" label="Current" {...form.getInputProps('currentHP')} />
-          <NumberInput size="xs" label="Temporary" {...form.getInputProps('tempHP')} />
-          <Grid>
+            <Grid.Col span={12}>
+              <h5>Hit Points</h5>
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <NumberInput size="xs" label="Max " {...form.getInputProps('maxHP')} />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <NumberInput size="xs" label="Current" {...form.getInputProps('currentHP')} />
+            </Grid.Col>
+            <Grid.Col span={12}>
+              <NumberInput size="xs" label="Temporary" {...form.getInputProps('tempHP')} />
+            </Grid.Col>
+
             <Grid.Col span={6}>
               <h5>Hit Dice</h5>
               <TextInput size="xs" label="Total" {...form.getInputProps('totalHD')} />
@@ -251,284 +352,16 @@ const CharacterSheet = ({ charId }) => {
           </Grid>
         </Grid.Col>
 
-        {/* Background Column */}
+        {/* Right Column */}
         <Grid.Col span={4}>
           <Textarea label="Personality Traits" autosize {...form.getInputProps('persTraits')}></Textarea>
           <Textarea label="Ideals" autosize {...form.getInputProps('ideals')}></Textarea>
           <Textarea label="Bonds" autosize {...form.getInputProps('bonds')}></Textarea>
           <Textarea label="Flaws" autosize {...form.getInputProps('flaws')}></Textarea>
           <Textarea label="Features & Traits" autosize {...form.getInputProps('fsAndTs')} />
+          <Textarea label="Other Proficiencies & Languages" autosize {...form.getInputProps('otherProfs')} />
         </Grid.Col>
       </Grid>
-
-      <Table>
-        <tbody>
-          <tr>
-            <th style={{ backgroundColor: c?.color }} colSpan={6} rowSpan={3}>
-              <h3>{c?.name}</h3>
-            </th>
-            <th>{c?.class}</th>
-            <th>{c?.level}</th>
-            <th colSpan={2}>{c?.background}</th>
-            <th colSpan={2}>{c?.user.firstname}</th>
-          </tr>
-          <tr>
-            <td>Class</td>
-            <td>Level</td>
-            <td colSpan={2}>Background</td>
-            <td colSpan={2}>Player Name</td>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.race}</th>
-            <th colSpan={2}>{c?.alignment}</th>
-            <th colSpan={2}>{c?.xp}</th>
-          </tr>
-          <tr>
-            <td colSpan={6}>Character Name</td>
-            <td colSpan={2}>Race</td>
-            <td colSpan={2}>Alignment</td>
-            <td colSpan={2}>Exp. Points</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Strength</td>
-            <th>{c?.inspiration}</th>
-            <td colSpan={2}>Inspiration</td>
-            <th>{c?.ac}</th>
-            <th>
-              {c?.initMod > 0 && `+`}
-              {c?.initMod}
-            </th>
-            <th>{c?.speed}</th>
-            <th colSpan={4} rowSpan={2}>
-              {c?.persTraits}
-            </th>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.strMod > 0 ? `+${c?.strMod}` : c?.strMod}</th>
-            <th>+{c?.profBonus}</th>
-            <td colSpan={2}>Proficiency Bonus</td>
-            <td>Armor Class</td>
-            <td>Initiative</td>
-            <td>Speed</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.str}</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.strST}</th>
-            <td>Strength</td>
-            <td colSpan={2}>Hit Point Maximum</td>
-            <th>{c?.hp}</th>
-            <td colSpan={4}>Personality Traits</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Dexterity</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.dexST}</th>
-            <td>Dexterity</td>
-
-            <th colSpan={3} rowSpan={2}>
-              {c?.currentHP}
-            </th>
-            <th colSpan={4} rowSpan={2}>
-              {c?.ideals}
-            </th>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.dexMod > 0 ? `+${c?.dexMod}` : c?.dexMod}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.conST}</th>
-            <td>Constitution</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.dex}</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.intST}</th>
-            <td>Intelligence</td>
-            <td colSpan={3}>Current Hit Points</td>
-
-            <td colSpan={4}>Ideals</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Constitution</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.wisST}</th>
-            <td>Wisdom</td>
-            <td colSpan={3} rowSpan={2}>
-              {c?.tempHP}
-            </td>
-            <th colSpan={3} rowSpan={2}>
-              {c?.bonds}
-            </th>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.conMod > 0 ? `+${c?.conMod}` : c?.conMod}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.chaST}+2*</th>
-            <td>Charisma</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.con}</td>
-            <td colSpan={3}>Saving Throws</td>
-            <td colSpan={3}>Temporary Hit Points</td>
-            <td colSpan={4}>Bonds</td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Intelligence</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.intMod > 0 ? `+${c?.intMod}` : c?.intMod}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.int}</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Wisdom</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.wisMod > 0 ? `+${c?.wisMod}` : c?.wisMod}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.wis}</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2}>Charisma</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.chaMod > 0 ? `+${c?.chaMod}` : c?.chaMod}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2}>{c?.cha}</td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <th colSpan={2}>{c?.passPerc}</th>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2} rowSpan={2}>
-              Passive Wisdom (Perception)
-            </td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={2} rowSpan={7}></td>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox type="checkbox" />
-            </td>
-            <th>{c?.SP}</th>
-            <td></td>
-          </tr>
-          <tr>
-            <td colSpan={3}>Skills</td>
-          </tr>
-        </tbody>
-      </Table>
     </>
   );
 };
