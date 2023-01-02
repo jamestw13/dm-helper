@@ -1,18 +1,5 @@
 import { useQuery } from '@apollo/client';
-import {
-  Box,
-  Select,
-  Checkbox,
-  Grid,
-  Group,
-  Table,
-  TextInput,
-  Textarea,
-  NumberInput,
-  Text,
-  Stack,
-  Flex,
-} from '@mantine/core';
+import { Box, Select, Checkbox, Grid, Group, TextInput, Textarea, NumberInput, Text, Stack, Flex } from '@mantine/core';
 import { QUERY_CHARACTER } from '../utils/queries';
 import { useForm } from '@mantine/form';
 import { useEffect } from 'react';
@@ -153,7 +140,7 @@ const CharacterSheet = ({ charId }) => {
                   <CustomInput type="num" size="xs" label="Proficiency Bonus" {...form.getInputProps('profBonus')} />
                 </Grid.Col>
                 <Grid.Col span={12}>
-                  <CustomInput type="num" label="Passive Wisdom (Perception)" {...form.getInputProps('wisMod')} />
+                  <CustomInput type="num" label="Passive Wisdom (Perception)" {...form.getInputProps('passPercep')} />
                 </Grid.Col>
               </Grid>
 
@@ -163,31 +150,31 @@ const CharacterSheet = ({ charId }) => {
                 <CustomInput type="num" label="Strength" checked {...form.getInputProps('strSTProf')} />
                 <CustomInput type="num" label="Dexterity" checked {...form.getInputProps('dexSTProf')} />
                 <CustomInput checked type="num" label="Constitution" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Intelligence" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Wisdom" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Charisma" {...form.getInputProps('conSTProf')} />
+                <CustomInput checked type="num" label="Intelligence" {...form.getInputProps('intSTProf')} />
+                <CustomInput checked type="num" label="Wisdom" {...form.getInputProps('wisSTProf')} />
+                <CustomInput checked type="num" label="Charisma" {...form.getInputProps('chaSTProf')} />
               </Box>
 
               <Box>
                 <h5> Skills</h5>
-                <CustomInput checked type="num" label="Acrobatics" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Animal Handling" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Arcana" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Athletics" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Deception" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="History" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Insight" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Intimidation" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Investigation" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Medicine" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Nature" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Perception" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Performance" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Persuasion" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Religion" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Sleight of Hand" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Stealth" {...form.getInputProps('conSTProf')} />
-                <CustomInput checked type="num" label="Survival" {...form.getInputProps('conSTProf')} />
+                <CustomInput checked type="num" label="Acrobatics" {...form.getInputProps('skillAcrobatics')} />
+                <CustomInput checked type="num" label="Animal Handling" {...form.getInputProps('skillAniHand')} />
+                <CustomInput checked type="num" label="Arcana" {...form.getInputProps('skillArcana')} />
+                <CustomInput checked type="num" label="Athletics" {...form.getInputProps('skillAth')} />
+                <CustomInput checked type="num" label="Deception" {...form.getInputProps('skillDecep')} />
+                <CustomInput checked type="num" label="History" {...form.getInputProps('skillHist')} />
+                <CustomInput checked type="num" label="Insight" {...form.getInputProps('skillInsight')} />
+                <CustomInput checked type="num" label="Intimidation" {...form.getInputProps('skillIntim')} />
+                <CustomInput checked type="num" label="Investigation" {...form.getInputProps('skillInvest')} />
+                <CustomInput checked type="num" label="Medicine" {...form.getInputProps('skillMedicine')} />
+                <CustomInput checked type="num" label="Nature" {...form.getInputProps('skillNature')} />
+                <CustomInput checked type="num" label="Perception" {...form.getInputProps('skillPercep')} />
+                <CustomInput checked type="num" label="Performance" {...form.getInputProps('skillPerform')} />
+                <CustomInput checked type="num" label="Persuasion" {...form.getInputProps('skillPersuasion')} />
+                <CustomInput checked type="num" label="Religion" {...form.getInputProps('skillReligion')} />
+                <CustomInput checked type="num" label="Sleight of Hand" {...form.getInputProps('skillSleightHand')} />
+                <CustomInput checked type="num" label="Stealth" {...form.getInputProps('skillStealth')} />
+                <CustomInput checked type="num" label="Survival" {...form.getInputProps('skillSurvival')} />
               </Box>
             </Grid.Col>
           </Grid>
