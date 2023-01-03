@@ -62,7 +62,20 @@ const CharacterSheet = ({ charId }) => {
             type="select"
             label="Class"
             labelPos="column"
-            data={['Cleric', 'Barbarian']}
+            data={[
+              'Barbarian',
+              'Bard',
+              'Cleric',
+              'Druid',
+              'Fighter',
+              'Monk',
+              'Paladin',
+              'Ranger',
+              'Rogue',
+              'Sorcerer',
+              'Warlock',
+              'Wizard',
+            ]}
             {...form.getInputProps('class')}
           />
         </Grid.Col>
@@ -83,7 +96,18 @@ const CharacterSheet = ({ charId }) => {
             searchable
             label="Race"
             labelPos="column"
-            data={['Warforged', 'Dwarf', 'Elf', 'Human']}
+            data={[
+              'Human',
+              'Elf',
+              'Dwarf',
+              'Halfling',
+              'Dragonborn',
+              'Gnome',
+              'Half-Elf',
+              'Half-Orc',
+              'Tiefling',
+              'Warforged',
+            ]}
             {...form.getInputProps('race')}
           />
         </Grid.Col>
@@ -187,10 +211,10 @@ const CharacterSheet = ({ charId }) => {
               <CustomInput type="num" label="Armor Class" labelPos="column-reverse" {...form.getInputProps('ac')} />
             </Grid.Col>
             <Grid.Col span={4}>
-              <CustomInput type="num" label="Initiative" labelPos="column-reverse" {...form.getInputProps('init')} />
+              <CustomInput type="num" label="Initiative" labelPos="column-reverse" {...form.getInputProps('initMod')} />
             </Grid.Col>
             <Grid.Col span={4}>
-              <CustomInput type="tArea" label="Speed" labelPos="column-reverse" {...form.getInputProps('ac')} />
+              <CustomInput type="tArea" label="Speed" labelPos="column-reverse" {...form.getInputProps('speed')} />
             </Grid.Col>
             <Grid.Col span={12}>
               <Text>Hit Points</Text>

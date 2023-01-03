@@ -1,4 +1,16 @@
-const { rand, randNumber, randHex, randFullName } = require('@ngneat/falso');
+const { rand, randNumber, randHex, randFullName, randBoolean } = require('@ngneat/falso');
+
+const alignments = [
+  'Lawful Good',
+  'Lawful Neutral',
+  'Lawful Evil',
+  'Neutral Good',
+  'True Neutral',
+  'Neutral Evil',
+  'Chaotic Good',
+  'Chaotic Neutral',
+  'Chaotic Evil',
+];
 
 const classes = [
   { type: 'Barbarian', hitDice: 12 },
@@ -16,16 +28,96 @@ const classes = [
 ];
 
 const races = [
-  { type: 'Human' },
-  { type: 'Elf' },
-  { type: 'Dwarf' },
-  { type: 'Halfling' },
-  { type: 'Dragonborn' },
-  { type: 'Gnome' },
-  { type: 'Half-elf' },
-  { type: 'Half-orc' },
-  { type: 'Tiefling' },
-  { type: 'Warforged' },
+  {
+    type: 'Dwarf',
+    abScoreIncrease: ['conMod + 2'],
+    age: randNumber({ min: 30, max: 400 }),
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: ['Common', 'Dwarvish'],
+    subraces: [{}],
+  },
+  {
+    type: 'Dragonborn',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Elf',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Halfling',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Gnome',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Half-Elf',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Half-Orc',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Human',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
+  {
+    type: 'Tiefling',
+    abScoreIncrease: [],
+    age: 25,
+    size: 'medium',
+    speed: '25ft',
+    alignment: rand(alignments),
+    languages: [],
+    subraces: [],
+  },
 ];
 
 const backgrounds = [
@@ -63,14 +155,14 @@ const getAbilityMod = stat => {
   return Math.floor((stat - 10) / 2);
 };
 
-const getHP = () => {
+const getHP = (_level, _hitDice, _conMod) => {
   let result = 0;
 
-  for (let i = this.level; i > 0; i--) {
+  for (let i = _level; i > 0; i--) {
     if (i === 1) {
-      result += this.class.hitDice + this.conMod;
+      result += _hitDice + _conMod;
     } else {
-      result += randNumber({ min: 1, max: this.class.hitDice }) + this.conMod;
+      result += randNumber({ min: 1, max: _hitDice }) + _conMod;
     }
   }
   return result;
@@ -82,7 +174,7 @@ const rollDie = numSides => {
 
 module.exports = function generateCharacter(isNPC) {
   const scores = rollAbilityScores();
-  const level = randNumber({ min: 1, max: 20 });
+  const level = randNumber({ min: 1, max: 3 });
 
   const raceStats = rand(races);
   const classStats = rand(classes);
@@ -94,6 +186,7 @@ module.exports = function generateCharacter(isNPC) {
     class: classStats.type,
     hitDice: classStats.hitDice,
     level: level,
+    alignment: rand(alignments),
     background: backgroundStats.type,
     str: scores[0],
     dex: scores[1],
@@ -109,9 +202,82 @@ module.exports = function generateCharacter(isNPC) {
     chaMod: getAbilityMod(scores[5]),
     profBonus: Math.floor(level / 4) + 2,
     initMod: getAbilityMod(scores[1]),
-    init: rollDie(20) + getAbilityMod(scores[3]),
-    hp: getHP(),
+
     ac: 10 + getAbilityMod(scores[1]) + randNumber({ min: -2, max: 4 }),
+    speed: '30ft',
+    maxHP: getHP(level, classStats.hitDice, getAbilityMod(scores[2])),
+    currentHP: getHP(level, classStats.hitDice, getAbilityMod(scores[2])),
+    tempHP: randNumber({ min: 0, max: 3 }),
+    totalHD: `${level}d${classStats.hitDice}`,
+    currentHD: `${level}d${classStats.hitDice}`,
+    inspiration: randNumber({ min: 0, max: 1 }),
+
+    atkName: 'Unarmed Strike',
+    atkBonus: getAbilityMod(scores[0]),
+    atkDamType: '1d4 B',
+
+    copperP: randNumber({ min: 0, max: 10 }),
+    silverP: randNumber({ min: 0, max: 10 }),
+    electrumP: 0,
+    goldP: randNumber({ min: 0, max: 10 }),
+    platinumP: 0,
+    equipmentNotes: '50ft of Hemp Rope',
+    persTraits: '',
+    ideals: '',
+    bonds: '',
+    flaws: '',
+    fsAndTs: '',
+    otherProfs: '',
+    passPercep: getAbilityMod(scores[4]),
+    strSTProf: randBoolean(),
+    dexSTProf: randBoolean(),
+    conSTProf: randBoolean(),
+    intSTProf: randBoolean(),
+    wisSTProf: randBoolean(),
+    chaSTProf: randBoolean(),
+    strSTmod: 0,
+    dexSTmod: 0,
+    conSTmod: 0,
+    intSTmod: 0,
+    wisSTmod: 0,
+    chaSTmod: 0,
+    skillAcrobatics: 0,
+    skillAniHand: 0,
+    skillArcana: 0,
+    skillAth: 0,
+    skillDecep: 0,
+    skillHist: 0,
+    skillInsight: 0,
+    skillIntim: 0,
+    skillInvest: 0,
+    skillMedicine: 0,
+    skillNature: 0,
+    skillPercep: 0,
+    skillPerform: 0,
+    skillPersuasion: 0,
+    skillReligion: 0,
+    skillSleightHand: 0,
+    skillStealth: 0,
+    skillSurvival: 0,
+
+    skillProfAcrobatics: randBoolean(),
+    skillProfAniHand: randBoolean(),
+    skillProfArcana: randBoolean(),
+    skillProfAth: randBoolean(),
+    skillProfDecep: randBoolean(),
+    skillProfHist: randBoolean(),
+    skillProfInsight: randBoolean(),
+    skillProfIntim: randBoolean(),
+    skillProfInvest: randBoolean(),
+    skillProfMedicine: randBoolean(),
+    skillProfNature: randBoolean(),
+    skillProfPercep: randBoolean(),
+    skillProfPerform: randBoolean(),
+    skillProfPersuasion: randBoolean(),
+    skillProfReligion: randBoolean(),
+    skillProfSleightHand: randBoolean(),
+    skillProfStealth: randBoolean(),
+    skillProfSurvival: randBoolean(),
 
     primaryColor: randHex(),
     secondaryColor: randHex(),

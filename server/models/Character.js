@@ -22,7 +22,15 @@ const characterSchema = new Schema(
       type: Number,
       trim: true,
     },
+    alignment: {
+      type: String,
+      trim: true,
+    },
     background: {
+      type: String,
+      trim: true,
+    },
+    alignment: {
       type: String,
       trim: true,
     },
@@ -308,6 +316,10 @@ const characterSchema = new Schema(
     },
     skillPersuasion: {
       type: Number,
+      trim: true,
+    },
+    speed: {
+      type: String,
       trim: true,
     },
     skillReligion: {

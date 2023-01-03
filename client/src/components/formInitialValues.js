@@ -1,8 +1,9 @@
 export const characterValues = {
   name: '',
-
   race: '',
   class: '',
+  level: '',
+  alignment: '',
   hitDice: '',
   background: '',
   str: '',
