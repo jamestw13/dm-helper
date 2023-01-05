@@ -24,8 +24,6 @@ const Encounter = () => {
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTurn, setCurrentTurn] = useState(0);
 
-  const noteForm = useForm({ initialValues: { note: 'test' } });
-
   // TODO: replace with mutation
   const [encounterLog, setEncounterLog] = useState([]);
 
@@ -43,23 +41,6 @@ const Encounter = () => {
     // lastRound.round++;
     // lastRound.turns.forEach(turn => (turn.statuses = []));
     // setEncounterLog([...encounterLog, lastRound]);
-  };
-
-  const handleSubmit = (values, round, turn) => {
-    encounterLog[round].turns[turn].statuses.push({
-      condition: values.note,
-
-      startRound: round,
-      startTurn: turn,
-      target: {
-        name: 'Sigríður Löffler',
-      },
-    });
-    // const logCopy = encounterLog.map(round => ({ round }));
-
-    // console.log(logCopy[round].round.turns[turn].statuses.push({ condition: values.note }));
-
-    // setEncounterLog(logCopy[round].round.turns[turn].statuses.push({ condition: values.note }));
   };
 
   return (
@@ -84,49 +65,33 @@ const Encounter = () => {
             </tr>
           </thead>
           <tbody id="tracker-table-body">
-            {encounterLog?.map((round, i) =>
-              round.turns.map((turn, j) => (
-                <tr key={j}>
-                  <td
-                    data-row-round={i}
-                    data-row-turn={j}
-                    style={{
-                      backgroundColor: i === currentRound && j === currentTurn && 'yellow',
-                    }}
-                    onClick={() => {
-                      setCurrentRound(i);
-                      setCurrentTurn(j);
-                    }}
-                  >
-                    &gt;
-                  </td>
-                  {j === 0 && <td rowSpan={round.turns.length}>{round.round}</td>}
-                  <CharacterRow
-                    key={turn.character + j}
-                    character={turn.character}
-                    statuses={turn.statuses}
-                    numChars={round.turns.length}
-                  />
-                  <td>
-                    <Popover>
-                      <Popover.Target>
-                        <Button size="xs">+</Button>
-                      </Popover.Target>
-                      <Popover.Dropdown>
-                        <form
-                          onSubmit={noteForm.onSubmit(values => {
-                            handleSubmit(values, i, j);
-                          })}
-                        >
-                          <TextInput label="Note" {...noteForm.getInputProps('note')} />
-                          <Button type="submit">Enter</Button>
-                        </form>
-                      </Popover.Dropdown>
-                    </Popover>
-                  </td>
-                </tr>
-              ))
-            )}
+            {encounterLog?.length > 0 &&
+              encounterLog?.map((round, i) =>
+                round.turns.map((turn, j) => (
+                  <tr key={j}>
+                    <td
+                      style={{
+                        backgroundColor: i === currentRound && j === currentTurn && 'yellow',
+                      }}
+                      onClick={() => {
+                        setCurrentRound(i);
+                        setCurrentTurn(j);
+                      }}
+                    >
+                      &gt;
+                    </td>
+                    {j === 0 && <td rowSpan={round.turns.length}>{round.round}</td>}
+                    <CharacterRow
+                      character={turn.character}
+                      statuses={turn.statuses}
+                      numChars={round.turns.length}
+                      i={i}
+                      j={j}
+                      setEncounterLog={setEncounterLog}
+                    />
+                  </tr>
+                ))
+              )}
             <tr>
               <td colSpan="100%">
                 <Button style={{ width: '100%' }} onClick={addRound}>
