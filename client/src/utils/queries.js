@@ -131,14 +131,22 @@ export const QUERY_ENCOUNTER = gql`
           character {
             name
             ac
-            hp
+            currentHP
             primaryColor
           }
           statuses {
             condition
             duration
+            durationUnit
             startRound
             startTurn
+            caster {
+              name
+            }
+            target {
+              name
+              primaryColor
+            }
           }
         }
       }

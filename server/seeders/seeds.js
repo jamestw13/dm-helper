@@ -122,11 +122,7 @@ db.once('open', async () => {
                   turn: j + 1,
                   character: char,
                   statuses: generateStatusData(encounterCharacters).filter(status => {
-                    return (
-                      status.startRound === i &&
-                      status.startTurn === j &&
-                      encounterCharacters.filter(char => char.name === status.target).length
-                    );
+                    return status.startRound === i && status.startTurn === j;
                   }),
                 };
               }),

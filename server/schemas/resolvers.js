@@ -50,10 +50,7 @@ const resolvers = {
       return Character.find().select('-__v').populate('campaign');
     },
     character: async (parent, { _id }, context) => {
-      return Character.findOne({ _id: _id })
-        .select('-__v')
-        .populate('campaign')
-        .populate('user');
+      return Character.findOne({ _id: _id }).select('-__v').populate('campaign').populate('user');
     },
     campaign: async (parent, { _id }, context) => {
       return Campaign.findOne({ _id: _id })
@@ -64,12 +61,21 @@ const resolvers = {
         .populate('encounters');
     },
     encounter: async (parent, { _id }, context) => {
-      return Encounter.findOne({ _id: _id })
-        .select('-__v')
-        .populate({
-          path: 'encounterLog',
-          populate: { path: 'turns.character', model: 'Character' },
-        });
+      return (
+        Encounter.findOne({ _id: _id })
+          .select('-__v')
+          .populate('characters')
+          .populate(
+            // {
+            // path:
+            'encounterLog.turns.character'
+          )
+          // ,
+          // populate: { path: 'turns.character', model: 'Character' },
+          // }
+          .populate('encounterLog.turns.statuses.caster')
+          .populate('encounterLog.turns.statuses.target')
+      );
     },
   },
 
@@ -98,10 +104,7 @@ const resolvers = {
     },
     addCharacter: async (parent, { character: charInput }) => {
       const character = await Character.create(charInput);
-      const user = await User.findOneAndUpdate(
-        { _id: charInput.user },
-        { $addToSet: { characters: character } }
-      );
+      const user = await User.findOneAndUpdate({ _id: charInput.user }, { $addToSet: { characters: character } });
 
       return character;
     },

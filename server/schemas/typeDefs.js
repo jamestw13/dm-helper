@@ -173,8 +173,11 @@ const typeDefs = gql`
   type Status {
     condition: String
     duration: Int
+    durationUnit: String
     startRound: Int
     startTurn: Int
+    caster: Character
+    target: Character
   }
 
   type Query {
