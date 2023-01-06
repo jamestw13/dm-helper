@@ -119,6 +119,7 @@ export const QUERY_ENCOUNTER = gql`
     encounter(_id: $_id) {
       title
       characters {
+        _id
         name
         ac
         hp
@@ -129,6 +130,7 @@ export const QUERY_ENCOUNTER = gql`
         turns {
           turn
           character {
+            _id
             name
             ac
             currentHP

@@ -1,45 +1,46 @@
-import { Box, Popover, Text, Button, TextInput } from '@mantine/core';
+import { useState, useContext } from 'react';
+import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { getTextColor } from '../utils/helpers';
-import { useState } from 'react';
 import { useForm } from '@mantine/form';
-export const CharacterRow = ({ character: c, statuses: s, numChars, i, j, setEncounterLog }) => {
+import { EncounterContext } from '../Contexts/EncounterContext';
+import { getTextColor } from '../utils/helpers';
+export const CharacterRow = ({ character, statuses, roundNum, turnNum }) => {
+  const { characters, setEncounterLog } = useContext(EncounterContext);
+
   const [formOpen, setFormOpen] = useState(false);
-  const noteForm = useForm({ initialValues: { note: 'test' } });
+  const noteForm = useForm({
+    initialValues: { condition: '', target: character._id, caster: character._id, duration: 1, durationUnit: 'round' },
+  });
+
+  const characterValues = characters.map(c => ({ value: c._id, label: c.name }));
 
   const handleSubmit = values => {
-    console.log(values.note, i, j);
-    setEncounterLog(
-      el => {
-        el[i].turns[j].statuses.push({
-          condition: values.note,
-          startRound: i,
-          startTurn: j,
-          target: {
-            name: 'Sigríður Löffler',
-          },
-        });
+    console.log(values.condition, roundNum, turnNum);
+    setEncounterLog(el => {
+      el[roundNum].turns[turnNum].statuses.push({
+        condition: values.condition,
+        startRound: roundNum,
+        startTurn: turnNum,
+        target: characters.find(c => c._id === values.target),
+        caster: characters.find(c => c._id === values.caster),
+        duration: values.duration,
+        durationUnit: values.durationUnit,
+      });
+      console.log(el);
 
-        return el;
-      }
-      // el[i].turns[j].statuses.push({
-      //   condition: values.note,
-      //   startRound: i,
-      //   startTurn: j,
-      //   target: {
-      //     name: 'Sigríður Löffler',
-      //   },
-      // })
-    );
+      return el;
+    });
     setFormOpen(false);
   };
 
   return (
     <>
-      <td style={{ backgroundColor: c.primaryColor, color: getTextColor(c.primaryColor || '#000000') }}>{c.name}</td>
-      <td>{c.currentHP}</td>
+      <td style={{ backgroundColor: character.primaryColor, color: getTextColor(character.primaryColor || '#000000') }}>
+        {character.name}
+      </td>
+      <td>{character.currentHP}</td>
 
-      <td>{c.ac}</td>
+      <td>{character.ac}</td>
 
       <td>
         <Popover opened={formOpen} onChange={setFormOpen}>
@@ -54,14 +55,21 @@ export const CharacterRow = ({ character: c, statuses: s, numChars, i, j, setEnc
                 handleSubmit(values);
               })}
             >
-              <TextInput label="Note" {...noteForm.getInputProps('note')} />
+              <TextInput label="Condition" {...noteForm.getInputProps('condition')} />
+              <Select searchable label="Caster" data={characterValues} {...noteForm.getInputProps('caster')}></Select>
+              <Select searchable label="Target" data={characterValues} {...noteForm.getInputProps('target')}></Select>
+              <Group>
+                <NumberInput label="Duration" {...noteForm.getInputProps('duration')} />
+                <Select data={['turn', 'round']} {...noteForm.getInputProps('durationUnit')} />
+              </Group>
+
               <Button type="submit">Enter</Button>
             </form>
           </Popover.Dropdown>
         </Popover>
       </td>
 
-      {s?.map((status, i) => (
+      {statuses?.map((status, i) => (
         <NoteCell key={i} status={status} />
       ))}
     </>
@@ -69,13 +77,15 @@ export const CharacterRow = ({ character: c, statuses: s, numChars, i, j, setEnc
 };
 
 function NoteCell({ status }) {
+  const { characters } = useContext(EncounterContext);
+
   const [opened, { close, open }] = useDisclosure(false);
 
   return (
     <td
       onMouseEnter={open}
       onMouseLeave={close}
-      rowSpan={status.duration || 1 * (status.durationUnit === 'round' ? numChars : 1)}
+      rowSpan={(status.duration || 1) * (status.durationUnit === 'round' ? characters.length : 1)}
       className="status-cell"
       style={{
         backgroundColor: status.target.primaryColor,
