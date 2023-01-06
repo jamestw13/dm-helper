@@ -28,7 +28,6 @@ const Encounter = () => {
   // Initialize encounterLog
 
   useEffect(() => {
-    console.log({ eData });
     if (!!eData.encounterLog) {
       setEncounterLog(JSON.parse(JSON.stringify(eData.encounterLog)));
     }

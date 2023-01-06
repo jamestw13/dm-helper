@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group } from '@mantine/core';
+import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group, MultiSelect } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { EncounterContext } from '../Contexts/EncounterContext';
@@ -9,23 +9,26 @@ export const CharacterRow = ({ character, statuses, roundNum, turnNum }) => {
 
   const [formOpen, setFormOpen] = useState(false);
   const noteForm = useForm({
-    initialValues: { condition: '', target: character._id, caster: character._id, duration: 1, durationUnit: 'round' },
+    initialValues: { condition: '', targets: [], caster: character._id, duration: 1, durationUnit: 'round' },
   });
 
   const characterValues = characters.map(c => ({ value: c._id, label: c.name }));
 
   const handleSubmit = values => {
-    console.log(values.condition, roundNum, turnNum);
     setEncounterLog(el => {
-      el[roundNum].turns[turnNum].statuses.push({
-        condition: values.condition,
-        startRound: roundNum,
-        startTurn: turnNum,
-        target: characters.find(c => c._id === values.target),
-        caster: characters.find(c => c._id === values.caster),
-        duration: values.duration,
-        durationUnit: values.durationUnit,
-      });
+      el[roundNum].turns[turnNum].statuses.push(
+        ...values.targets.map(t => {
+          return {
+            condition: values.condition,
+            startRound: roundNum,
+            startTurn: turnNum,
+            target: characters.find(c => c._id === t),
+            caster: characters.find(c => c._id === values.caster),
+            duration: values.duration,
+            durationUnit: values.durationUnit,
+          };
+        })
+      );
       console.log(el);
 
       return el;
@@ -57,7 +60,7 @@ export const CharacterRow = ({ character, statuses, roundNum, turnNum }) => {
             >
               <TextInput label="Condition" {...noteForm.getInputProps('condition')} />
               <Select searchable label="Caster" data={characterValues} {...noteForm.getInputProps('caster')}></Select>
-              <Select searchable label="Target" data={characterValues} {...noteForm.getInputProps('target')}></Select>
+              <MultiSelect searchable label="Target" data={characterValues} {...noteForm.getInputProps('targets')} />
               <Group>
                 <NumberInput label="Duration" {...noteForm.getInputProps('duration')} />
                 <Select data={['turn', 'round']} {...noteForm.getInputProps('durationUnit')} />
@@ -86,9 +89,10 @@ function NoteCell({ status }) {
       onMouseEnter={open}
       onMouseLeave={close}
       rowSpan={(status.duration || 1) * (status.durationUnit === 'round' ? characters.length : 1)}
-      className="status-cell"
       style={{
-        backgroundColor: status.target.primaryColor,
+        borderRadius: '5px',
+        border: opened ? '2px solid #aaaaaa' : '2px solid #111111',
+        backgroundColor: status.target.primaryColor || '#ffffff',
         color: getTextColor(status.target.primaryColor || '#000000'),
       }}
     >
@@ -96,10 +100,18 @@ function NoteCell({ status }) {
         <Popover.Target>
           <Box>{status.condition}</Box>
         </Popover.Target>
-        <Popover.Dropdown>
+        <Popover.Dropdown
+          style={{
+            backgroundColor: status.caster.primaryColor || '#333333',
+            color: getTextColor(status.caster.primaryColor || '#000000'),
+          }}
+        >
           {
             <Box>
+              <Text>{`Effect: ${status.condition}`}</Text>
               <Text>{`Affecting: ${status.target.name}`}</Text>
+              <Text>{`Cast by: ${status.caster.name}`}</Text>
+              <Button>End</Button>
             </Box>
           }
         </Popover.Dropdown>
