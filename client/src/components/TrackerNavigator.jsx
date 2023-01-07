@@ -1,3 +1,5 @@
+import { Button, Title, Flex, Box } from '@mantine/core';
+
 export const TrackerNavigator = ({
   currentRound,
   setCurrentRound,
@@ -5,16 +7,18 @@ export const TrackerNavigator = ({
   setCurrentTurn,
 }) => {
   return (
-    <div id="tracker-nav">
-      <h4>
+    <Flex direction='column' align='center'>
+      <Title order={4}>
         Round: <span>{currentRound}</span>
-      </h4>
-      <h4>
+      </Title>
+      <Title order={5}>
         Turn: <span>{currentTurn}</span>
-      </h4>
+      </Title>
 
-      <button id="backup-init">&lt;&lt;</button>
-      <button id="advance-init">&gt;&gt;</button>
-    </div>
+      <Box>
+        <Button id='backup-init'>&lt;&lt;</Button>
+        <Button id='advance-init'>&gt;&gt;</Button>
+      </Box>
+    </Flex>
   );
 };

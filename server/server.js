@@ -8,6 +8,7 @@ const path = require('path');
 const db = require('./config/connection');
 
 require('dotenv').config();
+console.log(process.env.ACCESS_TOKEN_SECRET, 1);
 
 // import graphQL apollo
 const { ApolloServer } = require('apollo-server-express');

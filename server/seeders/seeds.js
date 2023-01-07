@@ -2,15 +2,7 @@ const db = require('../config/connection');
 const { User, Character, Campaign, Encounter } = require('../models');
 const { generateUsers, linkFriends } = require('./userSeed');
 const generateCharacter = require('./characterSeed');
-const {
-  seed,
-  rand,
-  randBook,
-  randNumber,
-  randBoolean,
-  randParagraph,
-  randTextRange,
-} = require('@ngneat/falso');
+const { seed, rand, randBook, randNumber, randBoolean, randParagraph, randTextRange } = require('@ngneat/falso');
 const Monster = require('../models/Monster');
 const seedMonsters = require('./monsterSeed');
 const generateStatusData = require('./statusSeed');
@@ -43,14 +35,11 @@ db.once('open', async () => {
     // Create campaign
     const { _id: campaignId } = await Campaign.create({
       owner: dmId,
-      name: randBook().title,
+      name: randTextRange({ min: 15, max: 30 }),
     });
 
     // Assign campaign to user
-    await User.findOneAndUpdate(
-      { _id: dmId },
-      { $addToSet: { campaigns: campaignId } }
-    );
+    await User.findOneAndUpdate({ _id: dmId }, { $addToSet: { campaigns: campaignId } });
 
     // Popualte campaign with NPCs
     for (let j = 0; j < randNumber({ min: 0, max: 7 }); j++) {
@@ -58,21 +47,12 @@ db.once('open', async () => {
       const { _id: npcId } = await Character.create(generateCharacter(true));
 
       // Connect NPC with DM
-      await User.findOneAndUpdate(
-        { _id: dmId },
-        { $addToSet: { characters: npcId } }
-      );
+      await User.findOneAndUpdate({ _id: dmId }, { $addToSet: { characters: npcId } });
 
       // Connect NPC with campaign
-      await Campaign.findOneAndUpdate(
-        { _id: campaignId },
-        { $addToSet: { characters: npcId } }
-      );
+      await Campaign.findOneAndUpdate({ _id: campaignId }, { $addToSet: { characters: npcId } });
 
-      await Character.findOneAndUpdate(
-        { _id: npcId },
-        { campaign: campaignId, user: dmId }
-      );
+      await Character.findOneAndUpdate({ _id: npcId }, { campaign: campaignId, user: dmId });
     }
   }
 
@@ -87,10 +67,7 @@ db.once('open', async () => {
     const { _id: pcId } = await Character.create(generateCharacter(false));
 
     // Associate PC with user
-    await User.findOneAndUpdate(
-      { _id: playerId },
-      { $addToSet: { characters: pcId } }
-    );
+    await User.findOneAndUpdate({ _id: playerId }, { $addToSet: { characters: pcId } });
 
     await Character.findOneAndUpdate({ _id: pcId }, { user: playerId });
 
@@ -106,20 +83,11 @@ db.once('open', async () => {
       }
 
       // Associate character and campaign
-      await Campaign.findOneAndUpdate(
-        { _id: campaign._id },
-        { $addToSet: { characters: pcId, players: playerId } }
-      );
+      await Campaign.findOneAndUpdate({ _id: campaign._id }, { $addToSet: { characters: pcId, players: playerId } });
 
-      await Character.findOneAndUpdate(
-        { _id: pcId },
-        { campaign: campaign._id }
-      );
+      await Character.findOneAndUpdate({ _id: pcId }, { campaign: campaign._id });
 
-      await User.findOneAndUpdate(
-        { _id: playerId },
-        { $addToSet: { campaigns: campaign._id } }
-      );
+      await User.findOneAndUpdate({ _id: playerId }, { $addToSet: { campaigns: campaign._id } });
     }
   }
 
@@ -134,9 +102,7 @@ db.once('open', async () => {
       if (campaign.characters?.length > 0) {
         let encounterCharacters = [...campaign.characters];
         // randomly pick characters to be in encounter
-        encounterCharacters = campaign.characters.filter(character =>
-          randBoolean()
-        );
+        encounterCharacters = campaign.characters.filter(character => randBoolean());
         let chars;
         if (encounterCharacters.length > 1) {
           // for (char of encounterCharacters) {
@@ -148,43 +114,30 @@ db.once('open', async () => {
             return bNum - aNum;
           });
 
-          const data = [
-            ...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 })),
-          ].map((round, i) => {
+          const data = [...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 }))].map((round, i) => {
             return {
               round: i,
               turns: chars?.map((char, j) => {
                 return {
                   turn: j + 1,
                   character: char,
-                  statuses: generateStatusData(encounterCharacters).filter(
-                    status => {
-                      return (
-                        status.startRound === i &&
-                        status.startTurn === j &&
-                        encounterCharacters.filter(
-                          char => char.name === status.target
-                        ).length
-                      );
-                    }
-                  ),
+                  statuses: generateStatusData(encounterCharacters).filter(status => {
+                    return status.startRound === i && status.startTurn === j;
+                  }),
                 };
               }),
             };
           });
 
           const encounter = await Encounter.create({
-            title: randTextRange({ min: 15, max: 30 }),
+            title: randBook().title,
             characters: [...encounterCharacters],
             progress: i === 0 ? 'active' : 'not started',
             description: randParagraph(),
             encounterLog: data,
           });
 
-          await Campaign.findOneAndUpdate(
-            { _id: campaign._id },
-            { $addToSet: { encounters: encounter } }
-          );
+          await Campaign.findOneAndUpdate({ _id: campaign._id }, { $addToSet: { encounters: encounter } });
         }
       }
     }

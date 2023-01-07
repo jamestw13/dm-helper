@@ -18,12 +18,13 @@ const typeDefs = gql`
   type Character {
     _id: ID
     name: String
-
     race: String
     class: String
-    level: Int
     hitDice: Int
+    level: Int
+    alignment: String
     background: String
+    speed: String
     str: Int
     dex: Int
     con: Int
@@ -41,6 +42,84 @@ const typeDefs = gql`
     initiative: Int
     hp: Int
     ac: Int
+    currentHP: Int
+    maxHP: Int
+    tempHP: Int
+    totalHD: String
+    currentHD: String
+    dstS1: Boolean
+    dstS2: Boolean
+    dstS3: Boolean
+    dstF1: Boolean
+    dstF2: Boolean
+    dstF3: Boolean
+    atkName: String
+    atkBonus: Int
+    atkDamType: String
+    atkNotes: String
+    copperP: Int
+    silverP: Int
+    electrumP: Int
+    goldP: Int
+    platinumP: Int
+    equipmentNotes: String
+    persTraits: String
+    ideals: String
+    bonds: String
+    flaws: String
+    fsAndTs: String
+    otherProfs: String
+    passPercep: Int
+    strSTProf: Boolean
+    dexSTProf: Boolean
+    conSTProf: Boolean
+    intSTProf: Boolean
+    wisSTProf: Boolean
+    chaSTProf: Boolean
+    strSTmod: Int
+    dexSTmod: Int
+    conSTmod: Int
+    intSTmod: Int
+    wisSTmod: Int
+    chaSTmod: Int
+    skillAcrobatics: Int
+    skillAniHand: Int
+    skillArcana: Int
+    skillAth: Int
+    skillDecep: Int
+    skillHist: Int
+    skillInsight: Int
+    skillIntim: Int
+    skillInvest: Int
+    skillMedicine: Int
+    skillNature: Int
+    skillPercep: Int
+    skillPerform: Int
+    skillPersuasion: Int
+    skillReligion: Int
+    skillSleightHand: Int
+    skillStealth: Int
+    skillSurvival: Int
+
+    skillProfAcrobatics: Boolean
+    skillProfAniHand: Boolean
+    skillProfArcana: Boolean
+    skillProfAth: Boolean
+    skillProfDecep: Boolean
+    skillProfHist: Boolean
+    skillProfInsight: Boolean
+    skillProfIntim: Boolean
+    skillProfInvest: Boolean
+    skillProfMedicine: Boolean
+    skillProfNature: Boolean
+    skillProfPercep: Boolean
+    skillProfPerform: Boolean
+    skillProfPersuasion: Boolean
+    skillProfReligion: Boolean
+    skillProfSleightHand: Boolean
+    skillProfStealth: Boolean
+    skillProfSurvival: Boolean
+
     primaryColor: String
     secondaryColor: String
 
@@ -94,8 +173,11 @@ const typeDefs = gql`
   type Status {
     condition: String
     duration: Int
+    durationUnit: String
     startRound: Int
     startTurn: Int
+    caster: Character
+    target: Character
   }
 
   type Query {
@@ -111,11 +193,17 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addCharacter(character: CharacterInput!): Character
   }
 
   type Auth {
     token: ID!
     user: User
+  }
+
+  input CharacterInput {
+    name: String!
+    user: ID!
   }
 `;
 

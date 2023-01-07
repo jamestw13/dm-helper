@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo-db
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - stat-block-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: stat-block-server
+    container_name: stat-block-server
+    ports:
+      - '4000:4000'
+      - '3001:3001'
+    depends_on:
+      - mongo
+    env_file: ./server/.env
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo-db:27017
+    networks:
+      - stat-block-network
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: stat-block-client
+    container_name: stat-block-client
+    depends_on:
+      - server
+    ports:
+      - '3000:3000'
+    networks:
+      - stat-block-network
+
+networks:
+  stat-block-network:
+    driver: bridge
