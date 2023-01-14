@@ -1,40 +1,48 @@
 const { Schema, model } = require('mongoose');
 
 const encounterSchema = new Schema({
+  // Encounter Name
   title: {
     type: String,
     require: true,
   },
-  characters: {
-    type: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
-  },
+
+  // Free text notes about
+  description: { type: String },
+
+  // Whether the encounter is active or not
   progress: {
     type: String,
-    enum: ['not started', 'active', 'on hold', 'completed'],
+    enum: ['not started', 'active', 'paused', 'completed'],
     default: 'not started',
   },
-  description: { type: String },
-  encounterLog: [
+
+  // Characters in encounter
+  characters: [
     {
-      round: { type: Number, require: true },
-      turns: [
-        {
-          turn: { type: Number, require: true },
-          character: { type: Schema.Types.ObjectId, ref: 'Character' },
-          statuses: [
-            {
-              target: { type: Schema.Types.ObjectId, ref: 'Character' },
-              caster: { type: Schema.Types.ObjectId, ref: 'Character' },
-              condition: { type: String, default: 'Deafened' },
-              // { type: Schema.Types.ObjectId, ref: 'Condition' }
-              duration: Number,
-              startRound: Number,
-              startTurn: Number,
-              durationUnit: String,
-            },
-          ],
-        },
-      ],
+      character: { type: Schema.Types.ObjectId, ref: 'Character' },
+      initiative: { type: Number, default: 4 },
+    },
+  ],
+
+  // Character Turn Order
+  // encounterLog: { rounds: [{ turns: [] }] },
+
+  // Statuses or other notes
+  effects: [
+    {
+      dmOnlyView: Boolean,
+      caster: { type: Schema.Types.ObjectId, ref: 'Character' },
+      target: { type: Schema.Types.ObjectId, ref: 'Character' },
+      effectName: String,
+      effectDescription: String,
+      // { type: Schema.Types.ObjectId, ref: 'Condition' }
+      startRound: Number,
+      startTurn: Number,
+      endRound: Number,
+      endTurn: Number,
+      duration: Number,
+      durationUnit: String,
     },
   ],
 });
