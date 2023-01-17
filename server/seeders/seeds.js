@@ -2,10 +2,19 @@ const db = require('../config/connection');
 const { User, Character, Campaign, Encounter } = require('../models');
 const { generateUsers, linkFriends } = require('./userSeed');
 const generateCharacter = require('./characterSeed');
-const { seed, rand, randBook, randNumber, randBoolean, randParagraph, randTextRange } = require('@ngneat/falso');
+const {
+  seed,
+  rand,
+  randBook,
+  randNumber,
+  randBoolean,
+  randParagraph,
+  randTextRange,
+  randText,
+} = require('@ngneat/falso');
 const Monster = require('../models/Monster');
 const seedMonsters = require('./monsterSeed');
-const generateStatusData = require('./statusSeed');
+const generateEffect = require('./effectSeed');
 
 const NUM_USERS = 20;
 const NUM_CAMPAIGNS = 12;
@@ -98,65 +107,49 @@ db.once('open', async () => {
     if (campaign.characters?.length < 2) {
       break;
     }
+
     // randomly set num of encounters in campaign
-    const numEncounters = randNumber({ min: 1, max: 5 });
+    const numEncounters = randNumber({ min: 1, max: 4 });
 
     for (let i = 0; i < numEncounters; i++) {
-      // add first two characters and flip coins for remaining chars
-      // let encounterCharacters = [];
-
-      const encounterCharacters = await campaign.characters.filter((character, i) => i < 2 || randBoolean());
-
-      let encChars = [];
-      await encounterCharacters.forEach(async character => {
-        const char = await Character.findOne({ _id: character }).select('initMod');
-        // console.log({ char });
-        const initiative = char.initMod + randNumber({ min: 1, max: 20 });
-        // console.log(initiative);
-
-        result = { character: character, initiative: initiative };
-        console.log({ result });
-        encChars.push(result);
-        console.log('internal', { encChars });
-      });
-
-      console.log('external', { encChars });
-      // let chars;
-      // if (encounterCharacters.length > 1) {
-      //   // for (char of encounterCharacters) {
-      //   chars = await Character.find({ _id: encounterCharacters });
-      //   chars = chars.sort((a, b) => {
-      //     const bNum = b.initMod + randNumber({ min: 1, max: 20 });
-      //     const aNum = a.initMod + randNumber({ min: 1, max: 20 });
-
-      //     return bNum - aNum;
-      // };
-
-      // const data = [...Array(randNumber({ min: NUM_ROUNDS, max: NUM_ROUNDS + 5 }))];
-      // .map((round, i) => {
-      //   return {
-      //     round: i,
-      //     turns: chars?.map((char, j) => {
-      //       return {
-      //         turn: j + 1,
-      //         character: char,
-      //         statuses: generateStatusData(encounterCharacters).filter(status => {
-      //           return status.startRound === i && status.startTurn === j;
-      //         }),
-      //       };
-      //     }),
-      //   };
-      // });
-
+      // create the encounter object
       const encounter = await Encounter.create({
         title: randBook().title,
-        characters: encChars,
+        characters: [],
         progress: i === 0 ? 'active' : 'not started',
         description: randParagraph(),
         // encounterLog: data,
       });
-      console.log(encounter);
-      // await Campaign.findOneAndUpdate({ _id: campaign._id }, { $addToSet: { encounters: encounter } });
+
+      // add encounter to campaign
+      await Campaign.findOneAndUpdate({ _id: campaign._id }, { $addToSet: { encounters: encounter } });
+
+      // add first two characters and flip coins for remaining chars
+      const encounterCharacters = await campaign.characters.filter((character, i) => i < 2 || randBoolean());
+
+      encounterCharacters.forEach(async character => {
+        const char = await Character.findOne({ _id: character }).select('initMod');
+
+        const initiative = char.initMod + randNumber({ min: 1, max: 20 });
+
+        await Encounter.updateOne({ _id: encounter }, { $addToSet: { characters: { character, initiative } } });
+      });
+
+      // add effects
+      for (let i = 0; i < randNumber({ min: 3, max: 6 }); i++) {
+        const encChars = await Encounter.findOne({ _id: encounter }).select('characters');
+        const chars = encChars.characters.map(char => char.character);
+        const effect = generateEffect(chars);
+
+        await Encounter.updateOne(
+          { _id: encounter },
+          {
+            $addToSet: {
+              effects: effect,
+            },
+          }
+        );
+      }
     }
   }
 

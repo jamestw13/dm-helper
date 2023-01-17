@@ -31,7 +31,7 @@ const encounterSchema = new Schema({
   // Statuses or other notes
   effects: [
     {
-      dmOnlyView: Boolean,
+      dmOnlyView: { type: Boolean, default: true },
       caster: { type: Schema.Types.ObjectId, ref: 'Character' },
       target: { type: Schema.Types.ObjectId, ref: 'Character' },
       effectName: String,
