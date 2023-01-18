@@ -13,27 +13,27 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
 
   const characterValues = characters.map(c => ({ value: c._id, label: c.name }));
 
-  const handleSubmit = values => {
-    setEncounterLog(el => {
-      el[roundNum].turns[turnNum].statuses.push(
-        ...values.targets.map(t => {
-          return {
-            condition: values.condition,
-            startRound: roundNum,
-            startTurn: turnNum,
-            target: characters.find(c => c._id === t),
-            caster: characters.find(c => c._id === values.caster),
-            duration: values.duration,
-            durationUnit: values.durationUnit,
-          };
-        })
-      );
-      console.log(el);
+  // const handleSubmit = values => {
+  //   setEncounterLog(el => {
+  //     el[roundNum].turns[turnNum].statuses.push(
+  //       ...values.targets.map(t => {
+  //         return {
+  //           condition: values.condition,
+  //           startRound: roundNum,
+  //           startTurn: turnNum,
+  //           target: characters.find(c => c._id === t),
+  //           caster: characters.find(c => c._id === values.caster),
+  //           duration: values.duration,
+  //           durationUnit: values.durationUnit,
+  //         };
+  //       })
+  //     );
+  //     console.log(el);
 
-      return el;
-    });
-    setFormOpen(false);
-  };
+  //     return el;
+  //   });
+  //   setFormOpen(false);
+  // };
 
   return (
     <>
@@ -53,9 +53,12 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
           </Popover.Target>
           <Popover.Dropdown>
             <form
-              onSubmit={noteForm.onSubmit(values => {
-                handleSubmit(values);
-              })}
+              onSubmit={
+                console.log('test')
+                //   noteForm.onSubmit(values => {
+                //   handleSubmit(values);
+                // })
+              }
             >
               <TextInput label="Condition" {...noteForm.getInputProps('condition')} />
               <Select searchable label="Caster" data={characterValues} {...noteForm.getInputProps('caster')}></Select>
