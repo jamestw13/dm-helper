@@ -1,10 +1,9 @@
 import { useState, useContext } from 'react';
 import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group, MultiSelect } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { EncounterContext } from '../Contexts/EncounterContext';
 import { getTextColor } from '../utils/helpers';
-export const CharacterRow = ({ character, statuses, roundNum, turnNum }) => {
+export const CharacterRow = ({ character, roundNum, turnNum }) => {
   const { characters, setEncounterLog } = useContext(EncounterContext);
 
   const [formOpen, setFormOpen] = useState(false);
@@ -72,50 +71,9 @@ export const CharacterRow = ({ character, statuses, roundNum, turnNum }) => {
         </Popover>
       </td>
 
-      {statuses?.map((status, i) => (
+      {/* {statuses?.map((status, i) => (
         <NoteCell key={i} status={status} />
-      ))}
+      ))} */}
     </>
   );
 };
-
-function NoteCell({ status }) {
-  const { characters } = useContext(EncounterContext);
-
-  const [opened, { close, open }] = useDisclosure(false);
-
-  return (
-    <td
-      onMouseEnter={open}
-      onMouseLeave={close}
-      rowSpan={(status.duration || 1) * (status.durationUnit === 'round' ? characters.length : 1)}
-      style={{
-        borderRadius: '5px',
-        border: opened ? '2px solid #aaaaaa' : '2px solid #111111',
-        backgroundColor: status.target.primaryColor || '#ffffff',
-        color: getTextColor(status.target.primaryColor || '#000000'),
-      }}
-    >
-      <Popover opened={opened}>
-        <Popover.Target>
-          <Box>{status.condition}</Box>
-        </Popover.Target>
-        <Popover.Dropdown
-          style={{
-            backgroundColor: status.caster.primaryColor || '#333333',
-            color: getTextColor(status.caster.primaryColor || '#000000'),
-          }}
-        >
-          {
-            <Box>
-              <Text>{`Effect: ${status.condition}`}</Text>
-              <Text>{`Affecting: ${status.target.name}`}</Text>
-              <Text>{`Cast by: ${status.caster.name}`}</Text>
-              <Button>End</Button>
-            </Box>
-          }
-        </Popover.Dropdown>
-      </Popover>
-    </td>
-  );
-}

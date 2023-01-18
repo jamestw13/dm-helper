@@ -154,28 +154,28 @@ const typeDefs = gql`
     _id: ID
     title: String
     progress: String
-    characters: [Character]
-    encounterLog: [Round]
+    characters: [EncounterCharacter]
+    # encounterLog: [Round]
     description: String
+    effects: [Effect]
   }
 
-  type Round {
-    round: Int
-    turns: [Turn]
-  }
-
-  type Turn {
-    turn: Int
+  type EncounterCharacter {
+    initiative: Int
     character: Character
-    statuses: [Status]
+    name: String
   }
 
-  type Status {
-    condition: String
+  type Effect {
+    _id: ID
+    effectName: String
+    effectDescription: String
     duration: Int
     durationUnit: String
     startRound: Int
     startTurn: Int
+    endRound: Int
+    endTurn: Int
     caster: Character
     target: Character
   }

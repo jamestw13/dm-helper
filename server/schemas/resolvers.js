@@ -61,21 +61,11 @@ const resolvers = {
         .populate('encounters');
     },
     encounter: async (parent, { _id }, context) => {
-      return (
-        Encounter.findOne({ _id: _id })
-          .select('-__v')
-          .populate('characters')
-          .populate(
-            // {
-            // path:
-            'encounterLog.turns.character'
-          )
-          // ,
-          // populate: { path: 'turns.character', model: 'Character' },
-          // }
-          .populate('encounterLog.turns.statuses.caster')
-          .populate('encounterLog.turns.statuses.target')
-      );
+      return Encounter.findOne({ _id: _id })
+        .select('-__v')
+        .populate('characters.character')
+        .populate('effects.caster')
+        .populate('effects.target');
     },
   },
 

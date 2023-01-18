@@ -11,6 +11,7 @@ import { TrackerNavigator } from '../components/TrackerNavigator';
 import { CharacterRow } from '../components/CharacterRow';
 import { Button, Table } from '@mantine/core';
 import { EncounterContext } from '../Contexts/EncounterContext';
+import NoteCell from '../components/NoteCell';
 
 const Encounter = () => {
   const { encounterId } = useParams();
@@ -19,6 +20,7 @@ const Encounter = () => {
   });
   const eData = encounterData?.encounter ? encounterData.encounter : {};
 
+  const [numRounds, setNumRounds] = useState(6);
   const [currentRound, setCurrentRound] = useState(0);
   const [currentTurn, setCurrentTurn] = useState(0);
 
@@ -27,17 +29,16 @@ const Encounter = () => {
 
   // Initialize encounterLog
 
-  useEffect(() => {
-    if (!!eData.encounterLog) {
-      setEncounterLog(JSON.parse(JSON.stringify(eData.encounterLog)));
-    }
-  }, [eData]);
-
   const addRound = () => {
-    // const lastRound = logCopy.pop();
-    // lastRound.round++;
-    // lastRound.turns.forEach(turn => (turn.statuses = []));
-    // setEncounterLog([...encounterLog, lastRound]);
+    setNumRounds(x => x + 1);
+  };
+
+  const getRowSpan = effect => {
+    const roundNum = (effect.endRound - effect.startRound) * eData?.characters?.length;
+    const turnOffset = effect.endTurn - effect.startTurn;
+    const result = roundNum - turnOffset;
+    console.log(effect.endRound, effect.startRound, eData.characters.length, roundNum, turnOffset, result);
+    return result;
   };
 
   return (
@@ -63,26 +64,32 @@ const Encounter = () => {
               </tr>
             </thead>
             <tbody id="tracker-table-body">
-              {encounterLog?.length > 0 &&
-                encounterLog?.map((round, i) =>
-                  round.turns.map((turn, j) => (
-                    <tr key={j}>
-                      <td
-                        style={{
-                          backgroundColor: i === currentRound && j === currentTurn && 'yellow',
-                        }}
-                        onClick={() => {
-                          setCurrentRound(i);
-                          setCurrentTurn(j);
-                        }}
-                      >
-                        &gt;
-                      </td>
-                      {j === 0 && <td rowSpan={round.turns.length}>{round.round}</td>}
-                      <CharacterRow character={turn.character} statuses={turn.statuses} roundNum={i} turnNum={j} />
-                    </tr>
-                  ))
-                )}
+              {[...Array(numRounds)].map((round, i) =>
+                eData?.characters?.map((turn, j) => (
+                  <tr key={j}>
+                    <td
+                      style={{
+                        backgroundColor: i === currentRound && j === currentTurn && 'yellow',
+                      }}
+                      onClick={() => {
+                        setCurrentRound(i);
+                        setCurrentTurn(j);
+                      }}
+                    >
+                      &gt;
+                    </td>
+                    {j === 0 && <td rowSpan={eData.characters.length}>{i}</td>}
+                    <CharacterRow character={turn.character} roundNum={i} turnNum={j} />
+                    {eData?.effects?.map(
+                      effect =>
+                        effect.startRound === i &&
+                        effect.startTurn === j && (
+                          <NoteCell key={`${i}+${j}`} effect={effect} rowSpan={getRowSpan(effect)} />
+                        )
+                    )}
+                  </tr>
+                ))
+              )}
               <tr>
                 <td colSpan="100%">
                   <Button style={{ width: '100%' }} onClick={addRound}>

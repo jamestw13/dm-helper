@@ -139,16 +139,18 @@ db.once('open', async () => {
       for (let i = 0; i < randNumber({ min: 3, max: 6 }); i++) {
         const encChars = await Encounter.findOne({ _id: encounter }).select('characters');
         const chars = encChars.characters.map(char => char.character);
-        const effect = generateEffect(chars);
+        if (chars.length > 0) {
+          const effect = generateEffect(chars);
 
-        await Encounter.updateOne(
-          { _id: encounter },
-          {
-            $addToSet: {
-              effects: effect,
-            },
-          }
-        );
+          await Encounter.updateOne(
+            { _id: encounter },
+            {
+              $addToSet: {
+                effects: effect,
+              },
+            }
+          );
+        }
       }
     }
   }

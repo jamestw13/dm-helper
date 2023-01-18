@@ -25,9 +25,6 @@ const encounterSchema = new Schema({
     },
   ],
 
-  // Character Turn Order
-  // encounterLog: { rounds: [{ turns: [] }] },
-
   // Statuses or other notes
   effects: [
     {
@@ -36,7 +33,6 @@ const encounterSchema = new Schema({
       target: { type: Schema.Types.ObjectId, ref: 'Character' },
       effectName: String,
       effectDescription: String,
-      // { type: Schema.Types.ObjectId, ref: 'Condition' }
       startRound: Number,
       startTurn: Number,
       endRound: Number,

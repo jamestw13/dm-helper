@@ -119,38 +119,30 @@ export const QUERY_ENCOUNTER = gql`
     encounter(_id: $_id) {
       title
       characters {
-        _id
-        name
-        ac
-        hp
-        primaryColor
-      }
-      encounterLog {
-        round
-        turns {
-          turn
-          character {
-            _id
-            name
-            ac
-            currentHP
-            primaryColor
-          }
-          statuses {
-            condition
-            duration
-            durationUnit
-            startRound
-            startTurn
-            caster {
-              name
-            }
-            target {
-              name
-              primaryColor
-            }
-          }
+        character {
+          _id
+          name
+          ac
+          currentHP
+          primaryColor
         }
+        initiative
+      }
+      effects {
+        caster {
+          name
+          primaryColor
+        }
+        target {
+          name
+          primaryColor
+        }
+        startRound
+        endRound
+        startTurn
+        endTurn
+        effectName
+        effectDescription
       }
     }
   }
