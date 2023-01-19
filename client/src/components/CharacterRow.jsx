@@ -1,17 +1,5 @@
 import { useState, useContext } from 'react';
-import {
-  Box,
-  Popover,
-  Text,
-  Button,
-  TextInput,
-  Select,
-  NumberInput,
-  Group,
-  MultiSelect,
-  Flex,
-  Textarea,
-} from '@mantine/core';
+import { Box, Popover, Button, TextInput, Select, NumberInput, Group, MultiSelect, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { EncounterContext } from '../Contexts/EncounterContext';
 import { getTextColor } from '../utils/helpers';
@@ -36,7 +24,6 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
   const characterValues = characters.map(x => ({ value: x.character._id, label: x.character.name }));
 
   const handleSubmit = values => {
-    console.log(values);
     const sRound = values.startRound - 1;
     const sTurn = values.startTurn - 1;
     const eRound = values.durationUnit === 'round' ? sRound + values.duration : sRound;
