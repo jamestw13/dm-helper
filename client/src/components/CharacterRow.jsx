@@ -5,17 +5,44 @@ import { EncounterContext } from '../Contexts/EncounterContext';
 import { getTextColor } from '../utils/helpers';
 
 export const CharacterRow = ({ character, roundNum, turnNum }) => {
-  const { characters } = useContext(EncounterContext);
-  console.log({ characters });
+  const { encounterId, characters, effects, addNote } = useContext(EncounterContext);
 
   const [formOpen, setFormOpen] = useState(false);
   const noteForm = useForm({
-    initialValues: { note: '', targets: [], caster: character._id },
+    initialValues: {
+      note: 'test',
+      targets: [],
+      caster: character._id,
+      startRound: roundNum + 1,
+      startTurn: turnNum + 1,
+      duration: 1,
+      durationUnit: 'round',
+    },
   });
 
-  const characterValues = characters.map(c => ({ value: c._id, label: c.name }));
+  const characterValues = characters.map(x => ({ value: x.character._id, label: x.character.name }));
 
   const handleSubmit = values => {
+    console.log(values);
+    const sRound = values.startRound - 1;
+    const sTurn = values.startTurn - 1;
+    const eRound = values.durationUnit === 'round' ? sRound + values.duration : sRound;
+    const eTurn = values.durationUnit === 'round' ? sTurn : sTurn + values.duration;
+    addNote({
+      variables: {
+        note: {
+          encounter: encounterId,
+          caster: values.caster,
+          target: values.target,
+          effectName: values.note,
+          startRound: sRound,
+          startTurn: sTurn,
+          endRound: eRound,
+          endTurn: eTurn,
+        },
+      },
+    });
+
     setFormOpen(false);
   };
 
@@ -37,20 +64,34 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
           </Popover.Target>
           <Popover.Dropdown>
             <form
-              onSubmit={
-                () => {}
-
-                //   noteForm.onSubmit(values => {
-                //   handleSubmit(values);
-                // })
-              }
+              onSubmit={noteForm.onSubmit(values => {
+                handleSubmit(values);
+              })}
             >
-              <TextInput label="Condition" {...noteForm.getInputProps('note')} />
-              {/* <Select searchable label="Caster" data={characterValues} {...noteForm.getInputProps('caster')}></Select> */}
-              {/* <MultiSelect searchable label="Target" data={characterValues} {...noteForm.getInputProps('targets')} /> */}
+              <TextInput label="Note" {...noteForm.getInputProps('note')} />
+              <Select
+                searchable
+                label="Caster"
+                data={characters?.map(x => {
+                  return { value: x.character._id, label: x.character.name };
+                })}
+                {...noteForm.getInputProps('caster')}
+              />
+              <MultiSelect searchable label="Target" data={characterValues} {...noteForm.getInputProps('targets')} />
               <Group>
-                {/* <NumberInput label="Duration" {...noteForm.getInputProps('duration')} />
-                <Select data={['turn', 'round']} {...noteForm.getInputProps('durationUnit')} /> */}
+                <NumberInput label="Start Round" min={1} {...noteForm.getInputProps('startRound')} />
+                <NumberInput label="Start Turn" min={1} {...noteForm.getInputProps('startTurn')} />
+              </Group>
+              <Group>
+                <NumberInput label="Duration" min={1} max={30} {...noteForm.getInputProps('duration')} />
+                <Select
+                  label=" "
+                  data={[
+                    { value: 'turn', label: 'turn(s)' },
+                    { value: 'round', label: 'round(s)' },
+                  ]}
+                  {...noteForm.getInputProps('durationUnit')}
+                />
               </Group>
 
               <Button type="submit">Enter</Button>

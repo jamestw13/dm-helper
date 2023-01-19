@@ -10,12 +10,19 @@ import { TrackerNavigator } from '../components/TrackerNavigator';
 import { EncounterContext } from '../Contexts/EncounterContext';
 import EncounterTable from '../components/EncounterTable';
 import { Affix } from '@mantine/core';
+import { ADD_NOTE } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 
 const Encounter = () => {
   const { encounterId } = useParams();
-  const { data: encounterData, loading: encounterLoading } = useQuery(QUERY_ENCOUNTER, {
+  const {
+    data: encounterData,
+    loading: encounterLoading,
+    refetch: encRefetch,
+  } = useQuery(QUERY_ENCOUNTER, {
     variables: { _id: encounterId },
   });
+  const [addNote, { data: noteData }] = useMutation(ADD_NOTE);
   const eData = encounterData?.encounter ? encounterData.encounter : {};
 
   const [numRounds, setNumRounds] = useState(6);
@@ -25,6 +32,7 @@ const Encounter = () => {
   return (
     <EncounterContext.Provider
       value={{
+        encounterId,
         characters: eData.characters,
         effects: eData.effects,
         currentRound,
@@ -33,6 +41,7 @@ const Encounter = () => {
         setCurrentTurn,
         numRounds,
         setNumRounds,
+        addNote,
       }}
     >
       <PageWrapper title={eData.title}>

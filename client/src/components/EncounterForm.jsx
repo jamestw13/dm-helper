@@ -52,7 +52,7 @@ function EncounterForm({ setActiveEncounter, chars }) {
                 <button onClick={() => removeFromEncounter(char)}>-</button>
               </td>
               <td>
-                initiative: <input type='number' />
+                initiative: <input type="number" />
               </td>
             </tr>
           ))}

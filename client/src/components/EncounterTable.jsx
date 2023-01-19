@@ -51,7 +51,9 @@ const EncounterTable = () => {
               {encData.effects?.map(
                 effect =>
                   effect.startRound === i &&
-                  effect.startTurn === j && <NoteCell key={`${i}+${j}`} effect={effect} rowSpan={getRowSpan(effect)} />
+                  effect.startTurn === j && (
+                    <NoteCell key={crypto.randomUUID()} effect={effect} rowSpan={getRowSpan(effect)} />
+                  )
               )}
             </tr>
           ))

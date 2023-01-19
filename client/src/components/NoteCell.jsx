@@ -17,9 +17,9 @@ function NoteCell({ effect, rowSpan }) {
       rowSpan={rowSpan}
       style={{
         borderRadius: '5px',
-        border: opened ? '2px solid #aaaaaa' : '2px solid #111111',
-        backgroundColor: effect.target.primaryColor || '#ffffff',
-        color: getTextColor(effect.target.primaryColor || '#000000'),
+        border: opened ? '1px solid #eeeeee' : '2px solid #111111',
+        backgroundColor: effect.target?.primaryColor || 'inherit',
+        color: effect.target ? getTextColor(effect.target?.primaryColor) : 'inherit',
       }}
     >
       <Popover opened={opened}>
@@ -28,15 +28,15 @@ function NoteCell({ effect, rowSpan }) {
         </Popover.Target>
         <Popover.Dropdown
           style={{
-            backgroundColor: effect.caster.primaryColor || '#333333',
-            color: getTextColor(effect.caster.primaryColor || '#000000'),
+            backgroundColor: effect.caster?.primaryColor || '#333333',
+            color: getTextColor(effect.caster?.primaryColor || '#000000'),
           }}
         >
           {
             <Box>
               <Text>{`Effect: ${effect.effectName}`}</Text>
-              <Text>{`Affecting: ${effect.target.name}`}</Text>
-              <Text>{`Cast by: ${effect.caster.name}`}</Text>
+              <Text>{!!effect.target && `Affecting: ${effect.target.name}`}</Text>
+              <Text>{!!effect.caster && `Cast by: ${effect.caster.name}`}</Text>
               <Button>End</Button>
             </Box>
           }

@@ -194,6 +194,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addCharacter(character: CharacterInput!): Character
+    addNote(note: NoteInput!): Boolean
   }
 
   type Auth {
@@ -204,6 +205,18 @@ const typeDefs = gql`
   input CharacterInput {
     name: String!
     user: ID!
+  }
+
+  input NoteInput {
+    encounter: ID!
+    caster: ID
+    target: ID
+    effectName: String!
+    effectDescription: String
+    startRound: Int!
+    startTurn: Int!
+    endRound: Int!
+    endTurn: Int!
   }
 `;
 

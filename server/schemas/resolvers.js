@@ -98,6 +98,12 @@ const resolvers = {
 
       return character;
     },
+    addNote: async (parent, { note }) => {
+      const { encounter, ...effect } = note;
+      console.log(encounter, effect);
+      await Encounter.findOneAndUpdate({ _id: note.encounter }, { $addToSet: { effects: effect } });
+      return true;
+    },
   },
 };
 

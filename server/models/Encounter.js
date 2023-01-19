@@ -37,8 +37,6 @@ const encounterSchema = new Schema({
       startTurn: Number,
       endRound: Number,
       endTurn: Number,
-      duration: Number,
-      durationUnit: String,
     },
   ],
 });

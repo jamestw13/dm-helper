@@ -35,3 +35,9 @@ export const ADD_CHARACTER = gql`
     }
   }
 `;
+
+export const ADD_NOTE = gql`
+  mutation addNote($note: NoteInput!) {
+    addNote(note: $note)
+  }
+`;
