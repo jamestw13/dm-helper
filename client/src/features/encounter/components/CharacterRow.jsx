@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import { Box, Popover, Button, TextInput, Select, NumberInput, Group, MultiSelect, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { EncounterContext } from '../Contexts/EncounterContext';
-import { getTextColor } from '../utils/helpers';
+import { EncounterContext } from '../../../context/EncounterContext';
+import { getTextColor } from '../../../utils/helpers';
 
 export const CharacterRow = ({ character, roundNum, turnNum }) => {
   const { encounterId, characters, effects, addNote } = useContext(EncounterContext);

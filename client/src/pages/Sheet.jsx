@@ -6,17 +6,17 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
-import CharacterSheet from '../components/CharacterSheet';
+import CharacterSheet from '../features/character/components/CharacterSheet';
 
 import { QUERY_CHARACTER } from '../utils/queries';
-import PageWrapper from '../components/PageWrapper';
+import PageWrapper from '../layouts/PageWrapper';
 
 const Sheet = ({}) => {
   const { charId } = useParams();
 
   return (
-    <PageWrapper title='Character Sheet'>
-      <div className='card'>
+    <PageWrapper title="Character Sheet">
+      <div className="card">
         <CharacterSheet charId={charId} />
       </div>
     </PageWrapper>

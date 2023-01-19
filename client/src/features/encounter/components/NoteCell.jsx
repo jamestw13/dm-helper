@@ -2,8 +2,8 @@ import { useState, useContext } from 'react';
 import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group, MultiSelect } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-import { EncounterContext } from '../Contexts/EncounterContext';
-import { getTextColor } from '../utils/helpers';
+import { EncounterContext } from '../../../context/EncounterContext';
+import { getTextColor } from '../../../utils/helpers';
 
 function NoteCell({ effect, rowSpan }) {
   const { characters } = useContext(EncounterContext);

@@ -2,13 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_ENCOUNTER } from '../utils/queries';
 
-import PageWrapper from '../components/PageWrapper';
-import { Section } from '../components/Section';
+import PageWrapper from '../layouts/PageWrapper';
+import { Section } from '../layouts/Section';
 
 import { useState, useEffect } from 'react';
-import { TrackerNavigator } from '../components/TrackerNavigator';
-import { EncounterContext } from '../Contexts/EncounterContext';
-import EncounterTable from '../components/EncounterTable';
+import { TrackerNavigator } from '../features/encounter/components/TrackerNavigator';
+import { EncounterContext } from '../context/EncounterContext';
+import EncounterTable from '../features/encounter/components/EncounterTable';
 import { Affix } from '@mantine/core';
 import { ADD_NOTE } from '../utils/mutations';
 import { useMutation } from '@apollo/client';

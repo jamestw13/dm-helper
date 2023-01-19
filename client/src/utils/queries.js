@@ -48,24 +48,6 @@ export const QUERY_USERS = gql`
   }
 `;
 
-export const QUERY_CHARACTERS = gql`
-  {
-    characters {
-      _id
-      name
-      primaryColor
-      secondaryColor
-      isNPC
-      user {
-        username
-      }
-      campaign {
-        name
-      }
-    }
-  }
-`;
-
 export const QUERY_CAMPAIGN = gql`
   query campaign($_id: ID) {
     campaign(_id: $_id) {

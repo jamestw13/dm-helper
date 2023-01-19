@@ -1,7 +1,7 @@
 import { Button, Title, Flex, Box } from '@mantine/core';
 import { useContext } from 'react';
-import { EncounterContext } from '../Contexts/EncounterContext';
-import { Section } from './Section';
+import { EncounterContext } from '../../../context/EncounterContext';
+import { Section } from '../../../layouts/Section';
 
 export const TrackerNavigator = () => {
   const encData = useContext(EncounterContext);

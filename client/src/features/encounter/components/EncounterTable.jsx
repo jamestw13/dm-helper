@@ -1,6 +1,6 @@
-import { CharacterRow } from '../components/CharacterRow';
+import { CharacterRow } from './CharacterRow';
 import { Button, Table } from '@mantine/core';
-import { EncounterContext } from '../Contexts/EncounterContext';
+import { EncounterContext } from '../../../context/EncounterContext';
 import NoteCell from './NoteCell';
 import { useContext } from 'react';
 

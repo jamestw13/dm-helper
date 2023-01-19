@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
-import {
-  Avatar,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core';
+import { Avatar, Button, Card, Flex, Group, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
-import { Section } from '../components/Section';
-import PageWrapper from '../components/PageWrapper';
+import { Section } from '../layouts/Section';
+import PageWrapper from '../layouts/PageWrapper';
 import { ADD_CHARACTER } from '../utils/mutations';
 import { useEffect } from 'react';
 
 const Profile = () => {
-  if (!Auth.loggedIn()) return <Navigate to='/' />;
+  if (!Auth.loggedIn()) return <Navigate to="/" />;
 
   const navigate = useNavigate();
 
@@ -39,12 +30,9 @@ const Profile = () => {
     loading,
     data: userData,
     refetch,
-  } = useQuery(
-    Auth.getProfile().data._id === userParam ? QUERY_ME : QUERY_USER,
-    {
-      variables: { _id: userParam },
-    }
-  );
+  } = useQuery(Auth.getProfile().data._id === userParam ? QUERY_ME : QUERY_USER, {
+    variables: { _id: userParam },
+  });
 
   const user = userData?.me || userData?.user || {};
 
@@ -76,62 +64,45 @@ const Profile = () => {
     return navigate(`/campaign/${campaignId}`);
   };
   return (
-    <PageWrapper
-      title={
-        user.firstname
-          ? `${user.firstname || ''} ${user.lastname || ''}`
-          : user.username
-      }
-    >
-      <Section title='Friends'>
+    <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
+      <Section title="Friends">
         <Button>Add Friend</Button>
         {user?.friends?.map((friend, i) => (
           <Card key={i} onClick={() => handleFriendClick(friend._id)}>
-            <Flex align='center'>
+            <Flex align="center">
               <Avatar />
-              <Title
-                order={4}
-              >{`${friend.firstname} ${friend.lastname}`}</Title>
+              <Title order={4}>{`${friend.firstname} ${friend.lastname}`}</Title>
             </Flex>
           </Card>
         ))}
       </Section>
-      <Section title='Character List'>
+      <Section title="Character List">
         <form onSubmit={handleNewCharSubmit}>
           <Group>
-            <TextInput
-              placeholder='Character Name'
-              {...charForm.getInputProps('name')}
-            />
-            <Button type='submit'>Add Character</Button>
+            <TextInput placeholder="Character Name" {...charForm.getInputProps('name')} />
+            <Button type="submit">Add Character</Button>
           </Group>
         </form>
         {user?.characters?.map((char, i) => (
           <Card key={i} onClick={() => handleCharacterClick(char._id)}>
-            <Title order={4} className='char-name'>
+            <Title order={4} className="char-name">
               {char.name}
             </Title>
-            <Text className='char-encounter'>
-              {!!char.campaign &&
-                (char.isNPC
-                  ? `NPC in: ${char.campaign.name}`
-                  : `PC in: ${char.campaign.name}`)}
+            <Text className="char-encounter">
+              {!!char.campaign && (char.isNPC ? `NPC in: ${char.campaign.name}` : `PC in: ${char.campaign.name}`)}
             </Text>
           </Card>
         ))}
       </Section>
 
-      <Section title='Campaign List'>
+      <Section title="Campaign List">
         <Button>Add Campaign</Button>
         {user?.campaigns?.map(campaign => (
-          <Card
-            key={campaign._id}
-            onClick={() => handleCampaignClick(campaign._id)}
-          >
-            <Title order={4} className='char-name'>
+          <Card key={campaign._id} onClick={() => handleCampaignClick(campaign._id)}>
+            <Title order={4} className="char-name">
               {campaign.name}
             </Title>
-            <Text className='char-encounter'>{`DM: ${campaign?.owner?.username}`}</Text>
+            <Text className="char-encounter">{`DM: ${campaign?.owner?.username}`}</Text>
           </Card>
         ))}
       </Section>
