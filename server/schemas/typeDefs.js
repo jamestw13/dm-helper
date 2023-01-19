@@ -210,7 +210,7 @@ const typeDefs = gql`
   input NoteInput {
     encounter: ID!
     caster: ID
-    target: ID
+    target: [ID]
     effectName: String!
     effectDescription: String
     startRound: Int!

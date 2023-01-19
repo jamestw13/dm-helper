@@ -17,6 +17,7 @@ function NoteCell({ effect, rowSpan }) {
       rowSpan={rowSpan}
       style={{
         borderRadius: '5px',
+
         border: opened ? '1px solid #eeeeee' : '2px solid #111111',
         backgroundColor: effect.target?.primaryColor || 'inherit',
         color: effect.target ? getTextColor(effect.target?.primaryColor) : 'inherit',

@@ -1,5 +1,17 @@
 import { useState, useContext } from 'react';
-import { Box, Popover, Text, Button, TextInput, Select, NumberInput, Group, MultiSelect } from '@mantine/core';
+import {
+  Box,
+  Popover,
+  Text,
+  Button,
+  TextInput,
+  Select,
+  NumberInput,
+  Group,
+  MultiSelect,
+  Flex,
+  Textarea,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { EncounterContext } from '../Contexts/EncounterContext';
 import { getTextColor } from '../utils/helpers';
@@ -10,7 +22,8 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
   const [formOpen, setFormOpen] = useState(false);
   const noteForm = useForm({
     initialValues: {
-      note: 'test',
+      note: '',
+      description: '',
       targets: [],
       caster: character._id,
       startRound: roundNum + 1,
@@ -28,6 +41,7 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
     const sTurn = values.startTurn - 1;
     const eRound = values.durationUnit === 'round' ? sRound + values.duration : sRound;
     const eTurn = values.durationUnit === 'round' ? sTurn : sTurn + values.duration;
+
     addNote({
       variables: {
         note: {
@@ -35,6 +49,7 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
           caster: values.caster,
           target: values.target,
           effectName: values.note,
+          effectDescription: values.description,
           startRound: sRound,
           startTurn: sTurn,
           endRound: eRound,
@@ -68,33 +83,40 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
                 handleSubmit(values);
               })}
             >
-              <TextInput label="Note" {...noteForm.getInputProps('note')} />
-              <Select
-                searchable
-                label="Caster"
-                data={characters?.map(x => {
-                  return { value: x.character._id, label: x.character.name };
-                })}
-                {...noteForm.getInputProps('caster')}
-              />
-              <MultiSelect searchable label="Target" data={characterValues} {...noteForm.getInputProps('targets')} />
               <Group>
-                <NumberInput label="Start Round" min={1} {...noteForm.getInputProps('startRound')} />
-                <NumberInput label="Start Turn" min={1} {...noteForm.getInputProps('startTurn')} />
-              </Group>
-              <Group>
-                <NumberInput label="Duration" min={1} max={30} {...noteForm.getInputProps('duration')} />
-                <Select
-                  label=" "
-                  data={[
-                    { value: 'turn', label: 'turn(s)' },
-                    { value: 'round', label: 'round(s)' },
-                  ]}
-                  {...noteForm.getInputProps('durationUnit')}
-                />
-              </Group>
+                <Box>
+                  <TextInput label="Note" {...noteForm.getInputProps('note')} />
+                  <Select
+                    searchable
+                    label="Caster"
+                    data={characters?.map(x => {
+                      return { value: x.character._id, label: x.character.name };
+                    })}
+                    {...noteForm.getInputProps('caster')}
+                  />
+                  <MultiSelect searchable label="Target" data={characterValues} {...noteForm.getInputProps('target')} />
+                  <Group>
+                    <NumberInput label="Start Round" min={1} {...noteForm.getInputProps('startRound')} />
+                    <NumberInput label="Start Turn" min={1} {...noteForm.getInputProps('startTurn')} />
+                  </Group>
+                  <Group>
+                    <NumberInput label="Duration" min={1} max={30} {...noteForm.getInputProps('duration')} />
+                    <Select
+                      label=" "
+                      data={[
+                        { value: 'turn', label: 'turn(s)' },
+                        { value: 'round', label: 'round(s)' },
+                      ]}
+                      {...noteForm.getInputProps('durationUnit')}
+                    />
+                  </Group>
 
-              <Button type="submit">Enter</Button>
+                  <Button type="submit">Enter</Button>
+                </Box>
+                <Box>
+                  <Textarea label="Description" {...noteForm.getInputProps('description')} />
+                </Box>
+              </Group>
             </form>
           </Popover.Dropdown>
         </Popover>

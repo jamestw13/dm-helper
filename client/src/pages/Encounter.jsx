@@ -22,8 +22,16 @@ const Encounter = () => {
   } = useQuery(QUERY_ENCOUNTER, {
     variables: { _id: encounterId },
   });
-  const [addNote, { data: noteData }] = useMutation(ADD_NOTE);
-  const eData = encounterData?.encounter ? encounterData.encounter : {};
+  const [addNote, { data: noteData }] = useMutation(ADD_NOTE, { onCompleted: encRefetch() });
+  const [eData, setEData] = useState({});
+
+  useEffect(() => {
+    console.log('try');
+    if (encounterData?.encounter) {
+      console.log('do');
+      setEData(encounterData.encounter);
+    }
+  }, [encounterData]);
 
   const [numRounds, setNumRounds] = useState(6);
   const [currentRound, setCurrentRound] = useState(0);

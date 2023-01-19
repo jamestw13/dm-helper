@@ -99,9 +99,19 @@ const resolvers = {
       return character;
     },
     addNote: async (parent, { note }) => {
-      const { encounter, ...effect } = note;
+      const { encounter, target, ...effect } = note;
       console.log(encounter, effect);
-      await Encounter.findOneAndUpdate({ _id: note.encounter }, { $addToSet: { effects: effect } });
+      if (target) {
+        target.forEach(
+          async t =>
+            await Encounter.findOneAndUpdate(
+              { _id: note.encounter },
+              { $addToSet: { effects: { ...effect, target: t } } }
+            )
+        );
+      } else {
+        await Encounter.findOneAndUpdate({ _id: note.encounter }, { $addToSet: { effects: effect } });
+      }
       return true;
     },
   },
