@@ -6,9 +6,9 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 
 import Auth from '../utils/auth';
 
-import CharacterSheet from '../features/character/components/CharacterSheet';
+import CharacterSheet from '../features/characters/components/CharacterSheet';
 
-import { QUERY_CHARACTER } from '../utils/queries';
+import { QUERY_CHARACTER } from '../features/characters/services/services';
 import PageWrapper from '../layouts/PageWrapper';
 
 const Sheet = ({}) => {

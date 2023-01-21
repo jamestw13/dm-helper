@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
-import Auth from '../utils/auth';
-import { Section } from './Section';
+import { ADD_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import { Section } from '../../layouts/Section';
 import { Button, PasswordInput, TextInput } from '@mantine/core';
 
 const Signup = () => {
@@ -39,33 +39,33 @@ const Signup = () => {
   };
 
   return (
-    <Section title='Sign Up'>
+    <Section title="Sign Up">
       <form onSubmit={handleFormSubmit}>
         <TextInput
-          placeholder='Your username'
-          name='username'
-          type='username'
-          id='username'
+          placeholder="Your username"
+          name="username"
+          type="username"
+          id="username"
           value={formState.username}
           onChange={handleChange}
         />
         <TextInput
-          placeholder='Your email'
-          name='email'
-          type='email'
-          id='email'
+          placeholder="Your email"
+          name="email"
+          type="email"
+          id="email"
           value={formState.email}
           onChange={handleChange}
         />
         <PasswordInput
-          placeholder='******'
-          name='password'
-          type='password'
-          id='password'
+          placeholder="******"
+          name="password"
+          type="password"
+          id="password"
           value={formState.password}
           onChange={handleChange}
         />
-        <Button type='submit'>Submit</Button>
+        <Button type="submit">Submit</Button>
         {error && <div>Sign up failed</div>}
       </form>
     </Section>

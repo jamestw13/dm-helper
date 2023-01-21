@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
-import Auth from '../utils/auth';
-import { QUERY_USERS } from '../utils/queries';
+import { LOGIN_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import { QUERY_USERS } from '../../utils/queries';
 
-import { Section } from './Section';
-import {
-  Button,
-  Flex,
-  List,
-  PasswordInput,
-  TextInput,
-  Stack,
-  Title,
-  Text,
-} from '@mantine/core';
+import { Section } from '../../layouts/Section';
+import { Button, Flex, List, PasswordInput, TextInput, Stack, Title, Text } from '@mantine/core';
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);
@@ -52,25 +43,25 @@ const Login = props => {
   };
 
   return (
-    <Section title='Login'>
+    <Section title="Login">
       <form onSubmit={handleFormSubmit}>
         <TextInput
-          placeholder='Your email'
-          name='email'
-          type='email'
-          id='email'
+          placeholder="Your email"
+          name="email"
+          type="email"
+          id="email"
           value={formState.email}
           onChange={handleChange}
         />
         <PasswordInput
-          placeholder='******'
-          name='password'
-          type='password'
-          id='password'
+          placeholder="******"
+          name="password"
+          type="password"
+          id="password"
           value={formState.password}
           onChange={handleChange}
         />
-        <Button type='submit'>Submit</Button>
+        <Button type="submit">Submit</Button>
 
         {error && <div>Login failed</div>}
 
@@ -78,17 +69,17 @@ const Login = props => {
         {!userLoading ? (
           <Stack>
             {userData?.users?.map(user => (
-              <Flex gap='xs' key={user._id} align='center'>
+              <Flex gap="xs" key={user._id} align="center">
                 <Text>{user.email}</Text>
                 <Button
-                  size='xs'
+                  size="xs"
                   onClick={() => {
                     setFormState({ password: '11111111', email: user.email });
                   }}
                 >
                   +
                 </Button>
-                <Button type='submit' size='xs'>
+                <Button type="submit" size="xs">
                   Go
                 </Button>
               </Flex>

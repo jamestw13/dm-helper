@@ -1,7 +1,7 @@
 import PageWrapper from '../layouts/PageWrapper';
 import Auth from '../utils/auth';
-import Login from '../components/Login';
-import Signup from '../components/Signup';
+import Login from '../features/users/Login';
+import Signup from '../features/users/Signup';
 import { Section } from '../layouts/Section';
 import { Title, Text, Stack, Flex } from '@mantine/core';
 
