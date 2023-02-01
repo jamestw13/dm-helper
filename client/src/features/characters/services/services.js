@@ -140,3 +140,15 @@ export const QUERY_CHARACTER = gql`
     }
   }
 `;
+
+export const ADD_CHARACTER = gql`
+  mutation addCharacter($character: CharacterInput!) {
+    addCharacter(character: $character) {
+      _id
+      name
+      user {
+        _id
+      }
+    }
+  }
+`;

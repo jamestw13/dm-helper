@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { CharacterRow } from './CharacterRow';
+import { CharacterRow } from '../';
 
-export const TrackerTable = ({
+const TrackerTable = ({
   encounterLog,
   setEncounterLog,
   setCurrentRound,
@@ -13,8 +13,8 @@ export const TrackerTable = ({
 }) => {
   return (
     <>
-      <table id='tracker-table'>
-        <thead id='tracker-header'>
+      <table id="tracker-table">
+        <thead id="tracker-header">
           <tr>
             <th></th>
             <th>Round</th>
@@ -22,10 +22,10 @@ export const TrackerTable = ({
             <th>HP</th>
             <th>AC</th>
 
-            <th colSpan='100%'>Notes</th>
+            <th colSpan="100%">Notes</th>
           </tr>
         </thead>
-        <tbody id='tracker-table-body'>
+        <tbody id="tracker-table-body">
           {encounterLog?.map((e, i) =>
             e.turns.map((turn, j) => (
               <tr key={j}>
@@ -33,8 +33,7 @@ export const TrackerTable = ({
                   data-row-round={i}
                   data-row-turn={j}
                   style={{
-                    backgroundColor:
-                      i === currentRound && j === currentTurn && 'yellow',
+                    backgroundColor: i === currentRound && j === currentTurn && 'yellow',
                   }}
                   onClick={() => {
                     setCurrentRound(i);
@@ -44,16 +43,12 @@ export const TrackerTable = ({
                   &gt;
                 </td>
                 {j === 0 && <td rowSpan={e.turns.length}>{e.round}</td>}
-                <CharacterRow
-                  key={turn.char.name + j}
-                  character={turn.char}
-                  statuses={turn.statuses}
-                />
+                <CharacterRow key={turn.char.name + j} character={turn.char} statuses={turn.statuses} />
               </tr>
             ))
           )}
           <tr>
-            <td colSpan='100%'>
+            <td colSpan="100%">
               <button style={{ width: '100%' }} onClick={addRound}>
                 Add Round
               </button>
@@ -64,3 +59,5 @@ export const TrackerTable = ({
     </>
   );
 };
+
+export default TrackerTable;

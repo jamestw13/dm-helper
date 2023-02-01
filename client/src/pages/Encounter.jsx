@@ -1,17 +1,11 @@
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_ENCOUNTER } from '../utils/queries';
-
-import PageWrapper from '../layouts/PageWrapper';
-import { Section } from '../layouts/Section';
-
 import { useState, useEffect } from 'react';
-import { TrackerNavigator } from '../features/encounter/components/TrackerNavigator';
-import { EncounterContext } from '../context/EncounterContext';
-import EncounterTable from '../features/encounter/components/EncounterTable';
+import { useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import { Affix } from '@mantine/core';
-import { ADD_NOTE } from '../utils/mutations';
-import { useMutation } from '@apollo/client';
+
+import { PageWrapper, Section } from '../components';
+
+import { EncounterTable, TrackerNavigator, QUERY_ENCOUNTER, ADD_NOTE, EncounterContext } from '../features/encounter';
 
 const Encounter = () => {
   const { encounterId } = useParams();

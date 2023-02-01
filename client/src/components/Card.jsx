@@ -1,4 +1,4 @@
-import { getTextColor } from '../../utils/helpers';
+import { getTextColor } from '../utils/helpers';
 
 const Card = ({ lineOne, lineTwo, colorOne = '#000000', colorTwo = 'green', handleCardClick }) => {
   return (

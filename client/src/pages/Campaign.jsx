@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { Section } from '../layouts/Section';
+import { useQuery } from '@apollo/client';
+
+import { Section, PageWrapper } from '../components';
 // import CharacterSheet from '../components/CharacterSheet';
 
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_CAMPAIGN } from '../utils/queries';
+import { QUERY_CAMPAIGN } from '../features/campaigns';
 
-import PageWrapper from '../layouts/PageWrapper';
 import { Button, Title, Text, Card, Avatar, Flex, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
 import { IconArrowRightTail } from '@tabler/icons';
 

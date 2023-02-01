@@ -1,9 +1,10 @@
-import { Button, Title, Flex, Box } from '@mantine/core';
 import { useContext } from 'react';
-import { EncounterContext } from '../../../context/EncounterContext';
-import { Section } from '../../../layouts/Section';
+import { Button, Title, Flex, Box } from '@mantine/core';
 
-export const TrackerNavigator = () => {
+import { EncounterContext } from '../';
+import { Section } from '../../../components';
+
+const TrackerNavigator = () => {
   const encData = useContext(EncounterContext);
 
   const initForward = () => {
@@ -50,3 +51,5 @@ export const TrackerNavigator = () => {
     </Section>
   );
 };
+
+export default TrackerNavigator;

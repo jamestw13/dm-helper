@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { LOGIN_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth';
-import { QUERY_USERS } from '../../utils/queries';
 
-import { Section } from '../../layouts/Section';
+import { Section } from '../../../components';
+
+import Auth from '../../../utils/auth';
+
+import { QUERY_USERS, LOGIN_USER } from '../';
+
 import { Button, Flex, List, PasswordInput, TextInput, Stack, Title, Text } from '@mantine/core';
+
 const Login = props => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);

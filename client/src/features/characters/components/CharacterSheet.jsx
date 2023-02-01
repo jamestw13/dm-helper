@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, Select, Checkbox, Grid, Group, TextInput, Textarea, NumberInput, Text, Stack, Flex } from '@mantine/core';
-import { QUERY_CHARACTER } from '../services/services';
 import { useForm } from '@mantine/form';
-import { useEffect } from 'react';
-import { characterValues } from '../../../components/formInitialValues';
+
+import { QUERY_CHARACTER } from '../';
+
+import { characterValues } from '../formInitialValues';
 
 const CustomInput = props => {
   return (

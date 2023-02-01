@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header as MHeader, Button, Avatar, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import Auth from '../../utils/auth';
+import Auth from '../utils/auth';
 
 // import './Header.css';
 

@@ -1,9 +1,9 @@
-import PageWrapper from '../layouts/PageWrapper';
-import Auth from '../utils/auth';
-import Login from '../features/users/Login';
-import Signup from '../features/users/Signup';
-import { Section } from '../layouts/Section';
 import { Title, Text, Stack, Flex } from '@mantine/core';
+
+import { PageWrapper, Section } from '../components';
+
+import { Login, Signup } from '../features/users';
+import Auth from '../utils/auth';
 
 function Home() {
   const loggedIn = Auth.loggedIn();
@@ -18,8 +18,12 @@ function Home() {
 
         {!loggedIn && (
           <Flex justify="space-between">
-            <Login />
-            <Signup />
+            <Section title="Login">
+              <Login />
+            </Section>
+            <Section title="Sign Up">
+              <Signup />
+            </Section>
           </Flex>
         )}
       </Stack>

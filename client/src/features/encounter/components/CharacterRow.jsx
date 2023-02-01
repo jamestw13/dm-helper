@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { Box, Popover, Button, TextInput, Select, NumberInput, Group, MultiSelect, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { EncounterContext } from '../../../context/EncounterContext';
+
+import { EncounterContext } from '../';
 import { getTextColor } from '../../../utils/helpers';
 
-export const CharacterRow = ({ character, roundNum, turnNum }) => {
+const CharacterRow = ({ character, roundNum, turnNum }) => {
   const { encounterId, characters, effects, addNote } = useContext(EncounterContext);
 
   const [formOpen, setFormOpen] = useState(false);
@@ -111,3 +112,5 @@ export const CharacterRow = ({ character, roundNum, turnNum }) => {
     </>
   );
 };
+
+export default CharacterRow;

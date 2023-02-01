@@ -1,8 +1,7 @@
-import { CharacterRow } from './CharacterRow';
-import { Button, Table } from '@mantine/core';
-import { EncounterContext } from '../../../context/EncounterContext';
-import NoteCell from './NoteCell';
 import { useContext } from 'react';
+import { Button, Table } from '@mantine/core';
+
+import { CharacterRow, NoteCell, EncounterContext } from '../';
 
 const EncounterTable = () => {
   const encData = useContext(EncounterContext);

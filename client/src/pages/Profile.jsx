@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Card, Flex, Group, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import { QUERY_ME, QUERY_USER } from '../utils/queries';
+import { QUERY_ME, QUERY_USER } from '../features/users';
+import { ADD_CHARACTER } from '../features/characters';
 
+import { Section, PageWrapper } from '../components';
 import Auth from '../utils/auth';
-
-import { Section } from '../layouts/Section';
-import PageWrapper from '../layouts/PageWrapper';
-import { ADD_CHARACTER } from '../utils/mutations';
-import { useEffect } from 'react';
 
 const Profile = () => {
   if (!Auth.loggedIn()) return <Navigate to="/" />;
