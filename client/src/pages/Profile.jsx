@@ -35,10 +35,6 @@ const Profile = () => {
 
   const [addCharacter, { data: newCharData }] = useMutation(ADD_CHARACTER);
 
-  useEffect(() => {
-    console.log({ newCharData });
-  }, [newCharData]);
-
   const handleFriendClick = userId => {
     navigate(`/${userId}`);
   };

@@ -2,13 +2,17 @@ import { Title, Text, Stack, Flex } from '@mantine/core';
 
 import { PageWrapper, Section } from '../components';
 
-import { Login, Signup } from '../features/users';
-import Auth from '../utils/auth';
+import { Login, Signup, UserContext } from '../features/users';
+
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 
 function Home() {
-  const loggedIn = Auth.loggedIn();
+  const { user, loggedIn } = useContext(UserContext);
 
-  return (
+  return loggedIn ? (
+    <Navigate to={`/${user._id}`} />
+  ) : (
     <PageWrapper title="Stat Block">
       <Stack align="stretch">
         <Section title="">
@@ -16,16 +20,14 @@ function Home() {
           <Text>A growing suite of tools to help you manage TTRPG games. Includes Encounter Tracking.</Text>
         </Section>
 
-        {!loggedIn && (
-          <Flex justify="space-between">
-            <Section title="Login">
-              <Login />
-            </Section>
-            <Section title="Sign Up">
-              <Signup />
-            </Section>
-          </Flex>
-        )}
+        <Flex justify="space-between">
+          <Section title="Login">
+            <Login />
+          </Section>
+          <Section title="Sign Up">
+            <Signup />
+          </Section>
+        </Flex>
       </Stack>
     </PageWrapper>
   );

@@ -2,14 +2,18 @@ import React from 'react';
 import { Header as MHeader, Button, Avatar, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import { useContext } from 'react';
+import { UserContext } from '../features/users';
 
 // import './Header.css';
 
-const Header = ({ user }) => {
+const Header = () => {
   const logout = event => {
     event.preventDefault();
     Auth.logout();
   };
+
+  const { user, loggedIn } = useContext(UserContext);
 
   return (
     <MHeader p="sm" height={90}>
