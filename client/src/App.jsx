@@ -8,6 +8,8 @@ import Auth from './utils/auth';
 import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages';
 
 import { theme } from './Theme.jsx';
+import { CampaignList } from './features/campaigns';
+import { CharacterList } from './features/characters';
 
 const loggedIn = Auth.loggedIn();
 const App = () => {
@@ -32,7 +34,10 @@ const App = () => {
               {loggedIn && (
                 <>
                   <Route exact path="/:userId" element={<Profile />} />
+                  <Route exact path="/characters" element={<CharacterList />} />
                   <Route exact path="/sheet/:charId" element={<Character />} />
+
+                  <Route exact path="/campaigns/" element={<CampaignList />} />
                   <Route exact path="/campaign/:campaignId" element={<Campaign />} />
                   <Route exact path="/encounter/:encounterId" element={<Encounter />} />
                 </>

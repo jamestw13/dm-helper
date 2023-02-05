@@ -5,10 +5,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <MantineNavbar width={{ base: 200 }}>
-      <Button onClick={() => navigate('/')}>Home</Button>
-      <Button onClick={() => navigate('/')}>Campaigns</Button>
-      <Button onClick={() => navigate('/')}>Characters</Button>
-      <Button onClick={() => navigate('/')}>Friends</Button>
+      <Button onClick={() => navigate('/')}>Dashboard</Button>
+      <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
+      <Button onClick={() => navigate('/characters')}>Characters</Button>
+      <Button onClick={() => navigate('/friends')}>Friends</Button>
     </MantineNavbar>
   );
 };

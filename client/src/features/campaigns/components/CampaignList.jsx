@@ -1,25 +1,28 @@
+import { useContext } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../users';
+import { Card, Title, Text } from '@mantine/core';
+import { PageWrapper } from '../../../components';
 
-const CampaignList = ({ campaigns, me }) => {
+const CampaignList = () => {
+  const {
+    user: { campaigns },
+    loggedIn,
+  } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleCampaignClick = campaignId => {
     return navigate(`/campaign/${campaignId}`);
   };
   return (
-    <>
+    <PageWrapper title="My Campaigns">
       {campaigns?.map(campaign => (
-        <div
-          key={campaign._id}
-          className='char-list-item'
-          style={{ '--prim-color': '#000000', '--text-color': '#ffffff' }}
-          onClick={() => handleCampaignClick(campaign._id)}
-        >
-          <div className='char-name'>{campaign.name}</div>
-          <div className='char-encounter'>{`DM: ${campaign.owner.username}`}</div>
-        </div>
+        <Card key={campaign._id} className="char-list-item" onClick={() => handleCampaignClick(campaign._id)}>
+          <Title order={4}>{campaign.name}</Title>
+          <Text>DM: {campaign.owner.username}</Text>
+        </Card>
       ))}
-    </>
+    </PageWrapper>
   );
 };
 

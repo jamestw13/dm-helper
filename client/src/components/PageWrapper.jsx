@@ -9,9 +9,8 @@ const PageWrapper = ({ children, title }) => {
         <Title order={1}>{title}</Title>
         {/* <Button onClick={() => navigate(-1)}>Go back</Button> */}
       </Flex>
-      <Flex direction="row" gap="sm" wrap="wrap">
-        {children}
-      </Flex>
+
+      {children}
     </Container>
   );
 };

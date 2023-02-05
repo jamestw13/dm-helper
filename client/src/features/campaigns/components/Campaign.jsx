@@ -3,10 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 
-import { Section, PageWrapper } from '../components';
+import { Section, PageWrapper } from '../../../components';
 // import CharacterSheet from '../components/CharacterSheet';
 
-import { QUERY_CAMPAIGN } from '../features/campaigns';
+import { QUERY_CAMPAIGN } from '..';
 
 import { Button, Title, Text, Card, Avatar, Flex, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
 import { IconArrowRightTail } from '@tabler/icons';
