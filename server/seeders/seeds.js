@@ -1,20 +1,11 @@
-const db = require('../config/connection');
-const { User, Character, Campaign, Encounter } = require('../models');
-const { generateUsers, linkFriends } = require('./userSeed');
-const generateCharacter = require('./characterSeed');
-const {
-  seed,
-  rand,
-  randBook,
-  randNumber,
-  randBoolean,
-  randParagraph,
-  randTextRange,
-  randText,
-} = require('@ngneat/falso');
-const Monster = require('../models/Monster');
-const seedMonsters = require('./monsterSeed');
-const generateEffect = require('./effectSeed');
+import db from '../config/connection.js';
+import { User, Character, Campaign, Encounter } from '../models/index.js';
+import { generateUsers, linkFriends } from './userSeed.js';
+import generateCharacter from './characterSeed.js';
+import { seed, rand, randBook, randNumber, randBoolean, randParagraph, randTextRange, randText } from '@ngneat/falso';
+import Monster from '../models/Monster.js';
+import seedMonsters from './monsterSeed.js';
+import generateEffect from './effectSeed.js';
 
 const NUM_USERS = 20;
 const NUM_CAMPAIGNS = 12;

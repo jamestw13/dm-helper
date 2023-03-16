@@ -1,24 +1,29 @@
 // import express
-const express = require('express');
+import express from 'express';
 
 // import path
-const path = require('path');
+import path from 'path';
 
 // import mongoose database connection
-const db = require('./config/connection');
+import db from './config/connection.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 console.log(process.env.ACCESS_TOKEN_SECRET, 1);
 
 // import graphQL apollo
-const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@apollo/server/express4');
-const cors = require('cors');
-const { json } = require('body-parser');
-const { typeDefs, resolvers } = require('./schemas');
+import { ApolloServer } from '@apollo/server';
+
+import { expressMiddleware } from '@apollo/server/express4';
+
+import cors from 'cors';
+// import { json } from 'body-parser';
+
+import { typeDefs, resolvers } from './schemas/index.js';
 
 // import authorization middleware
-const { authMiddleware } = require('./utils/auth');
+import { authMiddleware } from './utils/auth.js';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -33,11 +38,8 @@ const startServer = async () => {
   // start the Apollo server
   await server.start();
 
-  // integrate Apollo server with Express app as middleware
-  // server.applyMiddleware({ app });
-
   // app.use(express.urlencoded({ extended: false }));
-  app.use('/graphql', cors(), json(), expressMiddleware(server, { context: authMiddleware }));
+  app.use('/graphql', cors(), express.json(), expressMiddleware(server, { context: authMiddleware }));
   // log where we can use GQL API
   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 };

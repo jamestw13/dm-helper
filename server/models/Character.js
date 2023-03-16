@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
 const characterSchema = new Schema(
   {
@@ -440,4 +441,4 @@ const characterSchema = new Schema(
 
 const Character = model('Character', characterSchema);
 
-module.exports = Character;
+export default Character;

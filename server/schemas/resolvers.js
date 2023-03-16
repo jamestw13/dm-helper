@@ -1,6 +1,6 @@
-const { User, Character, Campaign, Encounter } = require('../models');
-const { GraphQLError } = require('graphql');
-const { signToken } = require('../utils/auth');
+import { User, Character, Campaign, Encounter } from '../models/index.js';
+import { GraphQLError } from 'graphql';
+import { signToken } from '../utils/auth.js';
 
 const resolvers = {
   Query: {
@@ -117,4 +117,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+export default resolvers;

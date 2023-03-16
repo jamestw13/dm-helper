@@ -1,6 +1,6 @@
-const User = require('./User');
-const Character = require('./Character');
-const Campaign = require('./Campaign');
-const Encounter = require('./Encounter');
+import User from './User.js';
+import Character from './Character.js';
+import Campaign from './Campaign.js';
+import Encounter from './Encounter.js';
 
-module.exports = { User, Character, Campaign, Encounter };
+export { User, Character, Campaign, Encounter };

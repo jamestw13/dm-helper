@@ -1,5 +1,5 @@
 // import the gql tagged template function
-const { gql } = require('graphql-tag');
+import { gql } from 'graphql-tag';
 
 // create typeDefs
 const typeDefs = gql`
@@ -220,4 +220,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = typeDefs;
+export default typeDefs;

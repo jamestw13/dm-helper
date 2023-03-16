@@ -1,4 +1,4 @@
-const { rand, randNumber, randHex, randFullName, randBoolean } = require('@ngneat/falso');
+import { rand, randNumber, randHex, randFullName, randBoolean } from '@ngneat/falso';
 
 const alignments = [
   'Lawful Good',
@@ -141,7 +141,7 @@ const rollAbilityScores = () => {
   let rollArray = [1, 1, 1, 1];
 
   for (let i = 0; i < 6; i++) {
-    rolls = rollArray.map(roll => {
+    let rolls = rollArray.map(roll => {
       return randNumber({ min: 1, max: 6 });
     });
     rolls.sort((a, b) => b - a).pop();
@@ -172,7 +172,7 @@ const rollDie = numSides => {
   return randNumber({ min: 1, max: numSides });
 };
 
-module.exports = function generateCharacter(isNPC) {
+export default function generateCharacter(isNPC) {
   const scores = rollAbilityScores();
   const level = randNumber({ min: 1, max: 3 });
 
@@ -286,4 +286,4 @@ module.exports = function generateCharacter(isNPC) {
   };
 
   return character;
-};
+}

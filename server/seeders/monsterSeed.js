@@ -1,6 +1,6 @@
-const Monster = require('../models/Monster');
+import Monster from '../models/Monster.js';
 
-module.exports = async function seedMonsters() {
+export default async function seedMonsters() {
   const bugBear = {
     name: 'Bugbear',
     size: 'Medium',
@@ -29,4 +29,4 @@ module.exports = async function seedMonsters() {
   } catch (err) {
     console.log(err);
   }
-};
+}

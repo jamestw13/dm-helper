@@ -1,4 +1,4 @@
-const { rand, randNumber, randText } = require('@ngneat/falso');
+import { rand, randNumber, randText } from '@ngneat/falso';
 
 const conditions = [
   'Blinded',
@@ -46,4 +46,4 @@ const generateEffect = chars => {
   return effect;
 };
 
-module.exports = generateEffect;
+export default generateEffect;

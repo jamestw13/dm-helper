@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
 const monsterSchema = new Schema({
   name: String,
@@ -67,4 +68,4 @@ const monsterSchema = new Schema({
 
 const Monster = model('Monster', monsterSchema);
 
-module.exports = Monster;
+export default Monster;

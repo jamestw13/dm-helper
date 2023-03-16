@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/dm-helper', {
   useNewUrlParser: true,
@@ -8,4 +8,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/dm-helper', {
   dbName: 'dm-helper',
 });
 
-module.exports = mongoose.connection;
+export default mongoose.connection;

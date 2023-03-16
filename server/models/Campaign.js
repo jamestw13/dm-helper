@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const User = require('./User');
+import mongoose from 'mongoose';
+const { Schema, model } = mongoose;
 
 const campaignSchema = new Schema({
   name: {
@@ -22,4 +22,4 @@ const campaignSchema = new Schema({
 
 const Campaign = model('Campaign', campaignSchema);
 
-module.exports = Campaign;
+export default Campaign;
