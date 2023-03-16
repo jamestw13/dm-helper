@@ -1,5 +1,5 @@
 const { User, Character, Campaign, Encounter } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
+const { GraphQLError } = require('graphql');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -19,7 +19,7 @@ const resolvers = {
 
         return userData;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new GraphQLError('Not logged in', { extensions: { code: 'UNAUTHENTICATED' } });
     },
 
     users: async () => {
@@ -80,13 +80,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new GraphQLError('Incorrect credentials', { extensions: { code: 'UNAUTHENTICATED' } });
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new GraphQLError('Incorrect credentials', { extensions: { code: 'UNAUTHENTICATED' } });
       }
 
       const token = signToken(user);

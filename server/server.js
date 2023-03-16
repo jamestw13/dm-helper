@@ -11,7 +11,10 @@ require('dotenv').config();
 console.log(process.env.ACCESS_TOKEN_SECRET, 1);
 
 // import graphQL apollo
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require('@apollo/server');
+const { expressMiddleware } = require('@apollo/server/express4');
+const cors = require('cors');
+const { json } = require('body-parser');
 const { typeDefs, resolvers } = require('./schemas');
 
 // import authorization middleware
@@ -25,24 +28,22 @@ const startServer = async () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: authMiddleware,
   });
 
   // start the Apollo server
   await server.start();
 
   // integrate Apollo server with Express app as middleware
-  server.applyMiddleware({ app });
+  // server.applyMiddleware({ app });
 
+  // app.use(express.urlencoded({ extended: false }));
+  app.use('/graphql', cors(), json(), expressMiddleware(server, { context: authMiddleware }));
   // log where we can use GQL API
   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
 };
 
 // initialize Apollo server
 startServer();
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {
