@@ -195,6 +195,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     addCharacter(character: CharacterInput!): Character
     addNote(note: NoteInput!): Boolean
+    createCampaign(owner: ID!, name: String!): Boolean
   }
 
   type Auth {

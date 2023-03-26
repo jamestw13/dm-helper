@@ -10,6 +10,7 @@ import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages'
 import { theme } from './Theme.jsx';
 import { CampaignList } from './features/campaigns';
 import { CharacterList } from './features/characters';
+import { FriendList } from './features/friends';
 
 const loggedIn = Auth.loggedIn();
 const App = () => {
@@ -40,6 +41,8 @@ const App = () => {
                   <Route exact path="/campaigns/" element={<CampaignList />} />
                   <Route exact path="/campaign/:campaignId" element={<Campaign />} />
                   <Route exact path="/encounter/:encounterId" element={<Encounter />} />
+
+                  <Route exact path="/friends/" element={<FriendList />} />
                 </>
               )}
               <Route path="*" element={<NoMatch />} />

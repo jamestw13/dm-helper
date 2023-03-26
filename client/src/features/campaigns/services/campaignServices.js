@@ -47,3 +47,9 @@ export const QUERY_CAMPAIGN = gql`
     }
   }
 `;
+
+export const CREATE_CAMPAIGN = gql`
+  mutation createCampaign($owner: ID!, $name: String!) {
+    createCampaign(owner: $owner, name: $name)
+  }
+`;

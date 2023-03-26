@@ -114,6 +114,12 @@ const resolvers = {
       }
       return true;
     },
+
+    createCampaign: async (parent, { owner, name }) => {
+      const campaign = await Campaign.create({ owner, name });
+      await User.findOneAndUpdate({ _id: owner }, { $addToSet: { campaigns: campaign }, owner: owner });
+      return true;
+    },
   },
 };
 
