@@ -14,6 +14,7 @@ const typeDefs = gql`
     campaigns: [Campaign]
     avatar: String
     friends: [User]
+    friendRequests: [User]
   }
 
   type Character {
@@ -194,7 +195,7 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, firstname: String!, lastname: String!): Auth
     addCharacter(character: CharacterInput!): Character
     addNote(note: NoteInput!): Boolean
     createCampaign(owner: ID!, name: String!): Boolean

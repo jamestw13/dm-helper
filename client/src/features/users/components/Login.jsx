@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-import { Section } from '../../../components';
-
 import Auth from '../../../utils/auth';
 
-import { QUERY_USERS, LOGIN_USER } from '../';
+import { LOGIN_USER, QUERY_USERS } from '../';
 
-import { Button, Flex, List, PasswordInput, TextInput, Stack, Title, Text } from '@mantine/core';
+import Signup from './Signup';
 
-const Login = props => {
+import { Flex, Stack, Title, Button, PasswordInput, TextInput, Text, Dialog } from '@mantine/core';
+
+export default props => {
   const [login, { error }] = useMutation(LOGIN_USER);
   const { data: userData, loading: userLoading } = useQuery(QUERY_USERS);
   const [formState, setFormState] = useState({ email: '', password: '' });
+
+  const [signupDialog, setSignupDialog] = useState(false);
 
   // update state based on form input changes
   const handleChange = event => {
@@ -46,7 +48,7 @@ const Login = props => {
   };
 
   return (
-    <Section title="Login">
+    <>
       <form onSubmit={handleFormSubmit}>
         <TextInput
           placeholder="Your email"
@@ -64,36 +66,47 @@ const Login = props => {
           value={formState.password}
           onChange={handleChange}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Log In</Button>
 
         {error && <div>Login failed</div>}
+        <Text>Or</Text>
+        <Button
+          onClick={() => {
+            setSignupDialog(true);
+          }}
+        >
+          Sign Up
+        </Button>
 
         <Title order={4}>Test Users:</Title>
         {!userLoading ? (
-          <Stack>
-            {userData?.users?.map(user => (
-              <Flex gap="xs" key={user._id} align="center">
-                <Text>{user.email}</Text>
-                <Button
-                  size="xs"
-                  onClick={() => {
-                    setFormState({ password: '11111111', email: user.email });
-                  }}
-                >
-                  +
-                </Button>
-                <Button type="submit" size="xs">
-                  Go
-                </Button>
-              </Flex>
-            ))}
-          </Stack>
+          <>
+            <Stack>
+              {userData?.users?.map(user => (
+                <Flex gap="xs" key={user._id} align="center">
+                  <Text>{user.email}</Text>
+                  <Button
+                    size="xs"
+                    onClick={() => {
+                      setFormState({ password: '11111111', email: user.email });
+                    }}
+                  >
+                    +
+                  </Button>
+                  <Button type="submit" size="xs">
+                    Go
+                  </Button>
+                </Flex>
+              ))}
+            </Stack>
+            <Dialog opened={signupDialog} onClose={() => setSignupDialog(false)}>
+              <Signup />
+            </Dialog>
+          </>
         ) : (
           <h4>Loading</h4>
         )}
       </form>
-    </Section>
+    </>
   );
 };
-
-export default Login;

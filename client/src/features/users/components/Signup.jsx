@@ -6,12 +6,14 @@ import Auth from '../../../utils/auth';
 
 import { ADD_USER } from '../';
 
-const Signup = () => {
+export default () => {
   const [addUser, { error }] = useMutation(ADD_USER);
   const [formState, setFormState] = useState({
     username: '',
     email: '',
     password: '',
+    firstname: '',
+    lastname: '',
   });
 
   // update state based on form input changes
@@ -42,7 +44,7 @@ const Signup = () => {
   return (
     <form onSubmit={handleFormSubmit}>
       <TextInput
-        placeholder="Your username"
+        placeholder="Username"
         name="username"
         type="username"
         id="signup-username"
@@ -50,7 +52,7 @@ const Signup = () => {
         onChange={handleChange}
       />
       <TextInput
-        placeholder="Your email"
+        placeholder="Email"
         name="email"
         type="email"
         id="signup-email"
@@ -65,10 +67,24 @@ const Signup = () => {
         value={formState.password}
         onChange={handleChange}
       />
+      <TextInput
+        placeholder="First name"
+        name="firstname"
+        type="firstname"
+        id="signup-first"
+        value={formState.firstname}
+        onChange={handleChange}
+      />
+      <TextInput
+        placeholder="Last name"
+        name="lastname"
+        type="lastname"
+        id="signup-last"
+        value={formState.lastname}
+        onChange={handleChange}
+      />
       <Button type="submit">Submit</Button>
       {error && <div>Sign up failed</div>}
     </form>
   );
 };
-
-export default Signup;
