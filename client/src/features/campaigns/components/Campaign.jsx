@@ -45,7 +45,7 @@ function Campaign() {
                 <Flex align="center" gap=".25em">
                   <Avatar src={campaign?.owner?.avatar} />
 
-                  <Title order={4}>{`${campaign?.owner?.firstname} ${campaign?.owner?.lastname}`}</Title>
+                  <Title order={4}>{campaign?.owner?.username}</Title>
                 </Flex>
               </Card>
             </Indicator>

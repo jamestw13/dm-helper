@@ -6,6 +6,7 @@ const campaignSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    minLength: 1,
   },
 
   owner: {

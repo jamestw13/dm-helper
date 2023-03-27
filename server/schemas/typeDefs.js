@@ -6,6 +6,7 @@ const typeDefs = gql`
   type User {
     _id: ID
     username: String
+    name: String
     email: String
     firstname: String
     lastname: String
@@ -13,6 +14,7 @@ const typeDefs = gql`
     campaigns: [Campaign]
     avatar: String
     friends: [User]
+    friendRequests: [User]
   }
 
   type Character {
@@ -188,13 +190,15 @@ const typeDefs = gql`
     character(_id: ID): Character
     campaign(_id: ID): Campaign
     encounter(_id: ID): Encounter
+    friendSearch(searchTerm: String!): [User]!
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, firstname: String!, lastname: String!): Auth
     addCharacter(character: CharacterInput!): Character
     addNote(note: NoteInput!): Boolean
+    createCampaign(owner: ID!, name: String!): Boolean
   }
 
   type Auth {
