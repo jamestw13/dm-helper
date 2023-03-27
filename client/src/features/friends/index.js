@@ -1,4 +1,4 @@
 import FriendList from './FriendList';
-import { ADD_FRIEND, FRIEND_SEARCH } from './services/friendServices';
+import { ADD_FRIEND, FIND_FRIENDS } from './services/friendServices';
 
-export { FriendList, ADD_FRIEND, FRIEND_SEARCH };
+export { FriendList, ADD_FRIEND, FIND_FRIENDS };

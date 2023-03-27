@@ -58,6 +58,10 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.virtual('name').get(function () {
+  return `${this.firstname} ${this.lastname}`;
+});
+
 // set up pre-save middleware to create password
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {

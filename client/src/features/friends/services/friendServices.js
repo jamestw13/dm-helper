@@ -6,14 +6,12 @@ export const ADD_FRIEND = gql`
   }
 `;
 
-export const FRIEND_SEARCH = gql`
+export const FIND_FRIENDS = gql`
   query friendSearch($searchTerm: String!) {
     friendSearch(searchTerm: $searchTerm) {
-      user {
-        username
-        firstname
-        lastname
-      }
+      username
+      name
+      avatar
     }
   }
 `;

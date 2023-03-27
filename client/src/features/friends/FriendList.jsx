@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
-import { useMutation } from '@apollo/client';
-import { ADD_FRIEND } from '.';
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { ADD_FRIEND, FIND_FRIENDS } from '.';
 import { UserContext } from '../users';
 import { Button, Card, Dialog, Group, Text, TextInput, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../../components';
+import UserCard from '../users/components/UserCard';
 
 const FriendList = () => {
   const {
@@ -15,6 +16,12 @@ const FriendList = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [friendInput, setFriendInput] = useState('');
 
+  const [findFriends, { data: searchResults }] = useLazyQuery(FIND_FRIENDS, {
+    variables: { searchTerm: friendInput },
+  });
+
+  const friendResults = searchResults?.friendSearch || [];
+  console.log(friendResults);
   const [addFriend] = useMutation(ADD_FRIEND, { variables: { me: user._id, friend: friendInput } });
 
   const navigate = useNavigate();
@@ -54,9 +61,14 @@ const FriendList = () => {
             placeholder="Search for friends"
             sx={{ flex: 1 }}
           />
-          <Button onClick={addFriend} disabled={friendInput.length < 1}>
+          <Button onClick={findFriends} disabled={friendInput.length < 1}>
             Search
           </Button>
+        </Group>
+        <Group align="center">
+          {friendResults?.map(user => (
+            <UserCard user={user} />
+          ))}
         </Group>
       </Dialog>
     </PageWrapper>

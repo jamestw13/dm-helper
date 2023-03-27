@@ -61,11 +61,22 @@ const resolvers = {
         .populate('encounters');
     },
     encounter: async (parent, { _id }, context) => {
-      return Encounter.findOne({ _id: _id })
+      return await Encounter.findOne({ _id: _id })
         .select('-__v')
         .populate('characters.character')
         .populate('effects.caster')
         .populate('effects.target');
+    },
+    friendSearch: async (parent, { searchTerm }, context) => {
+      const result = await User.find({
+        $or: [
+          { username: { $regex: searchTerm } },
+          { firstname: { $regex: searchTerm } },
+          { lastname: { $regex: searchTerm } },
+        ],
+      });
+
+      return result;
     },
   },
 

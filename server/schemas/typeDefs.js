@@ -6,6 +6,7 @@ const typeDefs = gql`
   type User {
     _id: ID
     username: String
+    name: String
     email: String
     firstname: String
     lastname: String
@@ -188,6 +189,7 @@ const typeDefs = gql`
     character(_id: ID): Character
     campaign(_id: ID): Campaign
     encounter(_id: ID): Encounter
+    friendSearch(searchTerm: String!): [User]!
   }
 
   type Mutation {
