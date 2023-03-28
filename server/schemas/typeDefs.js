@@ -14,7 +14,8 @@ const typeDefs = gql`
     campaigns: [Campaign]
     avatar: String
     friends: [User]
-    friendRequests: [User]
+    friendRequestsIncoming: [User]
+    friendRequestsOutgoing: [User]
   }
 
   type Character {

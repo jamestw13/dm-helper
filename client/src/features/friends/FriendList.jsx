@@ -40,7 +40,7 @@ const FriendList = () => {
         Add Friend
       </Button>
       {friends?.map(friend => (
-        <Card key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend.username)}>
+        <Card key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend._id)}>
           <Title order={4}>{friend.username}</Title>
         </Card>
       ))}

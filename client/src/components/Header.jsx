@@ -33,7 +33,7 @@ const Header = () => {
                   <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
                 </Link>
 
-                <Link to={`/${user?.username}`}>
+                <Link to={`/${user?._id}`}>
                   <Avatar radius="xl" size="lg" src={user?.avatar} className="avatar" alt="User's avatar" />
                 </Link>
               </Flex>

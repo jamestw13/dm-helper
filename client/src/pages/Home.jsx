@@ -12,7 +12,7 @@ function Home() {
   const { user, loggedIn } = useContext(UserContext);
 
   return loggedIn ? (
-    <Navigate to={`/${user._id}`} />
+    <Navigate to={`/${user.username}`} />
   ) : (
     <>
       <PageWrapper title="Stat Block">

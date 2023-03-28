@@ -1,38 +1,35 @@
 import React, { useContext, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { Avatar, Card, Flex, Text, Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
 
-import { QUERY_ME, QUERY_USER, UserContext } from '../features/users';
-import { ADD_CHARACTER } from '../features/characters';
+import { QUERY_USER, UserContext } from '..';
+import { ADD_CHARACTER } from '../../characters';
+import Feed from './Feed';
 
-import { Section, PageWrapper } from '../components';
-import Auth from '../utils/auth';
+import { Section, PageWrapper } from '../../../components';
+import Auth from '../../../utils/auth';
 
 const Profile = () => {
+  console.log('Profile page');
   const { user, loggedIn } = useContext(UserContext);
 
   if (!loggedIn) return <Navigate to="/" />;
+
+  const { username } = useParams();
+
   const navigate = useNavigate();
-
-  const { userId: userParam } = useParams();
-
-  const charForm = useForm({
-    initialValues: {
-      name: 'tj',
-    },
-  });
 
   const {
     loading,
     data: userData,
     refetch,
-  } = useQuery(Auth.getProfile().data._id === userParam ? QUERY_ME : QUERY_USER, {
-    variables: { _id: userParam },
+  } = useQuery(QUERY_USER, {
+    variables: { username },
   });
 
-  const [addCharacter, { data: newCharData }] = useMutation(ADD_CHARACTER);
+  user = userData.user || {};
+  console.log(userData);
 
   const handleFriendClick = userId => {
     navigate(`/${userId}`);
@@ -40,16 +37,6 @@ const Profile = () => {
 
   const handleCharacterClick = charId => {
     navigate(`/sheet/${charId}`);
-  };
-
-  const handleNewCharSubmit = e => {
-    e.preventDefault();
-    addCharacter({
-      variables: {
-        character: { name: charForm.values.name, user: userParam },
-      },
-    });
-    refetch();
   };
 
   const handleCampaignClick = campaignId => {

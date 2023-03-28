@@ -1,11 +1,15 @@
+import { Button, Text, Title } from '@mantine/core';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PageWrapper } from '../components';
 
-const NoMatch = () => {
+export default () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      Oops, we couldn't find that page.
-    </div>
+    <PageWrapper title="No Match">
+      <Text>Oops, we couldn't find that page.</Text>
+      <Button onClick={() => navigate('/')}>Go Home</Button>
+    </PageWrapper>
   );
 };
-
-export default NoMatch;
