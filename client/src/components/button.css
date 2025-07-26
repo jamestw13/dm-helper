@@ -1,0 +1,25 @@
+.button {
+  padding: 0 18px;
+  appearance: none;
+  text-align: left;
+  text-decoration: none;
+  height: 36px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  display: inline-block;
+  width: auto;
+  font-weight: 600;
+  position: relative;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: #2C2E33;
+  transition: background-color 100ms ease; color 100ms ease;
+  color: #fff;
+
+  &:hover {
+    background-color: #3A3C41;
+  }
+}
