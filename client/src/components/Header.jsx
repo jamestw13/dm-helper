@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useContext } from 'react';
 import { UserContext } from '../features/users';
+import { useNavigate } from 'react-router-dom';
 
 import './Header.css';
 
 const Header = () => {
+  const navigate = useNavigate();
   const logout = event => {
     event.preventDefault();
     Auth.logout();
@@ -59,6 +61,20 @@ const Header = () => {
             </div>
           )}
         </nav>
+      </div>
+      <div>
+        <Link to="/">
+          <Button onClick={() => navigate('/')}>Dashboard</Button>
+        </Link>
+        <Link to="/campaigns">
+          <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
+        </Link>
+        <Link to="/characters">
+          <Button onClick={() => navigate('/characters')}>Characters</Button>
+        </Link>
+        <Link to="/friends">
+          <Button onClick={() => navigate('/friends')}>Friends</Button>
+        </Link>
       </div>
     </header>
   );

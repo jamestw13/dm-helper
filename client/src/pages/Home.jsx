@@ -18,15 +18,15 @@ function Home() {
       <PageWrapper title="Stat Block">
         <Stack align="stretch">
           <Section title="">
-            <Title order={1}>TTRPG Managment Tools</Title>
+            <h1>TTRPG Managment Tools</h1>
             <Text>A growing suite of tools to help you manage TTRPG games. Includes Encounter Tracking.</Text>
           </Section>
 
-          <Flex justify="space-between">
+          <div style={{ display: 'flex' }} todo justify="space-between">
             <Section title="Login">
               <Login />
             </Section>
-          </Flex>
+          </div>
         </Stack>
       </PageWrapper>
     </>

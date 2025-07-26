@@ -78,12 +78,12 @@ export default props => {
           Sign Up
         </Button>
 
-        <Title order={4}>Test Users:</Title>
+        <h4>Test Users:</h4>
         {!userLoading ? (
           <>
             <Stack>
               {userData?.users?.map(user => (
-                <Flex gap="xs" key={user._id} align="center">
+                <div style={{ display: 'flex' }} todo gap="xs" key={user._id} align="center">
                   <Text>{user.email}</Text>
                   <Button
                     size="xs"
@@ -96,7 +96,7 @@ export default props => {
                   <Button type="submit" size="xs">
                     Go
                   </Button>
-                </Flex>
+                </div>
               ))}
             </Stack>
             <Dialog opened={signupDialog} onClose={() => setSignupDialog(false)}>

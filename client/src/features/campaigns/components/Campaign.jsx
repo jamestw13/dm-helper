@@ -8,7 +8,7 @@ import { Section, PageWrapper } from '../../../components';
 
 import { QUERY_CAMPAIGN } from '..';
 
-import { Button, Title, Text, Card, Avatar, Flex, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
+import { Button, Title, Text, Card, Avatar, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
 import { IconArrowRightTail } from '@tabler/icons';
 
 function Campaign() {
@@ -40,25 +40,25 @@ function Campaign() {
         <>
           {/* Player Section */}
           <Section title="Players" collapsable>
-            <Indicator label={<Title order={6}>DM</Title>} color="red" position="top-center" size="sm" zIndex={2}>
+            <Indicator label={<h6>DM</h6>} color="red" position="top-center" size="sm" zIndex={2}>
               <Card>
-                <Flex align="center" gap=".25em">
+                <div style={{ display: 'flex' }} todo align="center" gap=".25em">
                   <Avatar src={campaign?.owner?.avatar} />
 
-                  <Title order={4}>{campaign?.owner?.username}</Title>
-                </Flex>
+                  <h4>{campaign?.owner?.username}</h4>
+                </div>
               </Card>
             </Indicator>
             {campaign?.players?.map((player, i) => (
               <Card key={i} onClick={() => {}}>
-                <Flex align="center" gap=".25em">
+                <div style={{ display: 'flex' }} todo align="center" gap=".25em">
                   <Avatar src={player.avatar} />
 
-                  <Title order={4}>
+                  <h4>
                     {`${player.firstname} 
                     ${player.lastname}`}
-                  </Title>
-                </Flex>
+                  </h4>
+                </div>
                 {player?.characters
                   ?.filter(char => char.campaign?._id === campaignId)
                   .map((char, j) => (
@@ -83,7 +83,7 @@ function Campaign() {
               ?.filter(char => (charSelect.includes('pc') && !char.isNPC) || (charSelect.includes('npc') && char.isNPC))
               .map((char, i) => (
                 <Card key={i} onClick={() => {}}>
-                  <Title order={5}>{char.name}</Title>
+                  <h5>{char.name}</h5>
                   <Text>{char.user.firstname}</Text>
                 </Card>
               ))}
@@ -96,7 +96,7 @@ function Campaign() {
               <Box key={i}>
                 <Accordion chevronPosition="left">
                   <Accordion.Item value={enc.title}>
-                    <Flex align="center">
+                    <div style={{ display: 'flex' }} todo align="center">
                       <Accordion.Control>{enc.title}</Accordion.Control>
                       <ActionIcon
                         size="xl"
@@ -106,7 +106,7 @@ function Campaign() {
                       >
                         <IconArrowRightTail />
                       </ActionIcon>
-                    </Flex>
+                    </div>
                     <Accordion.Panel>
                       <Text>{enc.description}</Text>
                     </Accordion.Panel>

@@ -57,23 +57,21 @@ const Profile = () => {
   };
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
-      <Flex gap="xs">
+      <div style={{ display: 'flex' }} todo gap="xs">
         <Section title="Friends List">
           {user?.friends?.map(friend => (
             <Card key={friend._id} onClick={() => handleFriendClick(friend._id)}>
-              <Flex align="center">
+              <div style={{ display: 'flex' }} todo align="center">
                 <Avatar />
-                <Title order={4}>{`${friend.firstname} ${friend.lastname}`}</Title>
-              </Flex>
+                <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
+              </div>
             </Card>
           ))}
         </Section>
         <Section title="Character List">
           {user?.characters?.map(char => (
             <Card key={char._id} onClick={() => handleCharacterClick(char._id)}>
-              <Title order={4} className="char-name">
-                {char.name}
-              </Title>
+              <h4 className="char-name">{char.name}</h4>
               <Text className="char-encounter">
                 {!!char.campaign && (char.isNPC ? `NPC in: ${char.campaign.name}` : `PC in: ${char.campaign.name}`)}
               </Text>
@@ -84,14 +82,12 @@ const Profile = () => {
         <Section title="Campaign List">
           {user?.campaigns?.map(campaign => (
             <Card key={campaign._id} onClick={() => handleCampaignClick(campaign._id)}>
-              <Title order={4} className="char-name">
-                {campaign.name}
-              </Title>
+              <h4 className="char-name">{campaign.name}</h4>
               <Text className="char-encounter">{`DM: ${campaign?.owner?.username}`}</Text>
             </Card>
           ))}
         </Section>
-      </Flex>
+      </div>
     </PageWrapper>
   );
 };

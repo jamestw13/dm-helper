@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 const NotLoggedIn = () => {
   return (
     <PageWrapper title="Not Logged In">
-      <Title order={2}>
+      <h2>
         You must be logged in to view this content. Please
         <Link to="/login"> click here </Link>to return to the homepage.
-      </Title>
+      </h2>
     </PageWrapper>
   );
 };

@@ -33,7 +33,7 @@ const CampaignList = () => {
       </Button>
       {campaigns?.map(campaign => (
         <Card key={campaign._id} className="char-list-item" onClick={() => handleCampaignClick(campaign._id)}>
-          <Title order={4}>{campaign.name}</Title>
+          <h4>{campaign.name}</h4>
           <Text>DM: {campaign.owner.username}</Text>
         </Card>
       ))}

@@ -35,19 +35,19 @@ const TrackerNavigator = () => {
 
   return (
     <Section>
-      <Flex direction="column" align="center">
-        <Title order={4}>
+      <div style={{ display: 'flex' }} todo direction="column" align="center">
+        <h4>
           Round: <span>{encData.currentRound + 1}</span>
-        </Title>
-        <Title order={5}>
+        </h4>
+        <h5>
           Turn: <span>{encData.currentTurn + 1}</span>
-        </Title>
+        </h5>
 
         <Box>
           <Button onClick={initBack}>&lt;&lt;</Button>
           <Button onClick={initForward}>&gt;&gt;</Button>
         </Box>
-      </Flex>
+      </div>
     </Section>
   );
 };

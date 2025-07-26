@@ -41,7 +41,7 @@ const FriendList = () => {
       </Button>
       {friends?.map(friend => (
         <Card key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend.username)}>
-          <Title order={4}>{friend.username}</Title>
+          <h4>{friend.username}</h4>
         </Card>
       ))}
       <Dialog

@@ -285,26 +285,26 @@ const CharacterSheet = ({ charId }) => {
           </Grid>
 
           <Stack>
-            <Flex justify="space-between" span={4}>
+            <div style={{ display: 'flex' }} todo justify="space-between" span={4}>
               <Text>Name</Text>
               <Text>ATK Bonus</Text>
               <Text>Name/Type</Text>
-            </Flex>
-            <Flex justify="space-between">
+            </div>
+            <div style={{ display: 'flex' }} todo justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
-            </Flex>
-            <Flex justify="space-between">
+            </div>
+            <div style={{ display: 'flex' }} todo justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
-            </Flex>
-            <Flex justify="space-between">
+            </div>
+            <div style={{ display: 'flex' }} todo justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
-            </Flex>
+            </div>
             <CustomInput
               type="tArea"
               label="Attack Notes"
@@ -312,13 +312,13 @@ const CharacterSheet = ({ charId }) => {
               {...form.getInputProps('atkNotes')}
             />
           </Stack>
-          <Flex justify="center">
+          <div style={{ display: 'flex' }} todo justify="center">
             <CustomInput type="num" label="CP" labelPos="column-reverse" {...form.getInputProps('copperP')} />
             <CustomInput type="num" label="SP" labelPos="column-reverse" {...form.getInputProps('silverP')} />
             <CustomInput type="num" label="EP" labelPos="column-reverse" {...form.getInputProps('electrumP')} />
             <CustomInput type="num" label="GP" labelPos="column-reverse" {...form.getInputProps('goldP')} />
             <CustomInput type="num" label="PP" labelPos="column-reverse" {...form.getInputProps('platinumP')} />
-          </Flex>
+          </div>
           <CustomInput
             type="tArea"
             label="Equipment"

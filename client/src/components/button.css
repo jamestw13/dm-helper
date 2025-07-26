@@ -19,7 +19,7 @@
   transition: background-color 100ms ease; color 100ms ease;
   color: #fff;
 
-  &:hover {
-    background-color: #3A3C41;
-  }
+}
+.button:hover {
+  background-color: #3A3C41;
 }

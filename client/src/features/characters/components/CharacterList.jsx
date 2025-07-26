@@ -18,10 +18,10 @@ const CharacterList = () => {
         {chars?.map(char => (
           <Accordion.Item key={char._id} value={char._id}>
             <Accordion.Control>
-              <Flex justify="space-between">
-                <Title order={4}>{char.name}</Title>
+              <div style={{ display: 'flex' }} todo justify="space-between">
+                <h4>{char.name}</h4>
                 <Box onClick={() => console.log({ char })}>Char Sheet</Box>
-              </Flex>
+              </div>
             </Accordion.Control>
             <Accordion.Panel value={char._id}>
               <Card onClick={() => handleCharacterClick({ char })}>
@@ -34,7 +34,7 @@ const CharacterList = () => {
         ))}
         <Accordion.Item value="new character">
           <Accordion.Control>
-            <Title order={3}>+ Add Character</Title>
+            <h3>+ Add Character</h3>
           </Accordion.Control>
           <Accordion.Panel>
             <Card></Card>
