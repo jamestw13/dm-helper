@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
-import { Avatar, Card, Flex, Text, Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
 
+import { Avatar } from '../components/Avatar';
 import { QUERY_ME, QUERY_USER, UserContext } from '../features/users';
 import { ADD_CHARACTER } from '../features/characters';
 
@@ -17,12 +16,6 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { userId: userParam } = useParams();
-
-  const charForm = useForm({
-    initialValues: {
-      name: 'tj',
-    },
-  });
 
   const {
     loading,
@@ -42,15 +35,7 @@ const Profile = () => {
     navigate(`/sheet/${charId}`);
   };
 
-  const handleNewCharSubmit = e => {
-    e.preventDefault();
-    addCharacter({
-      variables: {
-        character: { name: charForm.values.name, user: userParam },
-      },
-    });
-    refetch();
-  };
+  const handleNewCharSubmit = e => {};
 
   const handleCampaignClick = campaignId => {
     return navigate(`/campaign/${campaignId}`);
@@ -60,31 +45,35 @@ const Profile = () => {
       <div style={{ display: 'flex' }} gap="xs">
         <Section title="Friends List">
           {user?.friends?.map(friend => (
-            <Card key={friend._id} onClick={() => handleFriendClick(friend._id)}>
+            <div key={friend._id} onClick={() => handleFriendClick(friend._id)}>
               <div style={{ display: 'flex' }} align="center">
                 <Avatar />
                 <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
               </div>
-            </Card>
+            </div>
           ))}
         </Section>
         <Section title="Character List">
           {user?.characters?.map(char => (
-            <Card key={char._id} onClick={() => handleCharacterClick(char._id)}>
+            <div key={char._id} onClick={() => handleCharacterClick(char._id)}>
               <h4 className="char-name">{char.name}</h4>
-              <Text className="char-encounter">
+              <p className="char-encounter">
                 {!!char.campaign && (char.isNPC ? `NPC in: ${char.campaign.name}` : `PC in: ${char.campaign.name}`)}
-              </Text>
-            </Card>
+              </p>
+            </div>
           ))}
         </Section>
 
         <Section title="Campaign List">
           {user?.campaigns?.map(campaign => (
-            <Card key={campaign._id} onClick={() => handleCampaignClick(campaign._id)}>
+            <div
+              style={{ background: '#303030', margin: '.25rem', padding: '.25rem', borderRadius: '5px' }}
+              key={campaign._id}
+              onClick={() => handleCampaignClick(campaign._id)}
+            >
               <h4 className="char-name">{campaign.name}</h4>
-              <Text className="char-encounter">{`DM: ${campaign?.owner?.username}`}</Text>
-            </Card>
+              <p className="char-encounter">{`DM: ${campaign?.owner?.username}`}</p>
+            </div>
           ))}
         </Section>
       </div>
