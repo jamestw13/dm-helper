@@ -18,7 +18,7 @@ const CharacterList = () => {
         {chars?.map(char => (
           <Accordion.Item key={char._id} value={char._id}>
             <Accordion.Control>
-              <div style={{ display: 'flex' }} todo justify="space-between">
+              <div style={{ display: 'flex' }} justify="space-between">
                 <h4>{char.name}</h4>
                 <Box onClick={() => console.log({ char })}>Char Sheet</Box>
               </div>

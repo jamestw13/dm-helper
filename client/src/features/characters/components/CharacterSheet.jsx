@@ -285,22 +285,22 @@ const CharacterSheet = ({ charId }) => {
           </Grid>
 
           <Stack>
-            <div style={{ display: 'flex' }} todo justify="space-between" span={4}>
+            <div style={{ display: 'flex' }} justify="space-between" span={4}>
               <Text>Name</Text>
               <Text>ATK Bonus</Text>
               <Text>Name/Type</Text>
             </div>
-            <div style={{ display: 'flex' }} todo justify="space-between">
+            <div style={{ display: 'flex' }} justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
             </div>
-            <div style={{ display: 'flex' }} todo justify="space-between">
+            <div style={{ display: 'flex' }} justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
             </div>
-            <div style={{ display: 'flex' }} todo justify="space-between">
+            <div style={{ display: 'flex' }} justify="space-between">
               <CustomInput type="text" {...form.getInputProps('atkName')} />
               <CustomInput type="text" {...form.getInputProps('atkBonus')} />
               <CustomInput type="text" {...form.getInputProps('atkDamType')} />
@@ -312,7 +312,7 @@ const CharacterSheet = ({ charId }) => {
               {...form.getInputProps('atkNotes')}
             />
           </Stack>
-          <div style={{ display: 'flex' }} todo justify="center">
+          <div style={{ display: 'flex' }} justify="center">
             <CustomInput type="num" label="CP" labelPos="column-reverse" {...form.getInputProps('copperP')} />
             <CustomInput type="num" label="SP" labelPos="column-reverse" {...form.getInputProps('silverP')} />
             <CustomInput type="num" label="EP" labelPos="column-reverse" {...form.getInputProps('electrumP')} />

@@ -57,11 +57,11 @@ const Profile = () => {
   };
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
-      <div style={{ display: 'flex' }} todo gap="xs">
+      <div style={{ display: 'flex' }} gap="xs">
         <Section title="Friends List">
           {user?.friends?.map(friend => (
             <Card key={friend._id} onClick={() => handleFriendClick(friend._id)}>
-              <div style={{ display: 'flex' }} todo align="center">
+              <div style={{ display: 'flex' }} align="center">
                 <Avatar />
                 <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
               </div>

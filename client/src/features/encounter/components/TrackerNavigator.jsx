@@ -35,7 +35,7 @@ const TrackerNavigator = () => {
 
   return (
     <Section>
-      <div style={{ display: 'flex' }} todo direction="column" align="center">
+      <div style={{ display: 'flex' }} direction="column" align="center">
         <h4>
           Round: <span>{encData.currentRound + 1}</span>
         </h4>
