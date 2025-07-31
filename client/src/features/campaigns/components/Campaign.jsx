@@ -8,8 +8,9 @@ import { Section, PageWrapper } from '../../../components';
 
 import { QUERY_CAMPAIGN } from '..';
 
-import { Button, Title, Text, Card, Avatar, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
+import { Title, Text, Card, Avatar, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
 import { IconArrowRightTail } from '@tabler/icons';
+import { Button } from '../../../components/Button';
 
 function Campaign() {
   const { campaignId } = useParams();
@@ -40,18 +41,39 @@ function Campaign() {
         <>
           {/* Player Section */}
           <Section title="Players" collapsable>
-            <Indicator label={<h6>DM</h6>} color="red" position="top-center" size="sm" zIndex={2}>
-              <Card>
-                <div style={{ display: 'flex' }} todo align="center" gap=".25em">
-                  <Avatar src={campaign?.owner?.avatar} />
+            <Card>
+              <div
+                style={{
+                  zIndex: 2,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontSize: '12px',
+                  paddingInline: 'calc(15px / 2)',
+                  backgroundColor: '#e03131',
+                  color: '#fff',
+                  whiteSpace: 'nowrap',
+                  top: '10px',
+                  left: '50%',
+                  position: 'absolute',
+                  borderRadius: '50%',
+                  transform: 'translate(-50%,-50%)',
+                  overflow: 'visible',
+                }}
+                label={<h6>DM</h6>}
+              >
+                DM
+              </div>
+              <div style={{ display: 'flex' }} align="center" gap=".25em">
+                <Avatar src={campaign?.owner?.avatar} />
 
-                  <h4>{campaign?.owner?.username}</h4>
-                </div>
-              </Card>
-            </Indicator>
+                <h4>{campaign?.owner?.username}</h4>
+              </div>
+            </Card>
+
             {campaign?.players?.map((player, i) => (
               <Card key={i} onClick={() => {}}>
-                <div style={{ display: 'flex' }} todo align="center" gap=".25em">
+                <div style={{ display: 'flex' }} align="center" gap=".25em">
                   <Avatar src={player.avatar} />
 
                   <h4>
@@ -96,7 +118,7 @@ function Campaign() {
               <Box key={i}>
                 <Accordion chevronPosition="left">
                   <Accordion.Item value={enc.title}>
-                    <div style={{ display: 'flex' }} todo align="center">
+                    <div style={{ display: 'flex' }} align="center">
                       <Accordion.Control>{enc.title}</Accordion.Control>
                       <ActionIcon
                         size="xl"
