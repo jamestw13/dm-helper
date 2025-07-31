@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../users';
-import { Card, Title, Text, Button, Dialog, Group, TextInput } from '@mantine/core';
+
 import { PageWrapper } from '../../../components';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
@@ -24,41 +24,43 @@ const CampaignList = () => {
   };
   return (
     <PageWrapper title="My Campaigns">
-      <Button
+      <button
+        className="standard"
         onClick={() => {
           setDialogOpen(true);
         }}
       >
         Add Campaign
-      </Button>
+      </button>
       {campaigns?.map(campaign => (
-        <Card key={campaign._id} className="char-list-item" onClick={() => handleCampaignClick(campaign._id)}>
+        <div key={campaign._id} className="char-list-item" onClick={() => handleCampaignClick(campaign._id)}>
           <h4>{campaign.name}</h4>
-          <Text>DM: {campaign.owner.username}</Text>
-        </Card>
+          <p>DM: {campaign.owner.username}</p>
+        </div>
       ))}
-      <Dialog
-        opened={dialogOpen}
+      <dialog
+        open={dialogOpen}
         withCloseButton
         onClose={() => setDialogOpen(false)}
         position={{ top: '15em', left: '30em' }}
       >
-        <Text size="sm" mb="xs" weight={500}>
+        <p size="sm" mb="xs" weight={500}>
           Create a new campaign
-        </Text>
+        </p>
 
-        <Group align="flex-end">
-          <TextInput
+        <div align="flex-end">
+          <input
+            type="text"
             value={campaignName}
             onChange={e => setCampaignName(e.target.value)}
             placeholder="campaign name"
             sx={{ flex: 1 }}
           />
-          <Button onClick={createCampaign} disabled={campaignName.length < 1}>
+          <button className="standard" onClick={createCampaign} disabled={campaignName.length < 1}>
             Create
-          </Button>
-        </Group>
-      </Dialog>
+          </button>
+        </div>
+      </dialog>
     </PageWrapper>
   );
 };

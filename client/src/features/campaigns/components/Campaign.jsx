@@ -8,7 +8,7 @@ import { Section, PageWrapper } from '../../../components';
 
 import { QUERY_CAMPAIGN } from '..';
 
-import { Title, Text, Card, Avatar, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
+import { Avatar } from '../../../components/Avatar';
 import { IconArrowRightTail } from '@tabler/icons';
 import { Button } from '../../../components/Button';
 
@@ -41,7 +41,7 @@ function Campaign() {
         <>
           {/* Player Section */}
           <Section title="Players" collapsable>
-            <Card>
+            <div>
               <div
                 style={{
                   zIndex: 2,
@@ -69,10 +69,10 @@ function Campaign() {
 
                 <h4>{campaign?.owner?.username}</h4>
               </div>
-            </Card>
+            </div>
 
             {campaign?.players?.map((player, i) => (
-              <Card key={i} onClick={() => {}}>
+              <div key={i} onClick={() => {}}>
                 <div style={{ display: 'flex' }} align="center" gap=".25em">
                   <Avatar src={player.avatar} />
 
@@ -84,30 +84,30 @@ function Campaign() {
                 {player?.characters
                   ?.filter(char => char.campaign?._id === campaignId)
                   .map((char, j) => (
-                    <Text key={j}>{char.name}</Text>
+                    <p key={j}>{char.name}</p>
                   ))}
-              </Card>
+              </div>
             ))}
           </Section>
 
           {/* Character Section */}
           <Section title="Characters" collapsable>
-            <Chip.Group multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
-              <Chip variant="filled" radius="sm" value="pc">
+            <div.Group multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
+              <div variant="filled" radius="sm" value="pc">
                 PCs
-              </Chip>
-              <Chip variant="filled" radius="sm" value="npc">
+              </div>
+              <div variant="filled" radius="sm" value="npc">
                 NPCs
-              </Chip>
-            </Chip.Group>
+              </div>
+            </div.Group>
 
             {campaign?.characters
               ?.filter(char => (charSelect.includes('pc') && !char.isNPC) || (charSelect.includes('npc') && char.isNPC))
               .map((char, i) => (
-                <Card key={i} onClick={() => {}}>
+                <div key={i} onClick={() => {}}>
                   <h5>{char.name}</h5>
-                  <Text>{char.user.firstname}</Text>
-                </Card>
+                  <p>{char.user.firstname}</p>
+                </div>
               ))}
           </Section>
 
@@ -115,26 +115,24 @@ function Campaign() {
           <Section title="Encounter List" collapsable>
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
-              <Box key={i}>
-                <Accordion chevronPosition="left">
-                  <Accordion.Item value={enc.title}>
+              <div key={i}>
+                <div chevronPosition="left">
+                  <div.Item value={enc.title}>
                     <div style={{ display: 'flex' }} align="center">
-                      <Accordion.Control>{enc.title}</Accordion.Control>
-                      <ActionIcon
-                        size="xl"
-                        onClick={() => {
-                          handleEncounterClick(enc._id);
-                        }}
+                      <div.Control>{enc.title}</div.Control>
+                      onClick=
+                      {() => {
+                        handleEncounterClick(enc._id);
+                      }}
                       >
-                        <IconArrowRightTail />
-                      </ActionIcon>
+                      <IconArrowRightTail />
                     </div>
-                    <Accordion.Panel>
-                      <Text>{enc.description}</Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                </Accordion>
-              </Box>
+                    <div.Panel>
+                      <p>{enc.description}</p>
+                    </div.Panel>
+                  </div.Item>
+                </div>
+              </div>
             ))}
           </Section>
 

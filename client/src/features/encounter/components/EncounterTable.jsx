@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { Button, Table } from '@mantine/core';
 
 import { CharacterRow, NoteCell, EncounterContext } from '../';
 
@@ -18,7 +17,7 @@ const EncounterTable = () => {
     return result;
   };
   return (
-    <Table>
+    <table>
       <thead>
         <tr>
           <th></th>
@@ -59,7 +58,8 @@ const EncounterTable = () => {
         )}
         <tr>
           <td colSpan="100%">
-            <Button
+            <button
+              className="standard"
               style={{ width: '100%' }}
               onClick={
                 // () => {}
@@ -67,11 +67,11 @@ const EncounterTable = () => {
               }
             >
               Add Round
-            </Button>
+            </button>
           </td>
         </tr>
       </tbody>
-    </Table>
+    </table>
   );
 };
 

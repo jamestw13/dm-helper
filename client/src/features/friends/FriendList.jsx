@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { ADD_FRIEND, FIND_FRIENDS } from '.';
 import { UserContext } from '../users';
-import { Button, Card, Dialog, Group, Text, TextInput, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../../components';
 import UserCard from '../users/components/UserCard';
@@ -32,45 +31,48 @@ const FriendList = () => {
 
   return (
     <PageWrapper title="My Friends">
-      <Button
+      <button
+        className="standard"
         onClick={() => {
           setDialogOpen(true);
         }}
       >
         Add Friend
-      </Button>
+      </button>
       {friends?.map(friend => (
-        <Card key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend.username)}>
+        <div key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend.username)}>
           <h4>{friend.username}</h4>
-        </Card>
+        </div>
       ))}
-      <Dialog
-        opened={dialogOpen}
-        withCloseButton
+      <dialog
+        open={dialogOpen}
+        withClosebutton
+        className="standard"
         onClose={() => setDialogOpen(false)}
         position={{ top: '15em', left: '30em' }}
       >
-        <Text size="sm" mb="xs" weight={500}>
+        <p size="sm" mb="xs" weight={500}>
           Find a friend
-        </Text>
+        </p>
 
-        <Group align="flex-end">
-          <TextInput
+        <div align="flex-end">
+          <input
+            type="text"
             value={friendInput}
             onChange={e => setFriendInput(e.target.value)}
             placeholder="Search for friends"
             sx={{ flex: 1 }}
           />
-          <Button onClick={findFriends} disabled={friendInput.length < 1}>
+          <button className="standard" onClick={findFriends} disabled={friendInput.length < 1}>
             Search
-          </Button>
-        </Group>
-        <Group align="center">
+          </button>
+        </div>
+        <div align="center">
           {friendResults?.map(user => (
             <UserCard user={user} />
           ))}
-        </Group>
-      </Dialog>
+        </div>
+      </dialog>
     </PageWrapper>
   );
 };
