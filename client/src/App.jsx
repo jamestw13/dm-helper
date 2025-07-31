@@ -1,8 +1,9 @@
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import { QUERY_ME, UserContext } from './features/users';
 import { useQuery } from '@apollo/client';
-import { MantineProvider, AppShell } from '@mantine/core';
-import { Header, Footer } from './components';
+import { MantineProvider } from '@mantine/core';
+
+import MainLayout from './components/MainLayout.jsx';
 
 import Auth from './utils/auth';
 import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages';
@@ -20,12 +21,9 @@ const App = () => {
     <Router>
       <MantineProvider theme={theme}>
         <UserContext.Provider value={{ user: userData?.me || {}, loggedIn }}>
-          <AppShell header={loggedIn && <Header />} footer={<Footer />} padding="0" bg="dark">
-            <Routes>
+          <Routes>
+            <Route element={<MainLayout />}>
               <Route exact path="/" element={<Home />} />
-              <Route exact path="/login" element={<Home />} />
-              <Route exact path="/signup" element={<Home />} />
-
               {loggedIn && (
                 <>
                   <Route exact path="/:userId" element={<Profile />} />
@@ -40,8 +38,8 @@ const App = () => {
                 </>
               )}
               <Route path="*" element={<NoMatch />} />
-            </Routes>
-          </AppShell>
+            </Route>
+          </Routes>
         </UserContext.Provider>
       </MantineProvider>
     </Router>
