@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { Affix } from '@mantine/core';
 
 import { PageWrapper, Section } from '../components';
 
@@ -42,9 +41,9 @@ const Encounter = () => {
         <Section>
           <EncounterTable />
         </Section>
-        <Affix position={{ bottom: '3rem', left: '1rem' }}>
+        <div>
           <TrackerNavigator />
-        </Affix>
+        </div>
       </PageWrapper>
     </EncounterContext.Provider>
   );

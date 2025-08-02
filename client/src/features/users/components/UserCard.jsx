@@ -1,13 +1,13 @@
-import { Avatar, Group, Stack, Text } from '@mantine/core';
+import { Avatar } from '../../../components/Avatar';
 
 export default ({ user }) => {
   return (
-    <Group>
+    <div>
       <Avatar src={user?.avatar} />
-      <Stack>
-        <Text>{user?.username}</Text>
-        <Text>{user?.name}</Text>
-      </Stack>
-    </Group>
+      <div style={{ display: 'grid' }}>
+        <p>{user?.username}</p>
+        <p>{user?.name}</p>
+      </div>
+    </div>
   );
 };

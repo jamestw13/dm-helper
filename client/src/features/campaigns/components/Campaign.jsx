@@ -8,8 +8,9 @@ import { Section, PageWrapper } from '../../../components';
 
 import { QUERY_CAMPAIGN } from '..';
 
-import { Button, Title, Text, Card, Avatar, Flex, Chip, Indicator, Box, Accordion, ActionIcon } from '@mantine/core';
+import { Avatar } from '../../../components/Avatar';
 import { IconArrowRightTail } from '@tabler/icons';
+import { Button } from '../../../components/Button';
 
 function Campaign() {
   const { campaignId } = useParams();
@@ -40,52 +41,72 @@ function Campaign() {
         <>
           {/* Player Section */}
           <Section title="Players" collapsable>
-            <Indicator label={<Title order={6}>DM</Title>} color="red" position="top-center" size="sm" zIndex={2}>
-              <Card>
-                <Flex align="center" gap=".25em">
-                  <Avatar src={campaign?.owner?.avatar} />
+            <div>
+              <div
+                style={{
+                  zIndex: 2,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontSize: '12px',
+                  paddingInline: 'calc(15px / 2)',
 
-                  <Title order={4}>{campaign?.owner?.username}</Title>
-                </Flex>
-              </Card>
-            </Indicator>
+                  whiteSpace: 'nowrap',
+                  top: '10px',
+                  left: '50%',
+                  position: 'absolute',
+                  borderRadius: '50%',
+                  transform: 'translate(-50%,-50%)',
+                  overflow: 'visible',
+                }}
+                label={<h6>DM</h6>}
+              >
+                DM
+              </div>
+              <div style={{ display: 'flex' }} align="center" gap=".25em">
+                <Avatar src={campaign?.owner?.avatar} />
+
+                <h4>{campaign?.owner?.username}</h4>
+              </div>
+            </div>
+
             {campaign?.players?.map((player, i) => (
-              <Card key={i} onClick={() => {}}>
-                <Flex align="center" gap=".25em">
+              <div key={i} onClick={() => {}}>
+                <div style={{ display: 'flex' }} align="center" gap=".25em">
                   <Avatar src={player.avatar} />
 
-                  <Title order={4}>
+                  <h4>
                     {`${player.firstname} 
                     ${player.lastname}`}
-                  </Title>
-                </Flex>
+                  </h4>
+                </div>
                 {player?.characters
                   ?.filter(char => char.campaign?._id === campaignId)
                   .map((char, j) => (
-                    <Text key={j}>{char.name}</Text>
+                    <p key={j}>{char.name}</p>
                   ))}
-              </Card>
+              </div>
             ))}
           </Section>
 
           {/* Character Section */}
           <Section title="Characters" collapsable>
-            <Chip.Group multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
-              <Chip variant="filled" radius="sm" value="pc">
+            <div multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
+              <div variant="filled" radius="sm" value="pc">
                 PCs
-              </Chip>
-              <Chip variant="filled" radius="sm" value="npc">
+              </div>
+              <div variant="filled" radius="sm" value="npc">
                 NPCs
-              </Chip>
-            </Chip.Group>
+              </div>
+            </div>
 
             {campaign?.characters
               ?.filter(char => (charSelect.includes('pc') && !char.isNPC) || (charSelect.includes('npc') && char.isNPC))
               .map((char, i) => (
-                <Card key={i} onClick={() => {}}>
-                  <Title order={5}>{char.name}</Title>
-                  <Text>{char.user.firstname}</Text>
-                </Card>
+                <div key={i} onClick={() => {}}>
+                  <h5>{char.name}</h5>
+                  <p>{char.user.firstname}</p>
+                </div>
               ))}
           </Section>
 
@@ -93,26 +114,24 @@ function Campaign() {
           <Section title="Encounter List" collapsable>
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
-              <Box key={i}>
-                <Accordion chevronPosition="left">
-                  <Accordion.Item value={enc.title}>
-                    <Flex align="center">
-                      <Accordion.Control>{enc.title}</Accordion.Control>
-                      <ActionIcon
-                        size="xl"
-                        onClick={() => {
-                          handleEncounterClick(enc._id);
-                        }}
+              <div key={i}>
+                <div chevronPosition="left">
+                  <div.Item value={enc.title}>
+                    <div style={{ display: 'flex' }} align="center">
+                      <div.Control>{enc.title}</div.Control>
+                      onClick=
+                      {() => {
+                        handleEncounterClick(enc._id);
+                      }}
                       >
-                        <IconArrowRightTail />
-                      </ActionIcon>
-                    </Flex>
-                    <Accordion.Panel>
-                      <Text>{enc.description}</Text>
-                    </Accordion.Panel>
-                  </Accordion.Item>
-                </Accordion>
-              </Box>
+                      <IconArrowRightTail />
+                    </div>
+                    <div.Panel>
+                      <p>{enc.description}</p>
+                    </div.Panel>
+                  </div.Item>
+                </div>
+              </div>
             ))}
           </Section>
 

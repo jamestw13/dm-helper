@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
-import { Avatar, Card, Flex, Text, Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
 
+import { Avatar } from '../components/Avatar';
 import { QUERY_ME, QUERY_USER, UserContext } from '../features/users';
 import { ADD_CHARACTER } from '../features/characters';
 
@@ -17,12 +16,6 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { userId: userParam } = useParams();
-
-  const charForm = useForm({
-    initialValues: {
-      name: 'tj',
-    },
-  });
 
   const {
     loading,
@@ -42,56 +35,48 @@ const Profile = () => {
     navigate(`/sheet/${charId}`);
   };
 
-  const handleNewCharSubmit = e => {
-    e.preventDefault();
-    addCharacter({
-      variables: {
-        character: { name: charForm.values.name, user: userParam },
-      },
-    });
-    refetch();
-  };
+  const handleNewCharSubmit = e => {};
 
   const handleCampaignClick = campaignId => {
     return navigate(`/campaign/${campaignId}`);
   };
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
-      <Flex gap="xs">
+      <div style={{ display: 'flex', gap: '1rem' }}>
         <Section title="Friends List">
           {user?.friends?.map(friend => (
-            <Card key={friend._id} onClick={() => handleFriendClick(friend._id)}>
-              <Flex align="center">
+            <div key={friend._id} onClick={() => handleFriendClick(friend._id)}>
+              <div style={{ display: 'flex' }} align="center">
                 <Avatar />
-                <Title order={4}>{`${friend.firstname} ${friend.lastname}`}</Title>
-              </Flex>
-            </Card>
+                <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
+              </div>
+            </div>
           ))}
         </Section>
         <Section title="Character List">
           {user?.characters?.map(char => (
-            <Card key={char._id} onClick={() => handleCharacterClick(char._id)}>
-              <Title order={4} className="char-name">
-                {char.name}
-              </Title>
-              <Text className="char-encounter">
+            <div key={char._id} onClick={() => handleCharacterClick(char._id)}>
+              <h4 className="char-name">{char.name}</h4>
+              <p className="char-encounter">
                 {!!char.campaign && (char.isNPC ? `NPC in: ${char.campaign.name}` : `PC in: ${char.campaign.name}`)}
-              </Text>
-            </Card>
+              </p>
+            </div>
           ))}
         </Section>
 
         <Section title="Campaign List">
           {user?.campaigns?.map(campaign => (
-            <Card key={campaign._id} onClick={() => handleCampaignClick(campaign._id)}>
-              <Title order={4} className="char-name">
-                {campaign.name}
-              </Title>
-              <Text className="char-encounter">{`DM: ${campaign?.owner?.username}`}</Text>
-            </Card>
+            <div
+              style={{ background: 'var(--bg-light)', margin: '.25rem', padding: '.25rem .75rem', borderRadius: '5px' }}
+              key={campaign._id}
+              onClick={() => handleCampaignClick(campaign._id)}
+            >
+              <h4 className="char-name">{campaign.name}</h4>
+              <p className="char-encounter">{`DM: ${campaign?.owner?.username}`}</p>
+            </div>
           ))}
         </Section>
-      </Flex>
+      </div>
     </PageWrapper>
   );
 };

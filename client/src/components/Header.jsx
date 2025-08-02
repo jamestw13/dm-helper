@@ -1,13 +1,16 @@
 import React from 'react';
-import { Header as MHeader, Button, Avatar, Flex } from '@mantine/core';
+import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { useContext } from 'react';
 import { UserContext } from '../features/users';
+import { useNavigate } from 'react-router-dom';
 
-// import './Header.css';
+import './Header.css';
+import { Avatar } from './Avatar';
 
 const Header = () => {
+  const navigate = useNavigate();
   const logout = event => {
     event.preventDefault();
     Auth.logout();
@@ -16,32 +19,41 @@ const Header = () => {
   const { user, loggedIn } = useContext(UserContext);
 
   return (
-    <MHeader p="sm" height={90}>
-      <Flex align="center" justify="space-between" direction="row">
-        <Link to="/" style={{ textDecoration: 'none' }} className="home-link link">
-          <Button>Stat Block</Button>
-        </Link>
+    <header>
+      <Link to="/" className="home-link link">
+        <div className="header-title">Stat Block</div>
+      </Link>
 
-        <nav>
-          {Auth.loggedIn() && (
-            <div className="header-options">
-              <Flex align="center" gap="1em">
-                <a className="link" href="/" onClick={logout}>
-                  <Button>Logout</Button>
-                </a>
-                <Link to={`/${user?._id}`}>
-                  <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
-                </Link>
-
-                <Link to={`/${user?.username}`}>
-                  <Avatar radius="xl" size="lg" src={user?.avatar} className="avatar" alt="User's avatar" />
-                </Link>
-              </Flex>
-            </div>
-          )}
-        </nav>
-      </Flex>
-    </MHeader>
+      {loggedIn && (
+        <>
+          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+            <Link to="/">
+              <Button onClick={() => navigate('/')}>Dashboard</Button>
+            </Link>
+            <Link to="/campaigns">
+              <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
+            </Link>
+            <Link to="/characters">
+              <Button onClick={() => navigate('/characters')}>Characters</Button>
+            </Link>
+            <Link to="/friends">
+              <Button onClick={() => navigate('/friends')}>Friends</Button>
+            </Link>
+          </nav>
+          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+            <Link className="link" to="/" onClick={logout}>
+              <Button>Logout</Button>
+            </Link>
+            <Link to={`/${user?._id}`}>
+              <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
+            </Link>
+            <Link to={`/${user?.username}`}>
+              <Avatar />
+            </Link>
+          </nav>
+        </>
+      )}
+    </header>
   );
 };
 

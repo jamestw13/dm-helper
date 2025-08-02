@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { Button, Title, Flex, Box } from '@mantine/core';
 
 import { EncounterContext } from '../';
 import { Section } from '../../../components';
@@ -35,19 +34,23 @@ const TrackerNavigator = () => {
 
   return (
     <Section>
-      <Flex direction="column" align="center">
-        <Title order={4}>
+      <div style={{ display: 'flex' }} direction="column" align="center">
+        <h4>
           Round: <span>{encData.currentRound + 1}</span>
-        </Title>
-        <Title order={5}>
+        </h4>
+        <h5>
           Turn: <span>{encData.currentTurn + 1}</span>
-        </Title>
+        </h5>
 
-        <Box>
-          <Button onClick={initBack}>&lt;&lt;</Button>
-          <Button onClick={initForward}>&gt;&gt;</Button>
-        </Box>
-      </Flex>
+        <div>
+          <button className="standard" onClick={initBack}>
+            &lt;&lt;
+          </button>
+          <button className="standard" onClick={initForward}>
+            &gt;&gt;
+          </button>
+        </div>
+      </div>
     </Section>
   );
 };

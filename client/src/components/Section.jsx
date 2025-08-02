@@ -1,37 +1,44 @@
 import { useState } from 'react';
-import { Paper, Title, Text, Button, Collapse, Flex, Box } from '@mantine/core';
 
 const Section = ({ children, title, collapsable = false, startOpen = true }) => {
   const [cardOpen, setCardOpen] = useState(startOpen);
+  const sectionContainer = {
+    outline: '0',
+    display: 'block',
+    textDecoration: 'none',
+
+    backgroundColor: 'var(--bg)',
+    boxSizing: 'border-box',
+    borderRadius: '8px',
+    boxShadow: 'none',
+    border: '1px solid var(--border)',
+    padding: '0',
+  };
 
   return (
-    <Paper withBorder radius="md" p="0">
-      <Flex>
-        <Collapse p="xs" in={cardOpen}>
-          <Title order={2}>{title}</Title>
-          {children}
-        </Collapse>
+    <div style={sectionContainer}>
+      <div style={{ display: 'flex' }}>
+        {cardOpen && (
+          <div style={{ padding: '15px' }}>
+            <h2>{title}</h2>
+            {children}
+          </div>
+        )}
         {collapsable && (
-          <Box
-            py="1em"
-            px=".5em"
-            // bg='red'
+          <div
             style={{
-              // padding: '1em',
+              padding: '1em .5em',
               writingMode: 'vertical-lr',
               textOrientation: 'sideways-right',
+              cursor: 'pointer',
             }}
-            onClick={() => setCardOpen(bool => !bool)}
+            onClick={() => setCardOpen(!cardOpen)}
           >
-            <Text
-            // bg={'green'}
-            >
-              {title}
-            </Text>
-          </Box>
+            <p>{title}</p>
+          </div>
         )}
-      </Flex>
-    </Paper>
+      </div>
+    </div>
   );
 };
 

@@ -1,6 +1,4 @@
 import { useState, useContext } from 'react';
-import { Box, Popover, Button, TextInput, Select, NumberInput, Group, MultiSelect, Textarea } from '@mantine/core';
-import { useForm } from '@mantine/form';
 
 import { EncounterContext } from '../';
 import { getTextColor } from '../../../utils/helpers';
@@ -9,7 +7,7 @@ const CharacterRow = ({ character, roundNum, turnNum }) => {
   const { encounterId, characters, effects, addNote } = useContext(EncounterContext);
 
   const [formOpen, setFormOpen] = useState(false);
-  const noteForm = useForm({
+  const [noteForm, setNoteForm] = useState({
     initialValues: {
       note: '',
       description: '',
@@ -59,7 +57,7 @@ const CharacterRow = ({ character, roundNum, turnNum }) => {
       <td>{character.ac}</td>
 
       <td>
-        <Popover opened={formOpen} onChange={setFormOpen}>
+        {/* <Popover opened={formOpen} onChange={setFormOpen}>
           <Popover.Target>
             <Button size="xs" onClick={() => setFormOpen(o => !o)}>
               +
@@ -107,7 +105,7 @@ const CharacterRow = ({ character, roundNum, turnNum }) => {
               </Group>
             </form>
           </Popover.Dropdown>
-        </Popover>
+        </Popover> */}
       </td>
     </>
   );
