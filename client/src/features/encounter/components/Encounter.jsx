@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
-import { PageWrapper, Section } from '../components';
-
-import { EncounterTable, TrackerNavigator, QUERY_ENCOUNTER, ADD_NOTE, EncounterContext } from '../features/encounter';
+import { PageWrapper, Section } from '../../../components';
+import EncounterTable from './EncounterTable';
+import TrackerNavigator from './TrackerNavigator';
+import { QUERY_ENCOUNTER, ADD_NOTE } from '../services/encounterServices';
+import { EncounterContext } from '../contexts/EncounterContext';
 
 const Encounter = () => {
   const { encounterId } = useParams();

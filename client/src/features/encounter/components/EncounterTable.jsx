@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 
-import { CharacterRow, NoteCell, EncounterContext } from '../';
+import CharacterRow from './CharacterRow';
+import NoteCell from './NoteCell';
+import { EncounterContext } from '../contexts/EncounterContext';
 
 const EncounterTable = () => {
   const encData = useContext(EncounterContext);

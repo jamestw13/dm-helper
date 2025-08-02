@@ -116,20 +116,14 @@ function Campaign() {
             {campaign?.encounters?.map((enc, i) => (
               <div key={i}>
                 <div chevronPosition="left">
-                  <div.Item value={enc.title}>
+                  <div value={enc.title}>
                     <div style={{ display: 'flex' }} align="center">
-                      <div.Control>{enc.title}</div.Control>
-                      onClick=
-                      {() => {
-                        handleEncounterClick(enc._id);
-                      }}
-                      >
-                      <IconArrowRightTail />
+                      <div>{enc.title}</div>
                     </div>
-                    <div.Panel>
+                    <div>
                       <p>{enc.description}</p>
-                    </div.Panel>
-                  </div.Item>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

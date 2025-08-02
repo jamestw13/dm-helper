@@ -5,7 +5,13 @@ import { useQuery } from '@apollo/client';
 import MainLayout from './components/MainLayout.jsx';
 
 import Auth from './utils/auth';
-import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages';
+// import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages';
+import Home from './components/Home.jsx';
+import Profile from './features/users/components/Profile.jsx';
+import Campaign from './features/campaigns/components/Campaign.jsx';
+import Encounter from './features/encounter/components/Encounter.jsx';
+import Character from './features/characters/components/Character.jsx';
+import NoMatch from './components/NoMatch.jsx';
 
 import { CampaignList } from './features/campaigns';
 import { CharacterList } from './features/characters';

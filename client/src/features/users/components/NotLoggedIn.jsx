@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageWrapper } from '../components';
+import { PageWrapper } from '../../../components';
 import { Link } from 'react-router-dom';
 
 const NotLoggedIn = () => {

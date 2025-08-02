@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 
-import { EncounterContext } from '../';
+import { EncounterContext } from '../contexts/EncounterContext';
 import { getTextColor } from '../../../utils/helpers';
 
 const CharacterRow = ({ character, roundNum, turnNum }) => {

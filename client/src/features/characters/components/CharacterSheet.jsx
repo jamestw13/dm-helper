@@ -7,36 +7,6 @@ import { characterValues } from '../formInitialValues';
 import './character-sheet.css';
 import { PageWrapper } from '../../../components';
 
-const input = props => {
-  return (
-    <div
-      sx={{
-        display: 'flex',
-
-        flexDirection: props.labelPos,
-        gap: '.5em',
-
-        alignItems: 'stretch',
-      }}
-    >
-      {props.checked && <input type="checkbox" />}
-      {props.type === 'num' && (
-        <input
-          type="number"
-          hideControls
-          sx={{ width: !props.fullWidth && '3em' }}
-          value={props.value}
-          onChange={props.onChange}
-        />
-      )}
-      {props.type === 'text' && <input type="text" value={props.value} onChange={props.onChange} />}
-      {props.type === 'select' && <select data={props.data} value={props.value} onChange={props.onChange} />}
-      {props.type === 'tArea' && <text data={props.data} value={props.value} onChange={props.onChange} />}
-      <p align="center">{props.label}</p>
-    </div>
-  );
-};
-
 const CharacterSheet = ({ charId }) => {
   // const charData = [];
   const { data: charData, loading: charLoading } = useQuery(QUERY_CHARACTER, {
@@ -67,24 +37,30 @@ const CharacterSheet = ({ charId }) => {
       <div className="character-sheet">
         {/* Details Block */}
         <div className="header">
-          <div>
+          <div style={{ alignSelf: 'center', justifySelf: 'center' }}>
+            <p className="label">Character Name</p>
             <input type="text" onChange={() => {}} value={form['name']} />
           </div>
           <div className="basics">
             <div>
+              <p className="label">Class</p>
               <input type="text" onChange={() => {}} value={form['class']} />
             </div>
             <div>
+              <p className="label">Level</p>
               <input type="number" onChange={() => {}} value={form['level']} />
             </div>
             <div>
+              <p className="label">Background</p>
               <input type="text" onChange={() => {}} value={form['background']} />
             </div>
 
             <div>
+              <p className="">Race</p>
               <input type="text" onChange={() => {}} value={form['race']} />
             </div>
             <div>
+              <p className="label">Alignment</p>
               <select onChange={() => {}} value={form['alignment']}>
                 {[
                   'Lawful Good',
@@ -104,6 +80,7 @@ const CharacterSheet = ({ charId }) => {
               </select>
             </div>
             <div>
+              <p className="label">Experience Points</p>
               <input type="number" onChange={() => {}} value={form['xp']} />
             </div>
           </div>

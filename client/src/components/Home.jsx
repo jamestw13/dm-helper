@@ -1,4 +1,4 @@
-import { PageWrapper, Section } from '../components';
+import { PageWrapper, Section } from '.';
 
 import { Login, UserContext } from '../features/users';
 

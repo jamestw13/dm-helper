@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 
-import { Avatar } from '../components/Avatar';
-import { QUERY_ME, QUERY_USER, UserContext } from '../features/users';
-import { ADD_CHARACTER } from '../features/characters';
+import { Avatar } from '../../../components/Avatar';
+import { QUERY_ME, QUERY_USER, UserContext } from '..';
+import { ADD_CHARACTER } from '../../characters';
 
-import { Section, PageWrapper } from '../components';
-import Auth from '../utils/auth';
+import { Section, PageWrapper } from '../../../components';
+import Auth from '../../../utils/auth';
 
 const Profile = () => {
   const { user, loggedIn } = useContext(UserContext);

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { EncounterContext } from '../';
+import { EncounterContext } from '../contexts/EncounterContext';
 import { Section } from '../../../components';
 
 const TrackerNavigator = () => {
