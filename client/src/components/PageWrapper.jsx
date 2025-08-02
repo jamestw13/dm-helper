@@ -1,7 +1,10 @@
-const PageWrapper = ({ children, title }) => {
+const PageWrapper = ({ children, title, subtitle = '' }) => {
   return (
     <div className="page-wrapper">
-      <h1 className="title">{title}</h1>
+      <div className="header">
+        <h1 className="title">{title}</h1>
+        {subtitle}
+      </div>
       {children}
     </div>
   );

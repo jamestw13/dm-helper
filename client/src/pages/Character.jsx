@@ -8,10 +8,6 @@ import { CharacterSheet, QUERY_CHARACTER } from '../features/characters';
 const Sheet = ({}) => {
   const { charId } = useParams();
 
-  return (
-    <PageWrapper title="Character Sheet">
-      <CharacterSheet charId={charId} />
-    </PageWrapper>
-  );
+  return <CharacterSheet charId={charId} />;
 };
 export default Sheet;
