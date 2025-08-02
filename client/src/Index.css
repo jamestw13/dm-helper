@@ -89,6 +89,8 @@ a {
 }
 
 input,
+text,
+textarea,
 select {
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
@@ -97,6 +99,7 @@ select {
   border-radius: 4px;
   color: var(--text-muted);
   background-color: var(--bg-light);
+  width: 90%;
 }
 
 button.standard {

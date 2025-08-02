@@ -6,36 +6,81 @@
 
   .header {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: fit-content fit-content;
 
     background: var(--bg);
+
     .basics {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
-  input {
-    max-width: 20ch;
-  }
-
   .body {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
 
+    .label-left {
+      display: grid;
+      grid-template-columns: 1fr 5fr;
+    }
     .left-column {
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: 1fr 3fr;
       gap: 0.25rem;
 
       .ability-scores {
-        display: grid;
+        display: flex;
+        flex-direction: column;
+
+        .ability-score {
+          display: grid;
+          border: 1px solid var(--border);
+          text-align: center;
+        }
       }
+
+      .saving-throws {
+        border: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 1fr 2fr 4fr;
+        padding: 0.5rem;
+
+        .saving-throw {
+          grid-column: span 3;
+          display: grid;
+          grid-template-columns: subgrid;
+        }
+      }
+      .skills {
+        border: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 1fr 2fr 4fr;
+        padding: 0.5rem;
+
+        .skill {
+          grid-column: span 3;
+          display: grid;
+          grid-template-columns: subgrid;
+
+          span {
+            color: var(--text-muted);
+            padding: 0 0.5rem;
+            font-size: 0.75em;
+          }
+        }
+      }
+    }
+    .title {
+      grid-column: span 3;
+      text-align: center;
+      padding: 0rem 0.5rem;
     }
 
     .center-column {
-      display: grid;
+      display: flex;
+      flex-direction: column;
 
       .ac-init-spd {
         display: grid;
@@ -45,25 +90,43 @@
 
       .hit-dice-saves {
         display: grid;
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.25rem;
+
+        .saves {
+          display: grid;
+          grid-template-columns: 3fr 1fr 1fr 1fr;
+          gap: 0.25rem;
+        }
       }
 
       .attacks-spellcasting {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        .attack {
+          display: grid;
+          grid-column: span 3;
+          grid-template-columns: subgrid;
+        }
+        .attack-notes {
+          grid-column: span 3;
+        }
       }
 
       .equipment {
         display: grid;
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: 1fr 4fr;
 
         .money {
           display: grid;
+          grid-template-columns: repeat(2, 1fr);
         }
       }
     }
 
     .right-column {
-      display: grid;
+      display: flex;
+      flex-direction: column;
     }
   }
 }
