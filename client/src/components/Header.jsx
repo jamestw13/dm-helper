@@ -19,45 +19,40 @@ const Header = () => {
   const { user, loggedIn } = useContext(UserContext);
 
   return (
-    <header className="header">
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Link to="/" style={{ textDecoration: 'none' }} className="home-link link">
-          <Button>Stat Block</Button>
-        </Link>
+    <header>
+      <Link to="/" className="home-link link">
+        <div className="header-title">Stat Block</div>
+      </Link>
 
-        <nav>
-          {Auth.loggedIn() && (
-            <div className="header-options">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1em' }}>
-                <a className="link" href="/" onClick={logout}>
-                  <Button>Logout</Button>
-                </a>
-                <Link to={`/${user?._id}`}>
-                  <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
-                </Link>
-
-                <Link to={`/${user?.username}`}>
-                  <Avatar />
-                </Link>
-              </div>
-            </div>
-          )}
-        </nav>
-      </div>
-      <div>
-        <Link to="/">
-          <Button onClick={() => navigate('/')}>Dashboard</Button>
-        </Link>
-        <Link to="/campaigns">
-          <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
-        </Link>
-        <Link to="/characters">
-          <Button onClick={() => navigate('/characters')}>Characters</Button>
-        </Link>
-        <Link to="/friends">
-          <Button onClick={() => navigate('/friends')}>Friends</Button>
-        </Link>
-      </div>
+      {loggedIn && (
+        <>
+          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+            <Link to="/">
+              <Button onClick={() => navigate('/')}>Dashboard</Button>
+            </Link>
+            <Link to="/campaigns">
+              <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
+            </Link>
+            <Link to="/characters">
+              <Button onClick={() => navigate('/characters')}>Characters</Button>
+            </Link>
+            <Link to="/friends">
+              <Button onClick={() => navigate('/friends')}>Friends</Button>
+            </Link>
+          </nav>
+          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+            <Link className="link" to="/" onClick={logout}>
+              <Button>Logout</Button>
+            </Link>
+            <Link to={`/${user?._id}`}>
+              <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
+            </Link>
+            <Link to={`/${user?.username}`}>
+              <Avatar />
+            </Link>
+          </nav>
+        </>
+      )}
     </header>
   );
 };

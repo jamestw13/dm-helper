@@ -1,6 +1,6 @@
 import { getTextColor } from '../utils/helpers';
 
-const Card = ({ lineOne, lineTwo, colorOne = '#000000', colorTwo = 'green', handleCardClick }) => {
+const Card = ({ lineOne, lineTwo, colorOne = 'var(--bg)', colorTwo = 'var(--bg-light)', handleCardClick }) => {
   return (
     <div
       className="char-list-item"

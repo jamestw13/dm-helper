@@ -12,7 +12,7 @@ function Home() {
     <Navigate to={`/${user._id}`} />
   ) : (
     <>
-      <PageWrapper title="Stat Block">
+      <PageWrapper>
         <div>
           <Section title="">
             <h1>TTRPG Managment Tools</h1>

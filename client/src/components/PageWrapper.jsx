@@ -1,10 +1,7 @@
 const PageWrapper = ({ children, title }) => {
   return (
-    <div className="container">
-      <div style={{ display: 'flex', justifyContent: 'space-between', margin: '20px' }}>
-        <h1>{title}</h1>
-      </div>
-
+    <div className="page-wrapper">
+      <h1 className="title">{title}</h1>
       {children}
     </div>
   );

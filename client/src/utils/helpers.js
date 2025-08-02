@@ -7,8 +7,8 @@ export function getTextColor(primaryColor) {
 
   // if brightness is greater than 0.5, it should be bright enough for dark text
   if (brightness <= 0.5) {
-    return '#fff';
+    return 'var(--text)';
   } else {
-    return '#000';
+    return 'var(--text-muted)';
   }
 }

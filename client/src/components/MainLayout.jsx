@@ -4,10 +4,12 @@ import Footer from './Footer';
 
 export default () => {
   return (
-    <div>
+    <>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 };

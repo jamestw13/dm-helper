@@ -50,8 +50,7 @@ function Campaign() {
                   alignItems: 'center',
                   fontSize: '12px',
                   paddingInline: 'calc(15px / 2)',
-                  backgroundColor: '#e03131',
-                  color: '#fff',
+
                   whiteSpace: 'nowrap',
                   top: '10px',
                   left: '50%',
@@ -92,14 +91,14 @@ function Campaign() {
 
           {/* Character Section */}
           <Section title="Characters" collapsable>
-            <div.Group multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
+            <div multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
               <div variant="filled" radius="sm" value="pc">
                 PCs
               </div>
               <div variant="filled" radius="sm" value="npc">
                 NPCs
               </div>
-            </div.Group>
+            </div>
 
             {campaign?.characters
               ?.filter(char => (charSelect.includes('pc') && !char.isNPC) || (charSelect.includes('npc') && char.isNPC))

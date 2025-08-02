@@ -42,7 +42,7 @@ const Profile = () => {
   };
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
-      <div style={{ display: 'flex' }} gap="xs">
+      <div style={{ display: 'flex', gap: '1rem' }}>
         <Section title="Friends List">
           {user?.friends?.map(friend => (
             <div key={friend._id} onClick={() => handleFriendClick(friend._id)}>
@@ -67,7 +67,7 @@ const Profile = () => {
         <Section title="Campaign List">
           {user?.campaigns?.map(campaign => (
             <div
-              style={{ background: '#303030', margin: '.25rem', padding: '.25rem', borderRadius: '5px' }}
+              style={{ background: 'var(--bg-light)', margin: '.25rem', padding: '.25rem .75rem', borderRadius: '5px' }}
               key={campaign._id}
               onClick={() => handleCampaignClick(campaign._id)}
             >

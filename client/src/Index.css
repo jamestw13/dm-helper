@@ -1,12 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-#root {
-  --btn-clr: #007bff; /* Default button color */
+:root {
+  --bg-dark: hsl(218 100% 3%);
+  --bg: hsl(205 100% 4%);
+  --bg-light: hsl(198 100% 6%);
+  --text: hsl(198 100% 90%);
+  --text-muted: hsl(197 69% 64%);
+  --highlight: hsl(193 100% 20%);
+  --border: hsl(194 100% 14%);
+  --border-muted: hsl(198 100% 10%);
+  --primary: hsl(196 86% 59%);
+  --secondary: hsl(20 87% 68%);
+  --danger: hsl(8 68% 66%);
+  --warning: hsl(52 59% 44%);
+  --success: hsl(152 45% 49%);
+  --info: hsl(217 80% 68%);
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-dark: hsl(198 100% 87%);
+    --bg: hsl(199 100% 93%);
+    --bg-light: hsl(199 100% 98%);
+    --text: hsl(215 100% 7%);
+    --text-muted: hsl(194 100% 14%);
+    --highlight: hsl(197 100% 93%);
+    --border: hsl(192 100% 29%);
+    --border-muted: hsl(195 77% 49%);
+    --primary: hsl(194 100% 14%);
+    --secondary: hsl(25 100% 20%);
+    --danger: hsl(7 51% 41%);
+    --warning: hsl(53 100% 15%);
+    --success: hsl(161 100% 17%);
+    --info: hsl(217 54% 44%);
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: var(--bg-dark);
+
+  display: flex;
+  flex-direction: column;
+}
+main {
+  min-height: 85vh;
+}
+.page-wrapper {
+  padding: 1em 2em;
+
+  display: grid;
+  gap: 1em;
+}
+
+footer {
+  margin-top: auto;
+
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+
+  padding: 0.5em 1em;
+
+  display: flex;
+  justify-content: flex-end;
 }
 
 h1,
@@ -15,20 +72,23 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+a {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+  text-decoration: none;
+  color: var(--text);
 }
 
 input {
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   padding: 0.25rem 0.5rem;
-  border: 1px solid #505050;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #fff;
-  background-color: #303030;
+  color: var(--text-muted);
+  background-color: var(--bg-light);
 }
 
 button.standard {
@@ -37,7 +97,7 @@ button.standard {
   padding: 0.25rem 1.5rem;
   border: none;
   border-radius: 4px;
-  background-color: var(--btn-clr);
-  color: white;
+  background-color: var(--primary);
+  color: var(--text);
   cursor: pointer;
 }

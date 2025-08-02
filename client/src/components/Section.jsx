@@ -6,12 +6,12 @@ const Section = ({ children, title, collapsable = false, startOpen = true }) => 
     outline: '0',
     display: 'block',
     textDecoration: 'none',
-    color: '#C1C2C5',
-    backgroundColor: '#1A1B1E',
+
+    backgroundColor: 'var(--bg)',
     boxSizing: 'border-box',
     borderRadius: '8px',
     boxShadow: 'none',
-    border: '1px solid #373A40',
+    border: '1px solid var(--border)',
     padding: '0',
   };
 

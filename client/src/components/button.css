@@ -15,11 +15,10 @@
   user-select: none;
   cursor: pointer;
   border: 1px solid transparent;
-  background-color: #2C2E33;
-  transition: background-color 100ms ease; color 100ms ease;
-  color: #fff;
-
+  background-color: var(--bg-light);
+  transition: background-color 100ms ease, color 100ms ease;
+  color: var(--text-muted);
 }
 .button:hover {
-  background-color: #3A3C41;
+  background-color: var(--bg-dark);
 }
