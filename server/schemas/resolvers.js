@@ -167,6 +167,73 @@ const resolvers = {
       }
     },
 
+    confirmFriendRequest: async (parent, { friendId }, context) => {
+      console.log('confirming friend request');
+      try {
+        const friend = await User.findOneAndUpdate(
+          { _id: friendId },
+          { $addToSet: { friends: context.user._id }, $pull: { friendRequests: context.user._id } },
+          { new: true }
+        );
+
+        if (!friend) {
+          throw new GraphQLError('Friend not found', { extensions: { code: 'NOT_FOUND' } });
+        }
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { friends: friendId }, $pull: { requestedFriends: friendId } }
+        );
+
+        return true;
+      } catch (error) {
+        console.error(error);
+        throw new GraphQLError('Error confirming friend request', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
+      }
+    },
+    cancelFriendRequest: async (parent, { friendId }, context) => {
+      console.log('canceling friend request');
+      try {
+        const friend = await User.findOneAndUpdate(
+          { _id: friendId },
+          { $pull: { friendRequests: context.user._id } },
+          { new: true }
+        );
+
+        if (!friend) {
+          throw new GraphQLError('Friend not found', { extensions: { code: 'NOT_FOUND' } });
+        }
+
+        await User.findOneAndUpdate({ _id: context.user._id }, { $pull: { requestedFriends: friendId } });
+
+        return true;
+      } catch (error) {
+        console.error(error);
+        throw new GraphQLError('Error canceling friend request', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
+      }
+    },
+    removeFriend: async (parent, { friendId }, context) => {
+      console.log('removing friend');
+      try {
+        const friend = await User.findOneAndUpdate(
+          { _id: friendId },
+          { $pull: { friends: context.user._id } },
+          { new: true }
+        );
+
+        if (!friend) {
+          throw new GraphQLError('Friend not found', { extensions: { code: 'NOT_FOUND' } });
+        }
+
+        await User.findOneAndUpdate({ _id: context.user._id }, { $pull: { friends: friendId } });
+
+        return true;
+      } catch (error) {
+        console.error(error);
+        throw new GraphQLError('Error removing friend', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
+      }
+    },
+
     createCampaign: async (parent, { owner, name }) => {
       const campaign = await Campaign.create({ owner, name });
       await User.findOneAndUpdate({ _id: owner }, { $addToSet: { campaigns: campaign }, owner: owner });

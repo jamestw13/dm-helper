@@ -201,6 +201,9 @@ const typeDefs = gql`
     addNote(note: NoteInput!): Boolean
     createCampaign(owner: ID!, name: String!): Boolean
     addFriendRequest(friendIdentifier: String!): Boolean
+    confirmFriendRequest(friendId: ID!): Boolean
+    cancelFriendRequest(friendId: ID!): Boolean
+    removeFriend(friendId: ID!): Boolean
   }
 
   type Auth {
