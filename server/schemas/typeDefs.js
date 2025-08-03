@@ -15,6 +15,7 @@ const typeDefs = gql`
     avatar: String
     friends: [User]
     friendRequests: [User]
+    requestedFriends: [User]
   }
 
   type Character {
@@ -199,6 +200,7 @@ const typeDefs = gql`
     addCharacter(character: CharacterInput!): Character
     addNote(note: NoteInput!): Boolean
     createCampaign(owner: ID!, name: String!): Boolean
+    addFriendRequest(friendIdentifier: String!): Boolean
   }
 
   type Auth {

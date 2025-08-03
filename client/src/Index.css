@@ -114,6 +114,16 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
+dialog {
+  background: var(--bg);
+  border: 2px solid var(--border);
+}
+
+dialog::backdrop {
+  background: linear-gradient(var(--bg-light), var(--bg-dark));
+  opacity: 0.8;
+}
+
 button.standard {
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
@@ -123,4 +133,15 @@ button.standard {
   background-color: var(--primary);
   color: var(--text);
   cursor: pointer;
+}
+
+button.standard:hover {
+  background-color: var(--secondary);
+  color: var(--text);
+}
+
+button.standard:disabled {
+  background-color: var(--bg-dark);
+  color: var(--text-muted);
+  cursor: not-allowed;
 }

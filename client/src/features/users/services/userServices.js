@@ -63,6 +63,16 @@ export const QUERY_ME = gql`
         firstname
         lastname
       }
+      friendRequests {
+        _id
+        username
+        email
+      }
+      requestedFriends {
+        _id
+        username
+        email
+      }
       characters {
         _id
         name

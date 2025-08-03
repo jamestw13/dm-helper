@@ -15,6 +15,8 @@ const resolvers = {
               populate: { path: 'campaign', model: 'Campaign' },
             },
             { path: 'friends' },
+            { path: 'requestedFriends', select: '-__v' },
+            { path: 'friendRequests', select: '-__v' },
           ]);
 
         return userData;
@@ -124,6 +126,45 @@ const resolvers = {
         await Encounter.findOneAndUpdate({ _id: note.encounter }, { $addToSet: { effects: effect } });
       }
       return true;
+    },
+
+    addFriendRequest: async (parent, { friendIdentifier }, context) => {
+      console.log({ friendIdentifier, user: { name: context.user.username, id: context.user._id } });
+      try {
+        let indentifierType;
+        let friend;
+        if (friendIdentifier === context.user.username) {
+          throw new GraphQLError('You cannot add yourself as a friend', { extensions: { code: 'BAD_USER_INPUT' } });
+        }
+        if (friendIdentifier.length < 3) {
+          throw new GraphQLError('Friend identifier has too few characters', {
+            extensions: { code: 'BAD_USER_INPUT' },
+          });
+        }
+        // Check if the identifier is an email
+        indentifierType = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(friendIdentifier) ? 'email' : 'username';
+        console.log({ indentifierType });
+
+        if (indentifierType === 'username') {
+          console.log('Searching by username');
+          friend = await User.findOneAndUpdate(
+            { username: friendIdentifier },
+            { $addToSet: { friendRequests: context.user._id } }
+          );
+        } else {
+          friend = await User.findOneAndUpdate(
+            { email: friendIdentifier },
+            { $addToSet: { friendRequests: context.user._id } }
+          );
+        }
+
+        await User.findOneAndUpdate({ _id: context.user._id }, { $addToSet: { requestedFriends: friend._id } });
+
+        console.log(friend);
+      } catch (error) {
+        console.error(error);
+        return error;
+      }
     },
 
     createCampaign: async (parent, { owner, name }) => {

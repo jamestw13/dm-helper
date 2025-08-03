@@ -1,76 +1,99 @@
-import { useState, useContext } from 'react';
-import { useMutation, useLazyQuery } from '@apollo/client';
-import { ADD_FRIEND, FIND_FRIENDS } from '.';
+import { useState, useContext, useRef } from 'react';
+import { useMutation } from '@apollo/client';
+// import { ADD_FRIEND } from '.';
 import { UserContext } from '../users';
-import { useNavigate } from 'react-router-dom';
+
 import { PageWrapper } from '../../components';
-import UserCard from '../users/components/UserCard';
+import { ADD_FRIEND_REQUEST } from './services/friendServices';
 
 const FriendList = () => {
   const {
     user,
-    user: { friends },
+    user: { friends, friendRequests, requestedFriends },
   } = useContext(UserContext);
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [friendInput, setFriendInput] = useState('');
+  const [friendIdentifier, setFriendIdentifier] = useState('');
+  const dialogRef = useRef(null);
 
-  const [findFriends, { data: searchResults }] = useLazyQuery(FIND_FRIENDS, {
-    variables: { searchTerm: friendInput },
-  });
-
-  const friendResults = searchResults?.friendSearch || [];
-  console.log(friendResults);
-  const [addFriend] = useMutation(ADD_FRIEND, { variables: { me: user._id, friend: friendInput } });
-
-  const navigate = useNavigate();
-
-  const handleFriendClick = userId => {
-    return navigate(`/${userId}`);
+  const handleOpenDialog = () => {
+    if (dialogRef.current) {
+      dialogRef.current?.showModal();
+    }
+  };
+  const handleCloseDialog = () => {
+    dialogRef?.current.close();
   };
 
+  const handleFriendClick = username => {};
+
+  const [addFriend] = useMutation(ADD_FRIEND_REQUEST, { variables: { friendIdentifier } });
+
   return (
-    <PageWrapper title="My Friends">
-      <button
-        className="standard"
-        onClick={() => {
-          setDialogOpen(true);
-        }}
-      >
-        Add Friend
-      </button>
+    <PageWrapper
+      title="My Friends"
+      subtitle={
+        <button className="standard" onClick={handleOpenDialog}>
+          Add Friend
+        </button>
+      }
+    >
       {friends?.map(friend => (
-        <div key={friend._id} className="char-list-item" onClick={() => handleFriendClick(friend.username)}>
+        <div key={friend._id} onClick={() => handleFriendClick(friend.username)}>
           <h4>{friend.username}</h4>
         </div>
       ))}
-      <dialog
-        open={dialogOpen}
-        withClosebutton
-        className="standard"
-        onClose={() => setDialogOpen(false)}
-        position={{ top: '15em', left: '30em' }}
-      >
-        <p size="sm" mb="xs" weight={500}>
-          Find a friend
-        </p>
+      <h2>Friend Requests</h2>
+      {friendRequests?.length > 0 ? (
+        friendRequests.map(friend => (
+          <div key={friend._id} onClick={() => handleFriendClick(friend.username)} style={{ display: 'flex' }}>
+            <h4>{friend.username}</h4>
 
-        <div align="flex-end">
-          <input
-            type="text"
-            value={friendInput}
-            onChange={e => setFriendInput(e.target.value)}
-            placeholder="Search for friends"
-            sx={{ flex: 1 }}
-          />
-          <button className="standard" onClick={findFriends} disabled={friendInput.length < 1}>
-            Search
+            <button className="standard" style={{ background: 'var(--success)' }}>
+              Accept
+            </button>
+            <button className="standard" style={{ background: 'var(--warning' }}>
+              Reject
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>You have no friend requests</p>
+      )}
+      <h2>Pending Requests</h2>
+      {requestedFriends?.length > 0 ? (
+        requestedFriends.map(friend => (
+          <div key={friend._id} onClick={() => handleFriendClick(friend.username)} style={{ display: 'flex' }}>
+            <h4>{friend.username}</h4>
+            <button className="standard" style={{ background: 'var(--warning)' }}>
+              Cancel
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>You have no pending requests</p>
+      )}
+      <dialog ref={dialogRef}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '5rem', marginBottom: '1rem' }}>
+          <p style={{ gridColumn: 'span 2' }}>Enter your friend's username or email to send a friendship request</p>
+          <button className="standard" onClick={handleCloseDialog}>
+            Close
           </button>
         </div>
-        <div align="center">
-          {friendResults?.map(user => (
-            <UserCard user={user} />
-          ))}
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1em' }}>
+          <div style={{ display: 'grid', gridColumn: 'span 2', gridTemplateColumns: 'subgrid' }}>
+            <div style={{ display: 'grid' }}>
+              <p>Username or Email Address</p>
+              <input
+                type="text"
+                value={friendIdentifier}
+                onChange={e => setFriendIdentifier(e.target.value)}
+                placeholder="Username or Email"
+              />
+            </div>
+            <button className="standard" onClick={addFriend} disabled={friendIdentifier === ''}>
+              Send Request
+            </button>
+          </div>
         </div>
       </dialog>
     </PageWrapper>

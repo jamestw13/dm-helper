@@ -13,7 +13,7 @@ const CharacterList = () => {
   };
   return (
     <PageWrapper title="My Characters">
-      <div chevronPosition="left" variant="separated">
+      <div>
         {chars?.map(char => (
           <div key={char._id} value={char._id}>
             <div>

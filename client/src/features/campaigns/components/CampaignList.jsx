@@ -38,12 +38,7 @@ const CampaignList = () => {
           <p>DM: {campaign.owner.username}</p>
         </div>
       ))}
-      <dialog
-        open={dialogOpen}
-        withCloseButton
-        onClose={() => setDialogOpen(false)}
-        position={{ top: '15em', left: '30em' }}
-      >
+      <dialog open={dialogOpen} onClose={() => setDialogOpen(false)} position={{ top: '15em', left: '30em' }}>
         <p size="sm" mb="xs" weight={500}>
           Create a new campaign
         </p>

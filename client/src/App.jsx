@@ -1,21 +1,20 @@
+import { lazy } from 'react';
 import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom';
 import { QUERY_ME, UserContext } from './features/users';
 import { useQuery } from '@apollo/client';
 
-import MainLayout from './components/MainLayout.jsx';
-
 import Auth from './utils/auth';
-// import { Home, Profile, Character, Campaign, Encounter, NoMatch } from './pages';
-import Home from './components/Home.jsx';
-import Profile from './features/users/components/Profile.jsx';
-import Campaign from './features/campaigns/components/Campaign.jsx';
-import Encounter from './features/encounter/components/Encounter.jsx';
-import Character from './features/characters/components/Character.jsx';
-import NoMatch from './components/NoMatch.jsx';
+const MainLayout = lazy(() => import('./components/MainLayout.jsx'));
+const Home = lazy(() => import('./components/Home.jsx'));
+const Profile = lazy(() => import('./features/users/components/Profile.jsx'));
+const Campaign = lazy(() => import('./features/campaigns/components/Campaign.jsx'));
+const Encounter = lazy(() => import('./features/encounter/components/Encounter.jsx'));
+const Character = lazy(() => import('./features/characters/components/Character.jsx'));
+const NoMatch = lazy(() => import('./components/NoMatch.jsx'));
 
 import { CampaignList } from './features/campaigns';
 import { CharacterList } from './features/characters';
-import { FriendList } from './features/friends';
+const FriendList = lazy(() => import('./features/friends/FriendList.jsx'));
 
 const loggedIn = Auth.loggedIn();
 const App = () => {

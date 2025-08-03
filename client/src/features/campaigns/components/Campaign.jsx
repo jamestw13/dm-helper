@@ -115,7 +115,7 @@ function Campaign() {
             <Button>New Encounter</Button>
             {campaign?.encounters?.map((enc, i) => (
               <div key={i}>
-                <div chevronPosition="left">
+                <div>
                   <div value={enc.title}>
                     <div style={{ display: 'flex' }} align="center">
                       <div>{enc.title}</div>
