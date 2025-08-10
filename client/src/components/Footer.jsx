@@ -1,8 +1,9 @@
 import React from 'react';
+
 const Footer = () => {
   return (
     <footer>
-      <p>&copy; TJ James 2022</p>
+      <p>&copy; TJ James {new Date().getFullYear()}</p>
     </footer>
   );
 };
