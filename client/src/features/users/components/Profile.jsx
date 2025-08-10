@@ -43,6 +43,8 @@ const Profile = () => {
   const handleCampaignClick = campaignId => {
     return navigate(`/campaign/${campaignId}`);
   };
+
+  if (!user) return <div>Loading...</div>;
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
       <div style={{ display: 'grid', gap: '1rem' }}>
@@ -55,6 +57,14 @@ const Profile = () => {
           </div>
           {user?.friends?.map(friend => (
             <UserCard user={friend} key={friend._id} />
+          ))}
+          <h3>Friend Requests</h3>
+          {user.friendRequests?.map((friend, index) => (
+            <UserCard user={friend} key={friend._id} isRequest={true} onClick={() => handleFriendClick(friend._id)} />
+          ))}
+          <h3>Sent Requests</h3>
+          {user.requestedFriends?.map((friend, index) => (
+            <UserCard user={friend} key={friend._id} isRequest={true} onClick={() => handleFriendClick(friend._id)} />
           ))}
         </div>
 

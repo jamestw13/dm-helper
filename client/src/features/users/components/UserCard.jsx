@@ -1,13 +1,19 @@
 import { Avatar } from '../../../components/Avatar';
 
-export default ({ user }) => {
+export default ({ user, options }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'var(--bg-light)' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'auto auto auto 1fr',
+        gap: '1rem',
+        background: 'var(--bg-light)',
+        alignItems: 'center',
+      }}
+    >
       <Avatar src={user?.avatar} />
-      <div style={{ display: 'grid' }}>
-        <p>{user?.username}</p>
-        <p>{user?.name}</p>
-      </div>
+
+      <p>{user?.username}</p>
     </div>
   );
 };
