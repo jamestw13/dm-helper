@@ -6,7 +6,7 @@ import { Avatar } from '../../../components/Avatar';
 import { QUERY_ME, QUERY_USER, UserContext } from '..';
 import { ADD_CHARACTER } from '../../characters';
 
-import { Section, PageWrapper } from '../../../components';
+import { PageWrapper } from '../../../components';
 import Auth from '../../../utils/auth';
 import UserCard from './UserCard';
 import CharacterCard from './CharacterCard';

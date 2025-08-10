@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 
-import { Section, PageWrapper } from '../../../components';
+import { PageWrapper } from '../../../components';
 // import CharacterSheet from '../components/CharacterSheet';
 
 import { QUERY_CAMPAIGN } from '..';
@@ -48,7 +48,9 @@ function Campaign() {
     >
       <>
         {/* Player Section */}
-        <Section title="Players">
+        <div className="section-container">
+          <h2>Players</h2>
+
           {campaign?.players?.map((player, i) => (
             <div key={i} onClick={() => {}} style={{ display: 'flex' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
@@ -68,20 +70,22 @@ function Campaign() {
               </div>
             </div>
           ))}
-        </Section>
+        </div>
 
         {/* Character Section */}
-        <Section title="Characters">
+        <div className="section-container">
+          <h2>Characters</h2>
           {campaign?.characters.map((char, i) => (
             <div key={i} onClick={() => {}}>
               <h5>{char.name}</h5>
               <p>{char.user.firstname}</p>
             </div>
           ))}
-        </Section>
+        </div>
 
         {/* Encounter Section */}
-        <Section title="Encounter List">
+        <div className="section-container">
+          <h2>Encounters</h2>
           <Button>New Encounter</Button>
           {campaign?.encounters?.map((enc, i) => (
             <div key={i}>
@@ -97,13 +101,7 @@ function Campaign() {
               </div>
             </div>
           ))}
-        </Section>
-
-        {/* <Section title='Character Sheet' collapsable startOpen={false}>
-            {chars.length > 0 && (
-              <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
-            )}
-          </Section> */}
+        </div>
       </>
     </PageWrapper>
   );

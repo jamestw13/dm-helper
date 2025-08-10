@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
-import { PageWrapper, Section } from '../../../components';
+import { PageWrapper } from '../../../components';
 import EncounterTable from './EncounterTable';
 import TrackerNavigator from './TrackerNavigator';
 import { QUERY_ENCOUNTER, ADD_NOTE } from '../services/encounterServices';
@@ -40,9 +40,9 @@ const Encounter = () => {
       }}
     >
       <PageWrapper title={eData.title}>
-        <Section>
+        <div className="section-container">
           <EncounterTable />
-        </Section>
+        </div>
         <div>
           <TrackerNavigator />
         </div>

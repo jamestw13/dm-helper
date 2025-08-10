@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 
 import { EncounterContext } from '../contexts/EncounterContext';
-import { Section } from '../../../components';
 
 const TrackerNavigator = () => {
   const encData = useContext(EncounterContext);
@@ -33,7 +32,7 @@ const TrackerNavigator = () => {
   };
 
   return (
-    <Section>
+    <div className="section-container">
       <div style={{ display: 'flex' }} direction="column" align="center">
         <h4>
           Round: <span>{encData.currentRound + 1}</span>
@@ -51,7 +50,7 @@ const TrackerNavigator = () => {
           </button>
         </div>
       </div>
-    </Section>
+    </div>
   );
 };
 

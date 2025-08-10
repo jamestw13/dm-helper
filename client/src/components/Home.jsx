@@ -1,4 +1,4 @@
-import { PageWrapper, Section } from '.';
+import { PageWrapper } from '.';
 
 import { Login, UserContext } from '../features/users';
 
@@ -14,15 +14,16 @@ function Home() {
     <>
       <PageWrapper>
         <div>
-          <Section title="">
+          <div className="section-container">
             <h1>TTRPG Managment Tools</h1>
             <p>A growing suite of tools to help you manage TTRPG games. Includes Encounter Tracking.</p>
-          </Section>
+          </div>
 
           <div style={{ display: 'flex', marginBlock: '.5rem' }} justify="space-between">
-            <Section title="Login">
+            <div className="section-container">
+              <h2>Login</h2>
               <Login />
-            </Section>
+            </div>
           </div>
         </div>
       </PageWrapper>
