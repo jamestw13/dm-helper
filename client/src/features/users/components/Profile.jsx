@@ -50,7 +50,7 @@ const Profile = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2>My Friends</h2>
             <button className="standard" onClick={() => {}}>
-              Add Character
+              Add Friend
             </button>
           </div>
           {user?.friends?.map(friend => (
