@@ -9,7 +9,6 @@ import { Section, PageWrapper } from '../../../components';
 import { QUERY_CAMPAIGN } from '..';
 
 import { Avatar } from '../../../components/Avatar';
-import { IconArrowRightTail } from '@tabler/icons';
 import { Button } from '../../../components/Button';
 
 function Campaign() {
@@ -33,109 +32,79 @@ function Campaign() {
     return navigate(`/encounter/${encounterId}`);
   };
 
+  if (campaignLoading) return <div>Loading...</div>;
+
   return (
-    <PageWrapper title={`Campaign: ${campaign.name}`} className="campaign-container">
-      {campaignLoading ? (
-        <div>Loading</div>
-      ) : (
-        <>
-          {/* Player Section */}
-          <Section title="Players" collapsable>
-            <div>
-              <div
-                style={{
-                  zIndex: 2,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontSize: '12px',
-                  paddingInline: 'calc(15px / 2)',
+    <PageWrapper
+      title={`Campaign: ${campaign.name}`}
+      subtitle={
+        <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+          <p>DM:</p>
+          <Avatar src={campaign?.owner?.avatar} />
+          <h4>{campaign?.owner?.username}</h4>
+        </div>
+      }
+      className="campaign-container"
+    >
+      <>
+        {/* Player Section */}
+        <Section title="Players">
+          {campaign?.players?.map((player, i) => (
+            <div key={i} onClick={() => {}} style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+                <Avatar src={player.avatar} />
 
-                  whiteSpace: 'nowrap',
-                  top: '10px',
-                  left: '50%',
-                  position: 'absolute',
-                  borderRadius: '50%',
-                  transform: 'translate(-50%,-50%)',
-                  overflow: 'visible',
-                }}
-                label={<h6>DM</h6>}
-              >
-                DM
-              </div>
-              <div style={{ display: 'flex' }} align="center" gap=".25em">
-                <Avatar src={campaign?.owner?.avatar} />
-
-                <h4>{campaign?.owner?.username}</h4>
-              </div>
-            </div>
-
-            {campaign?.players?.map((player, i) => (
-              <div key={i} onClick={() => {}}>
-                <div style={{ display: 'flex' }} align="center" gap=".25em">
-                  <Avatar src={player.avatar} />
-
-                  <h4>
-                    {`${player.firstname} 
+                <h4>
+                  {`${player.firstname} 
                     ${player.lastname}`}
-                  </h4>
-                </div>
+                </h4>
+              </div>
+              <div style={{ display: 'grid' }}>
                 {player?.characters
                   ?.filter(char => char.campaign?._id === campaignId)
                   .map((char, j) => (
                     <p key={j}>{char.name}</p>
                   ))}
               </div>
-            ))}
-          </Section>
-
-          {/* Character Section */}
-          <Section title="Characters" collapsable>
-            <div multiple={true} value={charSelect} onChange={setCharSelect} spacing="0">
-              <div variant="filled" radius="sm" value="pc">
-                PCs
-              </div>
-              <div variant="filled" radius="sm" value="npc">
-                NPCs
-              </div>
             </div>
+          ))}
+        </Section>
 
-            {campaign?.characters
-              ?.filter(char => (charSelect.includes('pc') && !char.isNPC) || (charSelect.includes('npc') && char.isNPC))
-              .map((char, i) => (
-                <div key={i} onClick={() => {}}>
-                  <h5>{char.name}</h5>
-                  <p>{char.user.firstname}</p>
-                </div>
-              ))}
-          </Section>
+        {/* Character Section */}
+        <Section title="Characters">
+          {campaign?.characters.map((char, i) => (
+            <div key={i} onClick={() => {}}>
+              <h5>{char.name}</h5>
+              <p>{char.user.firstname}</p>
+            </div>
+          ))}
+        </Section>
 
-          {/* Encounter Section */}
-          <Section title="Encounter List" collapsable>
-            <Button>New Encounter</Button>
-            {campaign?.encounters?.map((enc, i) => (
-              <div key={i}>
-                <div>
-                  <div value={enc.title}>
-                    <div style={{ display: 'flex' }} align="center">
-                      <div>{enc.title}</div>
-                    </div>
-                    <div>
-                      <p>{enc.description}</p>
-                    </div>
+        {/* Encounter Section */}
+        <Section title="Encounter List">
+          <Button>New Encounter</Button>
+          {campaign?.encounters?.map((enc, i) => (
+            <div key={i}>
+              <div>
+                <div value={enc.title}>
+                  <div style={{ display: 'flex' }} align="center">
+                    <div>{enc.title}</div>
+                  </div>
+                  <div>
+                    <p>{enc.description}</p>
                   </div>
                 </div>
               </div>
-            ))}
-          </Section>
+            </div>
+          ))}
+        </Section>
 
-          {/* <Section title='Character Sheet' collapsable startOpen={false}>
+        {/* <Section title='Character Sheet' collapsable startOpen={false}>
             {chars.length > 0 && (
               <CharacterSheet chars={chars.filter(char => char.viewSheet)} />
             )}
           </Section> */}
-        </>
-      )}
+      </>
     </PageWrapper>
   );
 }

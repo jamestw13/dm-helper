@@ -8,6 +8,9 @@ import { ADD_CHARACTER } from '../../characters';
 
 import { Section, PageWrapper } from '../../../components';
 import Auth from '../../../utils/auth';
+import UserCard from './UserCard';
+import CharacterCard from './CharacterCard';
+import CampaignCard from './CampaignCard';
 
 const Profile = () => {
   const { user, loggedIn } = useContext(UserContext);
@@ -42,40 +45,42 @@ const Profile = () => {
   };
   return (
     <PageWrapper title={user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}>
-      <div style={{ display: 'flex', gap: '1rem' }}>
-        <Section title="Friends List">
+      <div style={{ display: 'grid', gap: '1rem' }}>
+        <div className="section-container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2>My Friends</h2>
+            <button className="standard" onClick={() => {}}>
+              Add Character
+            </button>
+          </div>
           {user?.friends?.map(friend => (
-            <div key={friend._id} onClick={() => handleFriendClick(friend._id)}>
-              <div style={{ display: 'flex' }} align="center">
-                <Avatar />
-                <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
-              </div>
-            </div>
+            <UserCard user={friend} key={friend._id} />
           ))}
-        </Section>
-        <Section title="Character List">
-          {user?.characters?.map(char => (
-            <div key={char._id} onClick={() => handleCharacterClick(char._id)}>
-              <h4 className="char-name">{char.name}</h4>
-              <p className="char-encounter">
-                {!!char.campaign && (char.isNPC ? `NPC in: ${char.campaign.name}` : `PC in: ${char.campaign.name}`)}
-              </p>
-            </div>
-          ))}
-        </Section>
+        </div>
 
-        <Section title="Campaign List">
-          {user?.campaigns?.map(campaign => (
-            <div
-              style={{ background: 'var(--bg-light)', margin: '.25rem', padding: '.25rem .75rem', borderRadius: '5px' }}
-              key={campaign._id}
-              onClick={() => handleCampaignClick(campaign._id)}
-            >
-              <h4 className="char-name">{campaign.name}</h4>
-              <p className="char-encounter">{`DM: ${campaign?.owner?.username}`}</p>
-            </div>
+        <div className="section-container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2>My Characters</h2>
+            <button className="standard" onClick={() => {}}>
+              Add Character
+            </button>
+          </div>
+          {user?.characters?.map(char => (
+            <CharacterCard character={char} key={char._id} />
           ))}
-        </Section>
+        </div>
+
+        <div className="section-container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2>My Campaigns</h2>
+            <button className="standard" onClick={() => {}}>
+              Add Campaign
+            </button>
+          </div>
+          {user?.campaigns?.map(campaign => (
+            <CampaignCard campaign={campaign} key={campaign._id} onClick={() => handleCampaignClick(campaign._id)} />
+          ))}
+        </div>
       </div>
     </PageWrapper>
   );
