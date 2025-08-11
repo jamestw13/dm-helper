@@ -1,17 +1,17 @@
-import React from 'react';
-import { Button } from './Button';
-import { Link } from 'react-router-dom';
-import Auth from '../utils/auth';
-import { useContext } from 'react';
-import { UserContext } from '../features/users';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Button } from "./Button";
+import { Link } from "react-router-dom";
+import Auth from "../utils/auth";
+import { useContext } from "react";
+import { UserContext } from "../features/users";
+import { useNavigate } from "react-router-dom";
 
-import './Header.css';
-import { Avatar } from './Avatar';
+import "./Header.css";
+import { Avatar } from "./Avatar";
 
 const Header = () => {
   const navigate = useNavigate();
-  const logout = event => {
+  const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
@@ -26,26 +26,35 @@ const Header = () => {
 
       {loggedIn && (
         <>
-          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
-            <Link to="/">
-              <Button onClick={() => navigate('/')}>Dashboard</Button>
-            </Link>
-            <Link to="/campaigns">
-              <Button onClick={() => navigate('/campaigns')}>Campaigns</Button>
-            </Link>
-            <Link to="/characters">
-              <Button onClick={() => navigate('/characters')}>Characters</Button>
-            </Link>
+          <nav
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
             <Link to="/friends">
-              <Button onClick={() => navigate('/friends')}>Friends</Button>
+              <Button onClick={() => navigate("/friends")}>Friends</Button>
             </Link>
           </nav>
-          <nav style={{ display: 'flex', flexWrap: 'nowrap', alignItems: 'center', gap: '1rem' }}>
+          <nav
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
             <Link className="link" to="/" onClick={logout}>
               <Button>Logout</Button>
             </Link>
             <Link to={`/${user?._id}`}>
-              <Button>{user.firstname ? `${user.firstname || ''} ${user.lastname || ''}` : user.username}</Button>
+              <Button>
+                {user.firstname
+                  ? `${user.firstname || ""} ${user.lastname || ""}`
+                  : user.username}
+              </Button>
             </Link>
             <Link to={`/${user?.username}`}>
               <Avatar />
