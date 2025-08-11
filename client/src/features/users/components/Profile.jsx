@@ -50,8 +50,6 @@ const Profile = () => {
     navigate(`/sheet/${charId}`);
   };
 
-  const handleNewCharSubmit = (e) => {};
-
   const handleCampaignClick = (campaignId) => {
     return navigate(`/campaign/${campaignId}`);
   };
@@ -133,7 +131,11 @@ const Profile = () => {
             </button>
           </div>
           {user?.characters?.map((char) => (
-            <CharacterCard character={char} key={char._id} />
+            <CharacterCard
+              character={char}
+              key={char._id}
+              onClick={handleCharacterClick}
+            />
           ))}
         </div>
 

@@ -1,10 +1,18 @@
-import { Avatar } from '../../../components/Avatar';
+import { Avatar } from "../../../components/Avatar";
 
-export default ({ character }) => {
+export default ({ character, onClick }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', background: 'var(--bg-light)' }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+        background: "var(--bg-light)",
+      }}
+      onClick={() => onClick(character._id)}
+    >
       {/* <Avatar src={character?.avatar} /> */}
-      <div style={{ display: 'grid' }}>
+      <div style={{ display: "grid" }}>
         <p>{character?.name}</p>
         <p>{character?.user}</p>
       </div>
