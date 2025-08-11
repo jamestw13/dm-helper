@@ -1,5 +1,5 @@
 // import the gql tagged template function
-import { gql } from 'graphql-tag';
+import { gql } from "graphql-tag";
 
 // create typeDefs
 const typeDefs = gql`
@@ -196,7 +196,13 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!, firstname: String!, lastname: String!): Auth
+    addUser(
+      username: String!
+      email: String!
+      password: String!
+      firstname: String!
+      lastname: String!
+    ): Auth
     addCharacter(character: CharacterInput!): Character
     addNote(note: NoteInput!): Boolean
     createCampaign(owner: ID!, name: String!): Boolean
