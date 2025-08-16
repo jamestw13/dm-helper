@@ -1,0 +1,29 @@
+#user-card-options {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  color: var(--text);
+  background-color: var(--bg);
+  z-index: 4;
+  border: 1px solid var(--border);
+}
+
+#user-card-options > button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: var(--text);
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+#user-card-options > button:hover {
+  background-color: var(--hover-bg);
+}
+
+#user-card-options-container {
+  position: relative;
+  max-width: 0;
+  max-height: 0;
+}

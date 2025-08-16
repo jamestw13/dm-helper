@@ -11,7 +11,7 @@ export default ({ character, onClick }) => {
       }}
       onClick={() => onClick(character._id)}
     >
-      {/* <Avatar src={character?.avatar} /> */}
+      <Avatar src={character?.avatar} />
       <div style={{ display: "grid" }}>
         <p>{character?.name}</p>
         <p>{character?.user}</p>

@@ -95,7 +95,14 @@ const Profile = () => {
             </button>
           </div>
           {user?.friends?.map((friend) => (
-            <UserCard user={friend} key={friend._id} />
+            <UserCard
+              user={friend}
+              key={friend._id}
+              options={[
+                <button>Add to campaign</button>,
+                <button>Remove Friend</button>,
+              ]}
+            />
           ))}
           <h3>Friend Requests</h3>
           {user.friendRequests?.map((friend, index) => (
