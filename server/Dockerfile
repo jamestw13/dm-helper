@@ -1,17 +1,22 @@
-#  Dockerfile for Node Express Backend
+# Dockerfile for Node Express / Apollo Server
 
-FROM node:18.12.1
+# Use Node.js as the base image
+FROM node:18
 
-# Create App Directory
-RUN mkdir -p /usr/src/app
+# Set the working directory (automatically creates the directory)
 WORKDIR /usr/src/app
 
-# Copy app source code
+# Copy package.json and package-lock.json first (to leverage Docker cache)
+COPY package*.json ./
+
+# Install only production dependencies
+RUN npm install --only=production
+
+# Copy the rest of the application code
 COPY . .
 
-RUN npm install
-
-# Exports
+# Expose the application port
 EXPOSE 4000
 
-CMD ["npm","start"]
+# Start the application
+CMD ["npm", "start"]

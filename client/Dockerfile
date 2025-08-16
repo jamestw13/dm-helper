@@ -1,17 +1,22 @@
 # Dockerfile for React client
 
-# Build react client
-FROM node:18.12.1
+# Use Node.js as the base image
+FROM node:22.8.0
 
-# Working directory be app
+# Set the working directory
 WORKDIR /usr/src/app
 
-# copy local files to app folder
+# Copy local files to the app folder
 COPY . .
 
-###  Installing dependencies
+# Install dependencies
 RUN npm install
 
-EXPOSE 3000
+# Build the production files
+RUN npm run build
 
-CMD ["npm","run","start"]
+# Expose the port used by vite preview (default: 4173)
+EXPOSE 4173
+
+# Serve the production build using vite preview
+CMD ["npm", "run", "serve"]

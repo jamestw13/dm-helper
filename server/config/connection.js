@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/dm-helper', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/stat-block', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  dbName: 'dm-helper',
+  dbName: 'stat-block',
 });
 
 export default mongoose.connection;

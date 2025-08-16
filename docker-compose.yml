@@ -5,7 +5,7 @@ services:
     volumes:
       - ./mongo_data:/data/db
     ports:
-      - "27017:27017"
+      - '27017:27017'
     networks:
       - stat-block-network
 
@@ -16,11 +16,11 @@ services:
     image: stat-block-server
     container_name: stat-block-server
     ports:
-      - "4000:4000"
-      - "3001:3001"
+      - '4000:4000'
+      - '3001:3001'
     depends_on:
       - mongo
-    env_file: ./server/.env
+    env_file: .env
     environment:
       - NODE_ENV=development
       - MONGODB_URI=mongodb://mongo-db:27017
@@ -36,7 +36,7 @@ services:
     depends_on:
       - server
     ports:
-      - "3000:3000"
+      - '4173:4173'
     networks:
       - stat-block-network
 

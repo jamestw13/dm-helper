@@ -1,5 +1,5 @@
 {
-  "name": "dm-helper",
+  "name": "stat-block",
   "version": "1.0.0",
   "description": "Currently an encounter tracker to help a TTRPG DM keep track of initiative order, character stats, and statuses.",
   "main": "index.js",

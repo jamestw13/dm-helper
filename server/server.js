@@ -10,8 +10,6 @@ import db from './config/connection.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-console.log(process.env.ACCESS_TOKEN_SECRET, 1);
-
 // import graphQL apollo
 import { ApolloServer } from '@apollo/server';
 
