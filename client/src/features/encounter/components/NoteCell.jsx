@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { EncounterContext } from '../Contexts/EncounterContext';
+import { EncounterContext } from '../contexts/EncounterContext';
 import { getTextColor } from '../../../utils/helpers';
 
 function NoteCell({ effect, rowSpan }) {
