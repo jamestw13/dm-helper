@@ -16,7 +16,7 @@ RUN npm install
 RUN npm run build
 
 # Expose the port used by vite preview (default: 4173)
-EXPOSE 4173
+EXPOSE 3000
 
 # Serve the production build using vite preview
 CMD ["npm", "run", "serve"]

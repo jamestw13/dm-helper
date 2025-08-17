@@ -36,7 +36,7 @@ services:
     depends_on:
       - server
     ports:
-      - '4173:4173'
+      - '3000:3000'
     networks:
       - stat-block-network
 
