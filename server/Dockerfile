@@ -1,7 +1,7 @@
 # Dockerfile for Node Express / Apollo Server
 
 # Use Node.js as the base image
-FROM node:18
+FROM node:22.8.0
 
 # Set the working directory (automatically creates the directory)
 WORKDIR /usr/src/app
@@ -10,13 +10,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm install --only=production
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
 # Expose the application port
 EXPOSE 4000
+EXPOSE 3001
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
